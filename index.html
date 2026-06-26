@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>+Marka Plus · Mystery Shopper Envaco POP</title>
+<style>
+  :root{
+    --bg:#111111;
+    --bg-card:#1a1a1a;
+    --bg-input:#1e1e1e;
+    --border:#2a2a2a;
+    --teal:#00A896;
+    --teal-dark:#007A6E;
+    --white:#ffffff;
+    --gray:#8C9196;
+    --gray-light:#b8bcc0;
+    --red:#e0524d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  .topbar{
+    background:#161616;
+    border-bottom:1px solid var(--border);
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  .brand{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    font-weight:700;
+    font-size:15px;
+  }
+  .brand .plus{color:var(--teal);}
+  .brand .tag{
+    font-size:9px;
+    letter-spacing:2px;
+    color:var(--gray);
+    font-weight:600;
+    margin-left:6px;
+  }
+  .topbar .meta{font-size:11px;color:var(--gray);}
+
+  .container{
+    max-width:760px;
+    margin:0 auto;
+    padding:24px 18px 0;
+  }
+
+  /* ===== HOME SCREEN ===== */
+  .home-hero{
+    text-align:left;
+    padding:30px 0 10px;
+  }
+  .home-hero .eyebrow{
+    color:var(--teal);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:2px;
+    margin-bottom:10px;
+  }
+  .home-hero h1{
+    font-size:34px;
+    font-weight:800;
+    line-height:1.15;
+    margin-bottom:10px;
+  }
+  .home-hero p{
+    color:var(--gray-light);
+    font-size:14.5px;
+    line-height:1.6;
+    max-width:560px;
+  }
+  .accent-line{
+    height:2px;
+    background:var(--teal);
+    width:100%;
+    margin:20px 0 28px;
+    opacity:.5;
+  }
+  .form-grid{
+    display:grid;
+    gap:14px;
+    margin-bottom:30px;
+  }
+  .form-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    cursor:pointer;
+    transition:border-color .15s, transform .15s;
+    text-align:left;
+    width:100%;
+    color:var(--white);
+  }
+  .form-card:hover{
+    border-color:var(--teal);
+    transform:translateY(-1px);
+  }
+  .form-card .icon{
+    width:46px;
+    height:46px;
+    border-radius:8px;
+    background:rgba(0,168,150,.12);
+    border:1px solid rgba(0,168,150,.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:20px;
+  }
+  .form-card .body{flex:1;}
+  .form-card .code{
+    font-size:10px;
+    color:var(--teal);
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:3px;
+  }
+  .form-card .title{
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:3px;
+  }
+  .form-card .desc{
+    font-size:12.5px;
+    color:var(--gray);
+    line-height:1.4;
+  }
+  .form-card .arrow{
+    color:var(--teal);
+    font-size:20px;
+    flex-shrink:0;
+  }
+
+  .footer-note{
+    font-size:11px;
+    color:var(--gray);
+    text-align:center;
+    padding:30px 0;
+    border-top:1px solid var(--border);
+    margin-top:10px;
+  }
+
+  /* ===== FORM SCREENS ===== */
+  .form-header{
+    padding:20px 0 16px;
+  }
+  .back-btn{
+    background:none;
+    border:none;
+    color:var(--gray);
+    font-size:13px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:18px;
+    padding:0;
+  }
+  .back-btn:hover{color:var(--teal);}
+  .form-header .code-tag{
+    font-size:10px;
+    color:var(--teal);
+    font-weight:700;
+    letter-spacing:1.5px;
+    margin-bottom:8px;
+  }
+  .form-header h2{
+    font-size:24px;
+    font-weight:800;
+    margin-bottom:6px;
+  }
+  .form-header .sub{
+    font-size:13px;
+    color:var(--gray);
+    line-height:1.5;
+  }
+  .alert-box{
+    background:rgba(0,168,150,.08);
+    border:1px solid rgba(0,168,150,.25);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:12.5px;
+    color:var(--gray-light);
+    line-height:1.5;
+    margin:16px 0 24px;
+  }
+
+  .section{
+    margin-bottom:8px;
+  }
+  .section-title{
+    color:var(--teal);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:14px 0 6px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:18px;
+  }
+
+  .q{
+    margin-bottom:22px;
+  }
+  .q-label{
+    font-size:14.5px;
+    font-weight:600;
+    margin-bottom:4px;
+    display:flex;
+    gap:8px;
+  }
+  .q-num{
+    color:var(--teal);
+    font-weight:700;
+    flex-shrink:0;
+  }
+  .q-hint{
+    font-size:12px;
+    color:var(--gray);
+    margin-bottom:10px;
+    margin-left:22px;
+    line-height:1.4;
+  }
+  .q-body{margin-left:22px;}
+
+  input[type=text],
+  input[type=number],
+  input[type=date],
+  input[type=time],
+  textarea{
+    width:100%;
+    background:var(--bg-input);
+    border:1px solid var(--border);
+    border-radius:7px;
+    padding:11px 13px;
+    color:var(--white);
+    font-size:14px;
+    font-family:inherit;
+  }
+  input::placeholder, textarea::placeholder{color:#5a5e62;}
+  input:focus, textarea:focus{
+    outline:none;
+    border-color:var(--teal);
+  }
+  textarea{resize:vertical;min-height:70px;}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.row2{grid-template-columns:1fr;}}
+
+  .field-label{
+    font-size:11.5px;
+    color:var(--gray);
+    margin-bottom:6px;
+    display:block;
+  }
+
+  /* pill choice buttons (radio look) */
+  .choices{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .choice{
+    position:relative;
+  }
+  .choice input{
+    position:absolute;
+    opacity:0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+    margin:0;
+  }
+  .choice label{
+    display:block;
+    padding:9px 16px;
+    background:var(--bg-input);
+    border:1px solid var(--border);
+    border-radius:30px;
+    font-size:13px;
+    color:var(--gray-light);
+    cursor:pointer;
+    transition:all .12s;
+    white-space:nowrap;
+  }
+  .choice input:checked + label{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+    font-weight:600;
+  }
+  .choice input:focus-visible + label{
+    outline:2px solid var(--teal);
+    outline-offset:2px;
+  }
+
+  /* scale 1-5 + N/A */
+  .scale{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .scale-item{position:relative;flex:1;min-width:58px;}
+  .scale-item.na{flex:0 0 auto;min-width:54px;}
+  .scale-item input{
+    position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0;
+  }
+  .scale-item label{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    padding:10px 4px;
+    background:var(--bg-input);
+    border:1px solid var(--border);
+    border-radius:8px;
+    cursor:pointer;
+    font-size:11px;
+    color:var(--gray);
+    text-align:center;
+    transition:all .12s;
+  }
+  .scale-item label .n{font-size:15px;font-weight:700;color:var(--white);}
+  .scale-item input:checked + label{
+    background:var(--teal);
+    border-color:var(--teal);
+  }
+  .scale-item input:checked + label .n,
+  .scale-item input:checked + label{color:#fff;}
+  .scale-item.na input:checked + label{
+    background:#444;
+    border-color:#444;
+  }
+  .scale-caption{
+    display:flex;
+    justify-content:space-between;
+    font-size:10.5px;
+    color:#5a5e62;
+    margin-top:5px;
+  }
+
+  /* checkbox grid for multi-select */
+  .check-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  @media(max-width:480px){.check-grid{grid-template-columns:1fr;}}
+  .check-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    background:var(--bg-input);
+    border:1px solid var(--border);
+    border-radius:7px;
+    cursor:pointer;
+    font-size:13px;
+    color:var(--gray-light);
+  }
+  .check-item input{
+    width:16px;height:16px;
+    accent-color:var(--teal);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .check-item:has(input:checked){
+    border-color:var(--teal);
+    color:#fff;
+    background:rgba(0,168,150,.08);
+  }
+
+  .submit-bar{
+    margin-top:36px;
+    padding-top:24px;
+    border-top:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .btn-primary{
+    background:var(--teal);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    padding:14px 20px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    width:100%;
+    transition:background .12s;
+  }
+  .btn-primary:hover{background:var(--teal-dark);}
+  .btn-primary:disabled{background:#444;cursor:not-allowed;}
+  .submit-hint{font-size:11.5px;color:var(--gray);text-align:center;}
+
+  /* success screen */
+  .success-screen{
+    text-align:center;
+    padding:80px 20px;
+  }
+  .success-screen .icon{
+    width:70px;height:70px;
+    border-radius:50%;
+    background:rgba(0,168,150,.12);
+    border:2px solid var(--teal);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    margin:0 auto 24px;
+    color:var(--teal);
+  }
+  .success-screen h2{font-size:22px;margin-bottom:10px;}
+  .success-screen p{color:var(--gray);font-size:14px;max-width:380px;margin:0 auto 28px;line-height:1.5;}
+
+  .hidden{display:none !important;}
+
+  .toast{
+    position:fixed;
+    bottom:24px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--red);
+    color:#fff;
+    padding:12px 20px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:600;
+    z-index:200;
+    box-shadow:0 8px 24px rgba(0,0,0,.4);
+  }
+
+  .spinner{
+    width:16px;height:16px;
+    border:2px solid rgba(255,255,255,.3);
+    border-top-color:#fff;
+    border-radius:50%;
+    display:inline-block;
+    animation:spin .7s linear infinite;
+    vertical-align:middle;
+    margin-right:8px;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="plus">+</span>MARKA<span class="tag">PLUS</span></div>
+  <div class="meta" id="topbarMeta">Mystery Shopper · Envaco POP</div>
+</div>
+
+<div class="container">
+
+  <!-- ============ HOME SCREEN ============ -->
+  <div id="screen-home">
+    <div class="home-hero">
+      <div class="eyebrow">MYSTERY SHOPPER · ENVACO POP</div>
+      <h1>Formularios de relevamiento</h1>
+      <p>Seleccioná el formulario correspondiente al tipo de contacto o visita realizada. Completá todos los campos con el mayor detalle posible — citá frases u observaciones textuales cuando sea relevante.</p>
+    </div>
+    <div class="accent-line"></div>
+
+    <div class="form-grid">
+      <button class="form-card" onclick="showForm('satisfaccion')">
+        <div class="icon">★</div>
+        <div class="body">
+          <div class="code">F-SAT-03</div>
+          <div class="title">Satisfacción del Cliente</div>
+          <div class="desc">Formulario a completar por el cliente real sobre su experiencia con Envaco POP.</div>
+        </div>
+        <div class="arrow">→</div>
+      </button>
+
+      <button class="form-card" onclick="showForm('b2b')">
+        <div class="icon">🏢</div>
+        <div class="body">
+          <div class="code">F-B2B-01</div>
+          <div class="title">Relevamiento B2B Corporativo</div>
+          <div class="desc">Perfil de Gerente de Marketing — empresa mediana con necesidad de exhibidores y packaging.</div>
+        </div>
+        <div class="arrow">→</div>
+      </button>
+
+      <button class="form-card" onclick="showForm('b2c')">
+        <div class="icon">🛍️</div>
+        <div class="body">
+          <div class="code">F-B2C-02</div>
+          <div class="title">Relevamiento B2C Minorista</div>
+          <div class="desc">Perfil de emprendedor o particular — visitas a tiendas y consultas de bajo volumen.</div>
+        </div>
+        <div class="arrow">→</div>
+      </button>
+    </div>
+
+    <div class="footer-note">
+      Más Marka Plus · Uso exclusivo del equipo de campo · Confidencial<br>
+      masmarka.com.py
+    </div>
+  </div>
+
+  <!-- ============ FORM: SATISFACCIÓN ============ -->
+  <div id="screen-satisfaccion" class="hidden">
+    <div class="form-header">
+      <button class="back-btn" onclick="goHome()">← Volver</button>
+      <div class="code-tag">F-SAT-03 · MYSTERY SHOPPER ENVACO POP</div>
+      <h2>Formulario de Satisfacción del Cliente</h2>
+      <div class="sub">Envaco POP · Inteligencia Interna — Tu opinión nos ayuda a mejorar</div>
+    </div>
+
+    <div class="alert-box">
+      Estimado cliente: este formulario es completamente confidencial y tiene como único objetivo mejorar nuestro servicio. No tomará más de 5 minutos completarlo. ¡Gracias por su tiempo!
+    </div>
+
+    <form id="form-satisfaccion" onsubmit="return submitForm(event,'satisfaccion')">
+
+      <div class="section-title">Datos del respondente (opcional)</div>
+      <div class="row2">
+        <div class="q"><label class="field-label">Empresa (opcional)</label><input type="text" name="empresa"></div>
+        <div class="q"><label class="field-label">Rubro / Industria (opcional)</label><input type="text" name="rubro"></div>
+      </div>
+      <div class="q">
+        <label class="field-label">Tipo de cliente</label>
+        <div class="choices">
+          <div class="choice"><input type="radio" name="tipo_cliente" id="tc1" value="B2B (empresa)"><label for="tc1">B2B (empresa)</label></div>
+          <div class="choice"><input type="radio" name="tipo_cliente" id="tc2" value="B2C (particular)"><label for="tc2">B2C (particular)</label></div>
+        </div>
+      </div>
+      <div class="q">
+        <label class="field-label">Frecuencia de compra</label>
+        <div class="choices">
+          <div class="choice"><input type="radio" name="frecuencia" id="fr1" value="Primera vez"><label for="fr1">Primera vez</label></div>
+          <div class="choice"><input type="radio" name="frecuencia" id="fr2" value="Ocasional"><label for="fr2">Ocasional</label></div>
+          <div class="choice"><input type="radio" name="frecuencia" id="fr3" value="Frecuente"><label for="fr3">Frecuente</label></div>
+          <div class="choice"><input type="radio" name="frecuencia" id="fr4" value="Fijo"><label for="fr4">Fijo</label></div>
+        </div>
+      </div>
+
+      <div class="section-title">1. Experiencia comercial</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">1.</span> ¿Qué tan fácil fue contactarnos y obtener una respuesta inicial?</div>
+        <div class="q-hint">1 = Muy difícil · 5 = Muy fácil y rápido</div>
+        <div class="q-body" id="scale-q1"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">2.</span> ¿Recibió una cotización clara, completa y en tiempo razonable?</div>
+        <div class="q-hint">1 = No · 5 = Sí, superó mis expectativas</div>
+        <div class="q-body" id="scale-q2"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">3.</span> ¿El vendedor / asesor comprendió bien su necesidad?</div>
+        <div class="q-hint">1 = No entendió · 5 = Comprendió perfectamente y propuso soluciones</div>
+        <div class="q-body" id="scale-q3"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">4.</span> ¿Se sintió asesorado o solo atendido?</div>
+        <div class="q-hint">1 = Solo tomaron mi pedido · 5 = Me asesoraron con propuestas y alternativas</div>
+        <div class="q-body" id="scale-q4"></div>
+      </div>
+
+      <div class="section-title">2. Producto y calidad</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">5.</span> ¿El producto recibido correspondió a lo solicitado?</div>
+        <div class="q-hint">1 = Muy diferente · 5 = Exactamente lo que pedí</div>
+        <div class="q-body" id="scale-q5"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">6.</span> ¿Cómo evalúa la calidad de los materiales y el acabado?</div>
+        <div class="q-hint">1 = Muy mala · 5 = Excelente</div>
+        <div class="q-body" id="scale-q6"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">7.</span> ¿El producto cumplió con su función o necesidad?</div>
+        <div class="q-hint">1 = No cumplió · 5 = Superó las expectativas</div>
+        <div class="q-body" id="scale-q7"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">8.</span> ¿Hubo algún problema de calidad, daño o inconformidad con el producto?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q8" id="q8a" value="Sí"><label for="q8a">Sí</label></div>
+            <div class="choice"><input type="radio" name="q8" id="q8b" value="No"><label for="q8b">No</label></div>
+            <div class="choice"><input type="radio" name="q8" id="q8c" value="Parcialmente"><label for="q8c">Parcialmente</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">9.</span> Si marcó Sí, ¿cómo fue gestionado el problema?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q9" id="q9a" value="Se resolvió rápido y sin inconvenientes"><label for="q9a">Se resolvió rápido y sin inconvenientes</label></div>
+            <div class="choice"><input type="radio" name="q9" id="q9b" value="Se resolvió pero con demoras"><label for="q9b">Se resolvió pero con demoras</label></div>
+            <div class="choice"><input type="radio" name="q9" id="q9c" value="Aún no fue resuelto"><label for="q9c">Aún no fue resuelto</label></div>
+            <div class="choice"><input type="radio" name="q9" id="q9d" value="No aplica"><label for="q9d">No aplica</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">3. Tiempos y cumplimiento</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">10.</span> ¿El plazo de producción declarado se cumplió?</div>
+        <div class="q-hint">1 = No se cumplió · 5 = Entregaron antes de lo prometido</div>
+        <div class="q-body" id="scale-q10"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">11.</span> ¿La entrega fue en tiempo y forma?</div>
+        <div class="q-hint">1 = Con demoras significativas · 5 = Perfecta</div>
+        <div class="q-body" id="scale-q11"></div>
+      </div>
+
+      <div class="row2">
+        <div class="q"><label class="field-label">Tiempo prometido de entrega</label><input type="text" name="tiempo_prometido"></div>
+        <div class="q"><label class="field-label">Tiempo real de entrega</label><input type="text" name="tiempo_real"></div>
+      </div>
+
+      <div class="section-title">4. Precio y percepción de valor</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">12.</span> ¿Considera que el precio pagado fue justo para la calidad recibida?</div>
+        <div class="q-hint">1 = Muy caro para lo que recibí · 5 = Excelente relación precio-calidad</div>
+        <div class="q-body" id="scale-q12"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">13.</span> ¿Las condiciones de pago se adaptaron a sus necesidades?</div>
+        <div class="q-hint">1 = No · 5 = Completamente</div>
+        <div class="q-body" id="scale-q13"></div>
+      </div>
+
+      <div class="section-title">5. Satisfacción general y lealtad</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">14.</span> En general, ¿cuál es su nivel de satisfacción con Envaco POP?</div>
+        <div class="q-hint">1 = Muy insatisfecho · 5 = Muy satisfecho</div>
+        <div class="q-body" id="scale-q14"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">15.</span> ¿Recomendaría Envaco POP a un colega o empresa conocida?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q15" id="q15a" value="Definitivamente sí"><label for="q15a">Definitivamente sí</label></div>
+            <div class="choice"><input type="radio" name="q15" id="q15b" value="Probablemente sí"><label for="q15b">Probablemente sí</label></div>
+            <div class="choice"><input type="radio" name="q15" id="q15c" value="Probablemente no"><label for="q15c">Probablemente no</label></div>
+            <div class="choice"><input type="radio" name="q15" id="q15d" value="Definitivamente no"><label for="q15d">Definitivamente no</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">16.</span> ¿Volvería a contratar nuestros servicios?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="q16" id="q16a" value="Sí"><label for="q16a">Sí</label></div>
+            <div class="choice"><input type="radio" name="q16" id="q16b" value="No"><label for="q16b">No</label></div>
+            <div class="choice"><input type="radio" name="q16" id="q16c" value="Parcialmente"><label for="q16c">Parcialmente</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">17.</span> ¿Qué es lo que más valora de trabajar con Envaco POP?</div>
+        <div class="q-body"><textarea name="q17"></textarea></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">18.</span> ¿Qué mejoraría o qué le falta a Envaco POP?</div>
+        <div class="q-body"><textarea name="q18"></textarea></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">19.</span> Comentarios adicionales o sugerencias libres</div>
+        <div class="q-body"><textarea name="q19"></textarea></div>
+      </div>
+
+      <div class="submit-bar">
+        <button type="submit" class="btn-primary" id="btn-satisfaccion">Enviar formulario</button>
+        <div class="submit-hint">¡Gracias por completar este formulario! Su opinión es fundamental para seguir mejorando.</div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ============ FORM: B2B ============ -->
+  <div id="screen-b2b" class="hidden">
+    <div class="form-header">
+      <button class="back-btn" onclick="goHome()">← Volver</button>
+      <div class="code-tag">F-B2B-01 · MYSTERY SHOPPER ENVACO POP</div>
+      <h2>Formulario B2B — Perfil Corporativo</h2>
+      <div class="sub">Perfil: Gerente de Marketing — Mystery Shopper Envaco POP</div>
+    </div>
+
+    <div class="alert-box">
+      Completar durante o inmediatamente después del contacto con la empresa evaluada. <strong>No revelar el carácter del estudio.</strong> Anotar observaciones textuales cuando sea posible.
+    </div>
+
+    <form id="form-b2b" onsubmit="return submitForm(event,'b2b')">
+
+      <div class="section-title">Datos del contacto</div>
+      <div class="q"><label class="field-label">Empresa evaluada</label><input type="text" name="empresa_evaluada" required></div>
+      <div class="row2">
+        <div class="q"><label class="field-label">Nombre del contacto / Vendedor</label><input type="text" name="nombre_contacto"></div>
+        <div class="q"><label class="field-label">Cargo / Área</label><input type="text" name="cargo"></div>
+      </div>
+      <div class="q">
+        <label class="field-label">Canal de contacto</label>
+        <div class="choices">
+          <div class="choice"><input type="radio" name="canal" id="cb1" value="Llamada"><label for="cb1">Llamada</label></div>
+          <div class="choice"><input type="radio" name="canal" id="cb2" value="WhatsApp"><label for="cb2">WhatsApp</label></div>
+          <div class="choice"><input type="radio" name="canal" id="cb3" value="Presencial"><label for="cb3">Presencial</label></div>
+          <div class="choice"><input type="radio" name="canal" id="cb4" value="Email"><label for="cb4">Email</label></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="q"><label class="field-label">Fecha del contacto</label><input type="date" name="fecha_contacto"></div>
+        <div class="q"><label class="field-label">Hora de inicio</label><input type="time" name="hora_inicio"></div>
+      </div>
+      <div class="q"><label class="field-label">Shopper a cargo</label><input type="text" name="shopper_b2b"></div>
+
+      <div class="section-title">Perfil simulado</div>
+      <div class="alert-box" style="margin-top:0;">
+        Responsable de Marketing de empresa mediana. Necesidad: lanzamiento de producto que requiere exhibidores, displays y packaging personalizado para interior de local.
+      </div>
+      <div class="row2">
+        <div class="q"><label class="field-label">Nombre de perfil utilizado</label><input type="text" name="perfil_nombre"></div>
+        <div class="q"><label class="field-label">Empresa ficticia presentada</label><input type="text" name="empresa_ficticia"></div>
+      </div>
+
+      <div class="section-title">1. Precios y condiciones comerciales</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">1.</span> ¿Proporcionaron precios durante el primer contacto?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b1" id="b1a" value="Sí"><label for="b1a">Sí</label></div>
+            <div class="choice"><input type="radio" name="b1" id="b1b" value="No"><label for="b1b">No</label></div>
+            <div class="choice"><input type="radio" name="b1" id="b1c" value="Parcialmente"><label for="b1c">Parcialmente</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">2.</span> Precios relevados (USD/m² cuando sea posible)</div>
+        <div class="q-hint">Detallar material, medida, cantidad mínima y precio unitario.</div>
+        <div class="q-body"><textarea name="b2"></textarea></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">3.</span> ¿Ofrecen descuento por volumen?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b3" id="b3a" value="Sí"><label for="b3a">Sí</label></div>
+            <div class="choice"><input type="radio" name="b3" id="b3b" value="No"><label for="b3b">No</label></div>
+            <div class="choice"><input type="radio" name="b3" id="b3c" value="Parcialmente"><label for="b3c">Parcialmente</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">4.</span> Condiciones de pago ofrecidas</div>
+        <div class="q-hint">Contado, crédito, anticipo, cuotas, etc.</div>
+        <div class="q-body"><textarea name="b4"></textarea></div>
+      </div>
+
+      <div class="section-title">2. Timing operativo</div>
+
+      <div class="row2">
+        <div class="q"><label class="field-label">Tiempo de respuesta inicial (min/horas)</label><input type="text" name="tiempo_respuesta"></div>
+        <div class="q"><label class="field-label">Tiempo hasta cotización formal</label><input type="text" name="tiempo_cotizacion"></div>
+      </div>
+      <div class="row2">
+        <div class="q"><label class="field-label">Plazo de producción declarado</label><input type="text" name="plazo_produccion"></div>
+        <div class="q"><label class="field-label">Tiempo estimado hasta entrega final</label><input type="text" name="tiempo_entrega_final"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">5.</span> Observaciones sobre tiempos (puntualidad, seguimiento, etc.)</div>
+        <div class="q-body"><textarea name="b5"></textarea></div>
+      </div>
+
+      <div class="section-title">3. Calidad de atención y asesoramiento</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">6.</span> Nivel de escucha y comprensión de la necesidad planteada</div>
+        <div class="q-hint">1 = No escuchó · 5 = Escuchó con detalle e hizo preguntas</div>
+        <div class="q-body" id="scale-b6"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">7.</span> Capacidad de propuesta y asesoramiento técnico</div>
+        <div class="q-hint">1 = Solo tomó el pedido · 5 = Propuso soluciones, materiales y alternativas</div>
+        <div class="q-body" id="scale-b7"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">8.</span> Proactividad durante la conversación</div>
+        <div class="q-hint">1 = Pasivo, esperó preguntas · 5 = Anticipó necesidades y sugirió</div>
+        <div class="q-body" id="scale-b8"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">9.</span> Seguimiento post-contacto (llamada, mail, WA de seguimiento)</div>
+        <div class="q-hint">1 = No hizo seguimiento · 5 = Seguimiento inmediato y pertinente</div>
+        <div class="q-body" id="scale-b9"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">10.</span> Observaciones textuales sobre la atención recibida</div>
+        <div class="q-hint">Citar frases o actitudes destacadas (positivas o negativas).</div>
+        <div class="q-body"><textarea name="b10"></textarea></div>
+      </div>
+
+      <div class="section-title">4. Servicio integral</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">11.</span> ¿Contemplan el proceso completo: diseño, producción, logística e instalación?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b11" id="b11a" value="Sí"><label for="b11a">Sí</label></div>
+            <div class="choice"><input type="radio" name="b11" id="b11b" value="No"><label for="b11b">No</label></div>
+            <div class="choice"><input type="radio" name="b11" id="b11c" value="Parcialmente"><label for="b11c">Parcialmente</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">12.</span> ¿Aplica a todos los proyectos o solo a pedidos grandes?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b12" id="b12a" value="Solo proyectos grandes"><label for="b12a">Solo proyectos grandes</label></div>
+            <div class="choice"><input type="radio" name="b12" id="b12b" value="Todos los proyectos"><label for="b12b">Todos los proyectos</label></div>
+            <div class="choice"><input type="radio" name="b12" id="b12c" value="Depende del cliente"><label for="b12c">Depende del cliente</label></div>
+            <div class="choice"><input type="radio" name="b12" id="b12d" value="No quedó claro"><label for="b12d">No quedó claro</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">13.</span> Detallar qué etapas del proceso ofrecen</div>
+        <div class="q-body"><textarea name="b13"></textarea></div>
+      </div>
+
+      <div class="section-title">5. Procesos in-house vs. tercerización</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">14.</span> ¿Qué procesos tienen integrados internamente?</div>
+        <div class="q-body">
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="b14" value="Diseño gráfico">Diseño gráfico</label>
+            <label class="check-item"><input type="checkbox" name="b14" value="Impresión">Impresión</label>
+            <label class="check-item"><input type="checkbox" name="b14" value="Carpintería / MDF">Carpintería / MDF</label>
+            <label class="check-item"><input type="checkbox" name="b14" value="Herrería / Metal">Herrería / Metal</label>
+            <label class="check-item"><input type="checkbox" name="b14" value="Corte láser / CNC">Corte láser / CNC</label>
+            <label class="check-item"><input type="checkbox" name="b14" value="Termoformado">Termoformado</label>
+            <label class="check-item"><input type="checkbox" name="b14" value="Instalación / montaje">Instalación / montaje</label>
+            <label class="check-item"><input type="checkbox" name="b14" value="Logística propia">Logística propia</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">15.</span> ¿Qué subcontratan? ¿Con quién o bajo qué criterio?</div>
+        <div class="q-body"><textarea name="b15"></textarea></div>
+      </div>
+
+      <div class="section-title">6. Gama de materiales</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">16.</span> Materiales que manejan (marcar todos los mencionados)</div>
+        <div class="q-body">
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="b16" value="Coroplast">Coroplast</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="MDF / madera">MDF / madera</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="Metal / herrería">Metal / herrería</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="Acrílico / metacrilato">Acrílico / metacrilato</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="Polyfan / foam">Polyfan / foam</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="Lonas / vinilo">Lonas / vinilo</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="Cartón corrugado">Cartón corrugado</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="PET / plástico">PET / plástico</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="LED / iluminación">LED / iluminación</label>
+            <label class="check-item"><input type="checkbox" name="b16" value="Madera natural">Madera natural</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">17.</span> Especialidades declaradas y limitaciones (indoor/outdoor)</div>
+        <div class="q-body"><textarea name="b17"></textarea></div>
+      </div>
+
+      <div class="section-title">7. Gama de servicios</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">18.</span> Servicios que forman parte de su catálogo</div>
+        <div class="q-body">
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="b18" value="Exhibidores POP">Exhibidores POP</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Islas / cabezales de góndola">Islas / cabezales de góndola</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Packaging personalizado">Packaging personalizado</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Señalética / cartelería">Señalética / cartelería</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Letras corpóreas">Letras corpóreas</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Stands / trade show">Stands / trade show</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Activaciones BTL">Activaciones BTL</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Diseño gráfico propio">Diseño gráfico propio</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Renders / maquetas 3D">Renders / maquetas 3D</label>
+            <label class="check-item"><input type="checkbox" name="b18" value="Fotografía comercial">Fotografía comercial</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">19.</span> ¿Tienen experiencia específica en aplicaciones indoor?</div>
+        <div class="q-hint">¿Qué materiales recomiendan para interior? ¿Aceptan exterior?</div>
+        <div class="q-body"><textarea name="b19"></textarea></div>
+      </div>
+
+      <div class="section-title">8. Observaciones generales</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">20.</span> Impresión general de la empresa (profesionalismo, imagen, comunicación)</div>
+        <div class="q-body" id="scale-b20"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">21.</span> ¿Qué diferencial comunicaron respecto a su competencia?</div>
+        <div class="q-body"><textarea name="b21"></textarea></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">22.</span> Notas adicionales / observaciones del shopper</div>
+        <div class="q-body"><textarea name="b22"></textarea></div>
+      </div>
+
+      <div class="row2">
+        <div class="q"><label class="field-label">Shopper</label><input type="text" name="shopper_firma_b2b"></div>
+        <div class="q"><label class="field-label">Fecha</label><input type="date" name="fecha_firma_b2b"></div>
+      </div>
+
+      <div class="submit-bar">
+        <button type="submit" class="btn-primary" id="btn-b2b">Enviar formulario</button>
+        <div class="submit-hint">Más Marka Plus · Uso exclusivo del equipo de campo · Confidencial</div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ============ FORM: B2C ============ -->
+  <div id="screen-b2c" class="hidden">
+    <div class="form-header">
+      <button class="back-btn" onclick="goHome()">← Volver</button>
+      <div class="code-tag">F-B2C-02 · MYSTERY SHOPPER ENVACO POP</div>
+      <h2>Formulario B2C — Perfil Minorista</h2>
+      <div class="sub">Perfil: Emprendedor / Particular — Mystery Shopper Envaco POP</div>
+    </div>
+
+    <div class="alert-box">
+      Usar para visitas presenciales a tiendas de Cartones Yaguareté y consultas B2C a otras empresas. Simular necesidad de bajo volumen sin revelar el estudio.
+    </div>
+
+    <form id="form-b2c" onsubmit="return submitForm(event,'b2c')">
+
+      <div class="section-title">Datos del contacto</div>
+      <div class="q"><label class="field-label">Empresa / Tienda evaluada</label><input type="text" name="empresa_tienda" required></div>
+      <div class="row2">
+        <div class="q"><label class="field-label">Dirección / Sucursal</label><input type="text" name="direccion"></div>
+        <div class="q"><label class="field-label">Nombre del vendedor (si aplica)</label><input type="text" name="nombre_vendedor"></div>
+      </div>
+      <div class="q">
+        <label class="field-label">Canal</label>
+        <div class="choices">
+          <div class="choice"><input type="radio" name="canal_c" id="cc1" value="Visita presencial"><label for="cc1">Visita presencial</label></div>
+          <div class="choice"><input type="radio" name="canal_c" id="cc2" value="WhatsApp"><label for="cc2">WhatsApp</label></div>
+          <div class="choice"><input type="radio" name="canal_c" id="cc3" value="Llamada"><label for="cc3">Llamada</label></div>
+          <div class="choice"><input type="radio" name="canal_c" id="cc4" value="Redes sociales"><label for="cc4">Redes sociales</label></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="q"><label class="field-label">Fecha</label><input type="date" name="fecha_c"></div>
+        <div class="q"><label class="field-label">Hora</label><input type="time" name="hora_c"></div>
+      </div>
+      <div class="q"><label class="field-label">Shopper a cargo</label><input type="text" name="shopper_c"></div>
+
+      <div class="section-title">Perfil simulado</div>
+      <div class="alert-box" style="margin-top:0;">
+        Emprendedor o persona particular con necesidad puntual y de bajo volumen: cajas para un emprendimiento o elementos para un evento privado en interior.
+      </div>
+      <div class="q"><label class="field-label">Necesidad simulada (describir brevemente)</label><textarea name="necesidad_simulada"></textarea></div>
+
+      <div class="section-title">1. Accesibilidad y atención al cliente pequeño</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">1.</span> ¿Atendieron la consulta de bajo volumen?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="c1" id="c1a" value="Sí"><label for="c1a">Sí</label></div>
+            <div class="choice"><input type="radio" name="c1" id="c1b" value="No"><label for="c1b">No</label></div>
+            <div class="choice"><input type="radio" name="c1" id="c1c" value="Parcialmente"><label for="c1c">Parcialmente</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">2.</span> Actitud del vendedor ante un pedido de baja cantidad</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="c2" id="c2a" value="Muy receptivo y servicial"><label for="c2a">Muy receptivo y servicial</label></div>
+            <div class="choice"><input type="radio" name="c2" id="c2b" value="Receptivo pero sin mucho interés"><label for="c2b">Receptivo pero sin mucho interés</label></div>
+            <div class="choice"><input type="radio" name="c2" id="c2c" value="Indiferente"><label for="c2c">Indiferente</label></div>
+            <div class="choice"><input type="radio" name="c2" id="c2d" value="Poco dispuesto / derivó"><label for="c2d">Poco dispuesto / derivó</label></div>
+            <div class="choice"><input type="radio" name="c2" id="c2e" value="Rechazó / no atienden B2C"><label for="c2e">Rechazó / no atienden B2C</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">3.</span> ¿Informaron sobre monto mínimo de compra?</div>
+        <div class="q-hint">De ser así, indicar el monto o cantidad mínima.</div>
+        <div class="q-body"><input type="text" name="c3"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">4.</span> ¿El espacio / tienda estaba ordenado y era fácil de navegar?</div>
+        <div class="q-body" id="scale-c4"></div>
+      </div>
+
+      <div class="section-title">2. Precios y condiciones B2C</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">5.</span> ¿Informaron precios sin dificultad?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="c5" id="c5a" value="Sí"><label for="c5a">Sí</label></div>
+            <div class="choice"><input type="radio" name="c5" id="c5b" value="No"><label for="c5b">No</label></div>
+            <div class="choice"><input type="radio" name="c5" id="c5c" value="Parcialmente"><label for="c5c">Parcialmente</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">6.</span> Precios relevados (productos, medidas y precio unitario)</div>
+        <div class="q-hint">Indicar unidad: por caja, por paquete, por unidad, por m², etc.</div>
+        <div class="q-body"><textarea name="c6"></textarea></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">7.</span> ¿Ofrecen descuento por mayor cantidad o cliente frecuente?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="c7" id="c7a" value="Sí"><label for="c7a">Sí</label></div>
+            <div class="choice"><input type="radio" name="c7" id="c7b" value="No"><label for="c7b">No</label></div>
+            <div class="choice"><input type="radio" name="c7" id="c7c" value="Parcialmente"><label for="c7c">Parcialmente</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">8.</span> Condiciones de pago para clientes B2C</div>
+        <div class="q-body">
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="c8" value="Solo contado">Solo contado</label>
+            <label class="check-item"><input type="checkbox" name="c8" value="Tarjeta de crédito/débito">Tarjeta de crédito/débito</label>
+            <label class="check-item"><input type="checkbox" name="c8" value="Transferencia">Transferencia</label>
+            <label class="check-item"><input type="checkbox" name="c8" value="Cuotas sin interés">Cuotas sin interés</label>
+            <label class="check-item"><input type="checkbox" name="c8" value="Crédito (cuenta corriente)">Crédito (cuenta corriente)</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">3. Productos y gama disponible</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">9.</span> Productos visibles / disponibles para compra inmediata</div>
+        <div class="q-body">
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="c9" value="Cajas de cartón estándar">Cajas de cartón estándar</label>
+            <label class="check-item"><input type="checkbox" name="c9" value="Bolsas de papel">Bolsas de papel</label>
+            <label class="check-item"><input type="checkbox" name="c9" value="Packaging con impresión">Packaging con impresión</label>
+            <label class="check-item"><input type="checkbox" name="c9" value="Elementos decorativos">Elementos decorativos</label>
+            <label class="check-item"><input type="checkbox" name="c9" value="Materiales para eventos">Materiales para eventos</label>
+            <label class="check-item"><input type="checkbox" name="c9" value="Cajas personalizadas (a pedido)">Cajas personalizadas (a pedido)</label>
+            <label class="check-item"><input type="checkbox" name="c9" value="Artículos de packaging varios">Artículos de packaging varios</label>
+            <label class="check-item"><input type="checkbox" name="c9" value="Elementos POP pequeños">Elementos POP pequeños</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">10.</span> ¿Tienen stock disponible o trabajan solo por pedido?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="c10" id="c10a" value="Stock disponible para compra inmediata"><label for="c10a">Stock disponible para compra inmediata</label></div>
+            <div class="choice"><input type="radio" name="c10" id="c10b" value="Mixto (stock + pedido)"><label for="c10b">Mixto (stock + pedido)</label></div>
+            <div class="choice"><input type="radio" name="c10" id="c10c" value="Solo por pedido (sin stock)"><label for="c10c">Solo por pedido (sin stock)</label></div>
+            <div class="choice"><input type="radio" name="c10" id="c10d" value="No quedó claro"><label for="c10d">No quedó claro</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">11.</span> Plazo de entrega declarado para pedidos a medida</div>
+        <div class="q-body"><input type="text" name="c11"></div>
+      </div>
+
+      <div class="section-title">4. Calidad de atención</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">12.</span> Amabilidad y disposición del personal</div>
+        <div class="q-hint">1 = Muy poco amable · 5 = Excelente trato</div>
+        <div class="q-body" id="scale-c12"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">13.</span> Conocimiento del producto por parte del vendedor</div>
+        <div class="q-hint">1 = No supo responder · 5 = Dominio completo del catálogo</div>
+        <div class="q-body" id="scale-c13"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">14.</span> Facilidad para obtener la información necesaria</div>
+        <div class="q-hint">1 = Muy difícil · 5 = Información clara y completa sin preguntar</div>
+        <div class="q-body" id="scale-c14"></div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">15.</span> Observaciones textuales sobre la experiencia de compra</div>
+        <div class="q-hint">Citar frases o situaciones destacadas.</div>
+        <div class="q-body"><textarea name="c15"></textarea></div>
+      </div>
+
+      <div class="section-title">5. Observaciones finales</div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">16.</span> ¿Recomendarían esta empresa a un emprendedor o particular?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="c16" id="c16a" value="Sí, claramente"><label for="c16a">Sí, claramente</label></div>
+            <div class="choice"><input type="radio" name="c16" id="c16b" value="Probablemente sí"><label for="c16b">Probablemente sí</label></div>
+            <div class="choice"><input type="radio" name="c16" id="c16c" value="Probablemente no"><label for="c16c">Probablemente no</label></div>
+            <div class="choice"><input type="radio" name="c16" id="c16d" value="No"><label for="c16d">No</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-label"><span class="q-num">17.</span> Notas adicionales / observaciones del shopper</div>
+        <div class="q-body"><textarea name="c17"></textarea></div>
+      </div>
+
+      <div class="row2">
+        <div class="q"><label class="field-label">Shopper</label><input type="text" name="shopper_firma_c"></div>
+        <div class="q"><label class="field-label">Fecha</label><input type="date" name="fecha_firma_c"></div>
+      </div>
+
+      <div class="submit-bar">
+        <button type="submit" class="btn-primary" id="btn-b2c">Enviar formulario</button>
+        <div class="submit-hint">Más Marka Plus · Uso exclusivo del equipo de campo · Confidencial</div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ============ SUCCESS SCREEN ============ -->
+  <div id="screen-success" class="hidden">
+    <div class="success-screen">
+      <div class="icon">✓</div>
+      <h2>¡Formulario enviado!</h2>
+      <p>Gracias por completar el relevamiento. Tu respuesta fue registrada correctamente.</p>
+      <button class="btn-primary" style="max-width:240px;margin:0 auto;" onclick="goHome()">Volver al inicio</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ====== CONFIG ======
+   Reemplazar con la URL de tu Google Apps Script Web App (ver README.md)
+*/
+const SCRIPT_URL = "PEGAR_AQUI_TU_URL_DE_GOOGLE_APPS_SCRIPT";
+
+/* ====== Build 1-5 + N/A scale widgets ====== */
+function buildScale(containerId, name){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const labels = ["Muy malo","Malo","Regular","Bueno","Excelente"];
+  let html = '<div class="scale">';
+  for(let i=1;i<=5;i++){
+    html += `<div class="scale-item">
+      <input type="radio" name="${name}" id="${name}_${i}" value="${i}">
+      <label for="${name}_${i}"><span class="n">${i}</span>${labels[i-1]}</label>
+    </div>`;
+  }
+  html += `<div class="scale-item na">
+    <input type="radio" name="${name}" id="${name}_na" value="N/A">
+    <label for="${name}_na"><span class="n">—</span>N/A</label>
+  </div>`;
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+// Satisfacción scales
+[1,2,3,4,5,6,7,10,11,12,13,14].forEach(n => buildScale(`scale-q${n}`, `q${n}`));
+// B2B scales
+[6,7,8,9,20].forEach(n => buildScale(`scale-b${n}`, `b${n}`));
+// B2C scales
+[4,12,13,14].forEach(n => buildScale(`scale-c${n}`, `c${n}`));
+
+/* ====== Navigation ====== */
+function showForm(name){
+  document.getElementById('screen-home').classList.add('hidden');
+  document.getElementById('screen-success').classList.add('hidden');
+  document.getElementById('screen-satisfaccion').classList.add('hidden');
+  document.getElementById('screen-b2b').classList.add('hidden');
+  document.getElementById('screen-b2c').classList.add('hidden');
+  document.getElementById('screen-'+name).classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+function goHome(){
+  document.getElementById('screen-success').classList.add('hidden');
+  document.getElementById('screen-satisfaccion').classList.add('hidden');
+  document.getElementById('screen-b2b').classList.add('hidden');
+  document.getElementById('screen-b2c').classList.add('hidden');
+  document.getElementById('screen-home').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+/* ====== Toast ====== */
+function showToast(msg){
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 4000);
+}
+
+/* ====== Submit handler -> Google Apps Script ====== */
+function submitForm(e, formType){
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type=submit]');
+  const data = {};
+  const formData = new FormData(form);
+
+  // Handle checkboxes (multiple values per name) by grouping into arrays
+  for (const [key, value] of formData.entries()){
+    if(data[key] !== undefined){
+      if(Array.isArray(data[key])) data[key].push(value);
+      else data[key] = [data[key], value];
+    } else {
+      data[key] = value;
+    }
+  }
+  // Join arrays (checkbox groups) into comma-separated strings for sheet
+  Object.keys(data).forEach(k=>{
+    if(Array.isArray(data[k])) data[k] = data[k].join(", ");
+  });
+
+  data._formType = formType;
+  data._timestamp = new Date().toISOString();
+
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Enviando...';
+
+  if(SCRIPT_URL.includes("PEGAR_AQUI")){
+    // No backend configured yet — log locally so testing still works
+    console.log("Datos del formulario ("+formType+"):", data);
+    setTimeout(()=>{
+      btn.disabled = false;
+      btn.textContent = originalText;
+      showToast("⚠ Backend no configurado todavía — revisá la consola (F12). Ver README.md");
+    }, 600);
+    return false;
+  }
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "text/plain;charset=utf-8" }
+  })
+  .then(res => res.json())
+  .then(json => {
+    btn.disabled = false;
+    btn.textContent = originalText;
+    if(json.result === "success"){
+      form.reset();
+      showForm('success');
+    } else {
+      showToast("Hubo un error al enviar. Intentá de nuevo.");
+    }
+  })
+  .catch(err => {
+    btn.disabled = false;
+    btn.textContent = originalText;
+    console.error(err);
+    showToast("Error de conexión. Verificá tu internet e intentá de nuevo.");
+  });
+
+  return false;
+}
+</script>
+</body>
+</html>
