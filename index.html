@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>+Marka Plus · Mystery Shopper Envaco POP</title>
+<title>Formulario de Relevamiento</title>
 <style>
   :root{
     --bg:#111111;
@@ -235,6 +235,27 @@
   }
   .info-text strong{
     color:var(--white);
+  }
+
+  .notes-toggle{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    color:var(--gray);
+    font-size:11.5px;
+    padding:7px 12px;
+    border-radius:20px;
+    cursor:pointer;
+    margin:14px 0 4px;
+  }
+  .notes-toggle:hover{
+    border-color:var(--teal);
+    color:var(--gray-light);
+  }
+  .notes-panel{
+    margin-bottom:6px;
   }
 
   .section{
@@ -498,8 +519,8 @@
 </head>
 <body>
 
-<div class="topbar">
-  <div class="brand"><span class="plus">+</span>MARKA<span class="tag">PLUS</span></div>
+<div class="topbar" id="topbar">
+  <div class="brand" id="topbarBrand"><span class="plus">+</span>MARKA<span class="tag">PLUS</span></div>
   <div class="meta" id="topbarMeta">Mystery Shopper · Envaco POP</div>
 </div>
 
@@ -516,7 +537,7 @@
     <div class="info-box">
       <div class="info-icon">i</div>
       <div class="info-text">
-        <strong>¿Cuál formulario corresponde?</strong> Usá <strong>Satisfacción</strong> si quien responde es un cliente real de Envaco POP. Usá <strong>B2B Corporativo</strong> si contactaste a una empresa simulando ser responsable de Marketing con una necesidad de exhibidores o packaging. Usá <strong>B2C Minorista</strong> si visitaste o contactaste una tienda simulando ser un particular o emprendedor con una necesidad de bajo volumen. En B2B y B2C, recordá no revelar en ningún momento que se trata de un estudio.
+        <strong>¿Cuál formulario corresponde?</strong> Usá <strong>Satisfacción</strong> cuando entrevistes a un cliente real de Envaco POP y registres sus respuestas en persona, por llamada o por mensaje. Usá <strong>B2B Corporativo</strong> si contactaste a una empresa simulando ser responsable de Marketing con una necesidad de exhibidores o packaging. Usá <strong>B2C Minorista</strong> si visitaste o contactaste una tienda simulando ser un particular o emprendedor con una necesidad de bajo volumen. En B2B y B2C, recordá no revelar en ningún momento que se trata de un estudio.
       </div>
     </div>
 
@@ -528,7 +549,7 @@
         <div class="body">
           <div class="code">F-SAT-03</div>
           <div class="title">Satisfacción del Cliente</div>
-          <div class="desc">Formulario a completar por el cliente real sobre su experiencia con Envaco POP.</div>
+          <div class="desc">El shopper entrevista al cliente real y registra sus respuestas sobre la experiencia con Envaco POP.</div>
         </div>
         <div class="arrow">→</div>
       </button>
@@ -572,12 +593,12 @@
     <div class="info-box">
       <div class="info-icon">i</div>
       <div class="info-text">
-        <strong>¿Qué tenés que completar?</strong> Este formulario lo completa el cliente real (no un mystery shopper) sobre su propia experiencia con Envaco POP. Si lo estás completando como parte de una entrevista o llamada de seguimiento, registrá las respuestas tal como las dé el cliente, sin interpretarlas.
+        <strong>¿Qué tenés que completar?</strong> El mystery shopper se acerca al cliente real y le hace estas preguntas en persona, por llamada o por mensaje — el cliente no completa el formulario por su cuenta. Registrá las respuestas tal como las da el cliente, sin interpretarlas ni completar por él.
       </div>
     </div>
 
     <div class="alert-box">
-      Estimado cliente: este formulario es completamente confidencial y tiene como único objetivo mejorar nuestro servicio. No tomará más de 5 minutos completarlo. ¡Gracias por su tiempo!
+      Presentate como parte del equipo de Envaco POP relevando satisfacción de clientes. Explicale al cliente que es completamente confidencial y que no le tomará más de 5 minutos. Anotá sus respuestas tal como las da.
     </div>
 
     <form id="form-satisfaccion" onsubmit="return submitForm(event,'satisfaccion')">
@@ -763,25 +784,26 @@
   <div id="screen-b2b" class="hidden">
     <div class="form-header">
       <button class="back-btn" onclick="goHome()">← Volver</button>
-      <div class="code-tag">F-B2B-01 · MYSTERY SHOPPER ENVACO POP</div>
-      <h2>Formulario B2B — Perfil Corporativo</h2>
-      <div class="sub">Perfil: Gerente de Marketing — Mystery Shopper Envaco POP</div>
+      <div class="code-tag">RELEVAMIENTO 01</div>
+      <h2>Formulario de Relevamiento Corporativo</h2>
+      <div class="sub">Registro de contacto comercial B2B</div>
     </div>
 
-    <div class="info-box">
-      <div class="info-icon">i</div>
-      <div class="info-text">
-        <strong>¿Qué tenés que completar?</strong> Contactá a la empresa evaluada simulando el perfil indicado abajo, sin revelar que se trata de un estudio. Registrá los datos del contacto y respondé todas las preguntas en base a lo observado durante la interacción. Citá frases textuales del vendedor cuando sea posible — esas observaciones son las más valiosas para el informe final.
+    <button type="button" class="notes-toggle" onclick="toggleNotes('b2b')">📋 Ver notas internas (tocar solo en privado)</button>
+    <div class="notes-panel hidden" id="notes-b2b">
+      <div class="info-box">
+        <div class="info-icon">i</div>
+        <div class="info-text">
+          <strong>¿Qué tenés que completar?</strong> Contactá a la empresa evaluada simulando el perfil indicado abajo, sin revelar que se trata de un estudio. Registrá los datos del contacto y respondé todas las preguntas en base a lo observado durante la interacción. Citá frases textuales del vendedor cuando sea posible — esas observaciones son las más valiosas para el informe final.
+        </div>
       </div>
-    </div>
-
-    <div class="section-title" style="margin-top:0;">Perfil simulado</div>
-    <div class="alert-box" style="margin-top:0;">
-      Responsable de Marketing de empresa mediana. Necesidad: lanzamiento de producto que requiere exhibidores, displays y packaging personalizado para interior de local.
-    </div>
-
-    <div class="alert-box">
-      Completar durante o inmediatamente después del contacto con la empresa evaluada. <strong>No revelar el carácter del estudio.</strong> Anotar observaciones textuales cuando sea posible.
+      <div class="section-title" style="margin-top:0;">Perfil simulado</div>
+      <div class="alert-box" style="margin-top:0;">
+        Responsable de Marketing de empresa mediana. Necesidad: lanzamiento de producto que requiere exhibidores, displays y packaging personalizado para interior de local.
+      </div>
+      <div class="alert-box">
+        Completar durante o inmediatamente después del contacto con la empresa evaluada. <strong>No revelar el carácter del estudio.</strong> Anotar observaciones textuales cuando sea posible.
+      </div>
     </div>
 
     <form id="form-b2b" onsubmit="return submitForm(event,'b2b')">
@@ -1028,25 +1050,26 @@
   <div id="screen-b2c" class="hidden">
     <div class="form-header">
       <button class="back-btn" onclick="goHome()">← Volver</button>
-      <div class="code-tag">F-B2C-02 · MYSTERY SHOPPER ENVACO POP</div>
-      <h2>Formulario B2C — Perfil Minorista</h2>
-      <div class="sub">Perfil: Emprendedor / Particular — Mystery Shopper Envaco POP</div>
+      <div class="code-tag">RELEVAMIENTO 02</div>
+      <h2>Formulario de Relevamiento Minorista</h2>
+      <div class="sub">Registro de visita / consulta B2C</div>
     </div>
 
-    <div class="info-box">
-      <div class="info-icon">i</div>
-      <div class="info-text">
-        <strong>¿Qué tenés que completar?</strong> Visitá o contactá a la tienda/empresa simulando el perfil indicado abajo, sin revelar que se trata de un estudio. Registrá los datos del contacto y respondé todas las preguntas en base a lo observado durante la visita. Citá frases textuales o situaciones destacadas cuando sea posible.
+    <button type="button" class="notes-toggle" onclick="toggleNotes('b2c')">📋 Ver notas internas (tocar solo en privado)</button>
+    <div class="notes-panel hidden" id="notes-b2c">
+      <div class="info-box">
+        <div class="info-icon">i</div>
+        <div class="info-text">
+          <strong>¿Qué tenés que completar?</strong> Visitá o contactá a la tienda/empresa simulando el perfil indicado abajo, sin revelar que se trata de un estudio. Registrá los datos del contacto y respondé todas las preguntas en base a lo observado durante la visita. Citá frases textuales o situaciones destacadas cuando sea posible.
+        </div>
       </div>
-    </div>
-
-    <div class="section-title" style="margin-top:0;">Perfil simulado</div>
-    <div class="alert-box" style="margin-top:0;">
-      Emprendedor o persona particular con necesidad puntual y de bajo volumen: cajas para un emprendimiento o elementos para un evento privado en interior.
-    </div>
-
-    <div class="alert-box">
-      Usar para visitas presenciales a tiendas de Cartones Yaguareté y consultas B2C a otras empresas. Simular necesidad de bajo volumen sin revelar el estudio.
+      <div class="section-title" style="margin-top:0;">Perfil simulado</div>
+      <div class="alert-box" style="margin-top:0;">
+        Emprendedor o persona particular con necesidad puntual y de bajo volumen: cajas para un emprendimiento o elementos para un evento privado en interior.
+      </div>
+      <div class="alert-box">
+        Usar para visitas presenciales a tiendas de Cartones Yaguareté y consultas B2C a otras empresas. Simular necesidad de bajo volumen sin revelar el estudio.
+      </div>
     </div>
 
     <form id="form-b2c" onsubmit="return submitForm(event,'b2c')">
@@ -1389,6 +1412,26 @@ function buildScale(containerId, name){
 [4,12,13,14].forEach(n => buildScale(`scale-c${n}`, `c${n}`));
 
 /* ====== Navigation ====== */
+/* ====== Toggle de notas internas (ocultas por defecto, riesgo de exposición) ====== */
+function toggleNotes(name){
+  const panel = document.getElementById('notes-'+name);
+  panel.classList.toggle('hidden');
+}
+
+function setDisguise(active){
+  const brand = document.getElementById('topbarBrand');
+  const meta = document.getElementById('topbarMeta');
+  if(active){
+    brand.innerHTML = 'Formulario';
+    meta.textContent = 'Registro de visita comercial';
+    document.title = 'Formulario de Relevamiento';
+  } else {
+    brand.innerHTML = '<span class="plus">+</span>MARKA<span class="tag">PLUS</span>';
+    meta.textContent = 'Mystery Shopper · Envaco POP';
+    document.title = 'Formulario de Relevamiento';
+  }
+}
+
 function showForm(name){
   document.getElementById('screen-home').classList.add('hidden');
   document.getElementById('screen-success').classList.add('hidden');
@@ -1396,6 +1439,7 @@ function showForm(name){
   document.getElementById('screen-b2b').classList.add('hidden');
   document.getElementById('screen-b2c').classList.add('hidden');
   document.getElementById('screen-'+name).classList.remove('hidden');
+  setDisguise(name === 'b2b' || name === 'b2c');
   window.scrollTo(0,0);
 }
 function goHome(){
@@ -1404,6 +1448,7 @@ function goHome(){
   document.getElementById('screen-b2b').classList.add('hidden');
   document.getElementById('screen-b2c').classList.add('hidden');
   document.getElementById('screen-home').classList.remove('hidden');
+  setDisguise(false);
   window.scrollTo(0,0);
 }
 
