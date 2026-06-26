@@ -1264,6 +1264,103 @@
 */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_9inMxrSVTARAXWisoxFYrmn8iFByJV9-QM6VXKR00sG28p6SoRDo3zO1jJuK4_nF/exec";
 
+/* ====== Mapa de nombre de campo -> pregunta legible (para encabezados en Sheets) ====== */
+const FIELD_LABELS = {
+  // --- Satisfacción ---
+  empresa: "Empresa",
+  rubro: "Rubro / Industria",
+  tipo_cliente: "Tipo de cliente",
+  frecuencia: "Frecuencia de compra",
+  q1: "1. ¿Qué tan fácil fue contactarnos y obtener una respuesta inicial?",
+  q2: "2. ¿Recibió una cotización clara, completa y en tiempo razonable?",
+  q3: "3. ¿El vendedor / asesor comprendió bien su necesidad?",
+  q4: "4. ¿Se sintió asesorado o solo atendido?",
+  q5: "5. ¿El producto recibido correspondió a lo solicitado?",
+  q6: "6. ¿Cómo evalúa la calidad de los materiales y el acabado?",
+  q7: "7. ¿El producto cumplió con su función o necesidad?",
+  q8: "8. ¿Hubo algún problema de calidad, daño o inconformidad con el producto?",
+  q9: "9. Si marcó Sí, ¿cómo fue gestionado el problema?",
+  q10: "10. ¿El plazo de producción declarado se cumplió?",
+  q11: "11. ¿La entrega fue en tiempo y forma?",
+  tiempo_prometido: "Tiempo prometido de entrega",
+  tiempo_real: "Tiempo real de entrega",
+  q12: "12. ¿Considera que el precio pagado fue justo para la calidad recibida?",
+  q13: "13. ¿Las condiciones de pago se adaptaron a sus necesidades?",
+  q14: "14. Nivel de satisfacción general con Envaco POP",
+  q15: "15. ¿Recomendaría Envaco POP a un colega o empresa conocida?",
+  q16: "16. ¿Volvería a contratar nuestros servicios?",
+  q17: "17. ¿Qué es lo que más valora de trabajar con Envaco POP?",
+  q18: "18. ¿Qué mejoraría o qué le falta a Envaco POP?",
+  q19: "19. Comentarios adicionales o sugerencias libres",
+
+  // --- B2B ---
+  empresa_evaluada: "Empresa evaluada",
+  nombre_contacto: "Nombre del contacto / Vendedor",
+  cargo: "Cargo / Área",
+  canal: "Canal de contacto",
+  fecha_contacto: "Fecha del contacto",
+  hora_inicio: "Hora de inicio",
+  shopper_b2b: "Shopper a cargo",
+  b1: "1. ¿Proporcionaron precios durante el primer contacto?",
+  b2: "2. Precios relevados (USD/m², material, medida, cantidad mínima)",
+  b3: "3. ¿Ofrecen descuento por volumen?",
+  b4: "4. Condiciones de pago ofrecidas",
+  tiempo_respuesta: "Tiempo de respuesta inicial (min/horas)",
+  tiempo_cotizacion: "Tiempo hasta cotización formal",
+  plazo_produccion: "Plazo de producción declarado",
+  tiempo_entrega_final: "Tiempo estimado hasta entrega final",
+  b5: "5. Observaciones sobre tiempos (puntualidad, seguimiento, etc.)",
+  b6: "6. Nivel de escucha y comprensión de la necesidad planteada",
+  b7: "7. Capacidad de propuesta y asesoramiento técnico",
+  b8: "8. Proactividad durante la conversación",
+  b9: "9. Seguimiento post-contacto",
+  b10: "10. Observaciones textuales sobre la atención recibida",
+  b11: "11. ¿Contemplan el proceso completo: diseño, producción, logística e instalación?",
+  b12: "12. ¿Aplica a todos los proyectos o solo a pedidos grandes?",
+  b13: "13. Detallar qué etapas del proceso ofrecen",
+  b14: "14. Procesos integrados internamente",
+  b15: "15. ¿Qué subcontratan? ¿Con quién o bajo qué criterio?",
+  b16: "16. Materiales que manejan",
+  b17: "17. Especialidades declaradas y limitaciones (indoor/outdoor)",
+  b18: "18. Servicios que forman parte de su catálogo",
+  b19: "19. ¿Experiencia específica en aplicaciones indoor? ¿Materiales recomendados / aceptan exterior?",
+  b20: "20. Impresión general de la empresa (profesionalismo, imagen, comunicación)",
+  b21: "21. ¿Qué diferencial comunicaron respecto a su competencia?",
+  b22: "22. Notas adicionales / observaciones del shopper",
+  shopper_firma_b2b: "Shopper (firma)",
+  fecha_firma_b2b: "Fecha (firma)",
+
+  // --- B2C ---
+  empresa_tienda: "Empresa / Tienda evaluada",
+  direccion: "Dirección / Sucursal",
+  nombre_vendedor: "Nombre del vendedor",
+  canal_c: "Canal",
+  fecha_c: "Fecha",
+  hora_c: "Hora",
+  shopper_c: "Shopper a cargo",
+  necesidad_simulada: "Necesidad simulada",
+  c1: "1. ¿Atendieron la consulta de bajo volumen?",
+  c2: "2. Actitud del vendedor ante un pedido de baja cantidad",
+  c3: "3. ¿Informaron sobre monto mínimo de compra? (monto/cantidad)",
+  c4: "4. ¿El espacio / tienda estaba ordenado y era fácil de navegar?",
+  c5: "5. ¿Informaron precios sin dificultad?",
+  c6: "6. Precios relevados (productos, medidas, precio unitario)",
+  c7: "7. ¿Ofrecen descuento por mayor cantidad o cliente frecuente?",
+  c8: "8. Condiciones de pago para clientes B2C",
+  c9: "9. Productos visibles / disponibles para compra inmediata",
+  c10: "10. ¿Tienen stock disponible o trabajan solo por pedido?",
+  c11: "11. Plazo de entrega declarado para pedidos a medida",
+  c12: "12. Amabilidad y disposición del personal",
+  c13: "13. Conocimiento del producto por parte del vendedor",
+  c14: "14. Facilidad para obtener la información necesaria",
+  c15: "15. Observaciones textuales sobre la experiencia de compra",
+  c16: "16. ¿Recomendarían esta empresa a un emprendedor o particular?",
+  c17: "17. Notas adicionales / observaciones del shopper",
+  shopper_firma_c: "Shopper (firma)",
+  fecha_firma_c: "Fecha (firma)",
+};
+
+
 /* ====== Build 1-5 + N/A scale widgets ====== */
 function buildScale(containerId, name){
   const el = document.getElementById(containerId);
@@ -1344,13 +1441,20 @@ function submitForm(e, formType){
   data._formType = formType;
   data._timestamp = new Date().toISOString();
 
+  // Traducir claves internas (q1, b6, c12...) a preguntas legibles para la hoja
+  const readableData = {};
+  Object.keys(data).forEach(k=>{
+    const label = FIELD_LABELS[k] || k;
+    readableData[label] = data[k];
+  });
+
   const originalText = btn.textContent;
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>Enviando...';
 
   if(SCRIPT_URL.includes("PEGAR_AQUI")){
     // No backend configured yet — log locally so testing still works
-    console.log("Datos del formulario ("+formType+"):", data);
+    console.log("Datos del formulario ("+formType+"):", readableData);
     setTimeout(()=>{
       btn.disabled = false;
       btn.textContent = originalText;
@@ -1362,7 +1466,7 @@ function submitForm(e, formType){
   fetch(SCRIPT_URL, {
     method: "POST",
     mode: "no-cors",
-    body: JSON.stringify(data),
+    body: JSON.stringify(readableData),
     headers: { "Content-Type": "text/plain;charset=utf-8" }
   })
   .then(() => {
