@@ -1361,19 +1361,17 @@ function submitForm(e, formType){
 
   fetch(SCRIPT_URL, {
     method: "POST",
+    mode: "no-cors",
     body: JSON.stringify(data),
     headers: { "Content-Type": "text/plain;charset=utf-8" }
   })
-  .then(res => res.json())
-  .then(json => {
+  .then(() => {
+    // no-cors responses are opaque (we can't read status/body),
+    // so if fetch resolved without throwing, we treat it as sent.
     btn.disabled = false;
     btn.textContent = originalText;
-    if(json.result === "success"){
-      form.reset();
-      showForm('success');
-    } else {
-      showToast("Hubo un error al enviar. Intentá de nuevo.");
-    }
+    form.reset();
+    showForm('success');
   })
   .catch(err => {
     btn.disabled = false;
