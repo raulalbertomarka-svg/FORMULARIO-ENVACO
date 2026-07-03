@@ -1142,9 +1142,9 @@ const FIELD_LABELS = {
   c_logo: "13. Logo en pocas unidades",
   c11: "14. Plazo de fabricación/entrega",
   c_delivery: "15. ¿Hacen envíos?",
-  "scale-c12": "16. Amabilidad",
-  "scale-c13": "17. Conocimiento del producto",
-  "scale-c14": "18. Facilidad para conseguir info",
+  c12: "16. Amabilidad",
+  c13: "17. Conocimiento del producto",
+  c14: "18. Facilidad para conseguir info",
   c_venta_sug: "19. ¿Ofreció algo más sin que lo pidieras?",
   c_estres: "20. Reacción ante comparación de precio",
   c_cotizacion: "21. Tiempo para llegar la cotización formal",
@@ -1160,11 +1160,11 @@ const FIELD_LABELS = {
   c_exhibicion: "24. Exhibición con precios a la vista",
   c_quiebre: "25. Quiebres de stock",
   c_pop_local: "26. Material POP propio del local",
-  "scale-local": "27. Impresión general del local",
+  local_impressión: "27. Impresión general del local",
   liz_materiales: "27. Materiales alternativos (cartonplast / plástico)",
   liz_proveedores: "28. Proveedores de Asunción en CDE",
   c15: "29. Experiencia general con palabras propias",
-  "scale-ces": "30. CES general (1-5)",
+  ces_general: "30. CES general (1-5)",
   b2b_precio_m2: "B1. Precio por m²",
   b2b_precio_rango: "B2. Precio por rango de unidades",
   b2b_precio_recurrente: "B3. ¿Baja precio con pedido recurrente?",
@@ -1365,7 +1365,7 @@ function buildScale(cid, name){
   h+=`<div class="scale-item na"><input type="radio" name="${name}" id="${name}_na" value="N/A"><label for="${name}_na"><span class="n">—</span>N/A</label></div></div>`;
   el.innerHTML=h;
 }
-['c12','c13','c14'].forEach(n=>buildScale(`scale-c${n}`,`c${n}`));
+['12','13','14'].forEach(n=>buildScale(`scale-c${n}`,`c${n}`));
 buildScale('scale-local','local_impressión');
 buildScale('scale-ces','ces_general');
 
