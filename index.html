@@ -128,6 +128,29 @@
   .c4-block .c4-title{color:#a080ff;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px;}
   .c4-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
   @media(max-width:480px){.c4-row{grid-template-columns:1fr;}}
+
+  /* B2B block (Diana / Raul / Araceli) */
+  .b2b-block{background:#101a1c;border:1px solid rgba(0,168,150,.18);border-radius:8px;padding:2px 2px;}
+
+  /* Calendario de inicio (pantalla de perfil) */
+  .calendar-box{margin:18px 0 24px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+  .calendar-box .cal-head{padding:12px 16px;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--teal);text-transform:uppercase;}
+  .calendar-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .calendar-table th{background:#161616;color:var(--teal);text-align:left;padding:10px 12px;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
+  .calendar-table td{padding:10px 12px;border-top:1px solid var(--border);color:var(--gray-light);line-height:1.5;vertical-align:top;}
+  .calendar-table tr:first-child td{border-top:none;}
+  .calendar-table .cal-day{color:var(--white);font-weight:700;white-space:nowrap;}
+  .calendar-table .cal-day-item{margin-bottom:4px;}
+  .calendar-table .cal-day-item:last-child{margin-bottom:0;}
+  .calendar-table .cal-dash{color:var(--gray);}
+  @media(max-width:600px){
+    .calendar-table{display:block;}
+    .calendar-table thead{display:none;}
+    .calendar-table tbody, .calendar-table tr, .calendar-table td{display:block;width:100%;}
+    .calendar-table tr{border-top:1px solid var(--border);padding:10px 12px;}
+    .calendar-table td{border-top:none;padding:3px 0;}
+    .calendar-table .cal-day{font-size:12px;margin-bottom:2px;}
+  }
 </style>
 </head>
 <body>
@@ -166,6 +189,24 @@
       <div class="desc">Plaza CDE completa · Minorista, Evento/Lanzamiento y Mayorista + Detección C4+</div>
       <div class="arrow">→</div>
     </button>
+    <button class="shopper-card" onclick="selectShopper('diana')">
+      <div class="name">Diana</div>
+      <div class="role">RELEVADORA B2B SENIOR · GERENCIA</div>
+      <div class="desc">Toddo, FC Industrias, Yaguareté San Lorenzo, Formupar y Paper Box (digital) + Mystery a Envaco POP</div>
+      <div class="arrow">→</div>
+    </button>
+    <button class="shopper-card" onclick="selectShopper('araceli')">
+      <div class="name">Araceli</div>
+      <div class="role">RELEVADORA B2B SENIOR · COORDINACIÓN</div>
+      <div class="desc">Rapid Color, Editex, Impress y Yaguareté T5 · Zona Barrio Jara / Acceso Norte</div>
+      <div class="arrow">→</div>
+    </button>
+    <button class="shopper-card" onclick="selectShopper('raul')">
+      <div class="name">Raúl</div>
+      <div class="role">RELEVADOR B2B SENIOR</div>
+      <div class="desc">JWF Group, BPR PDV, Couplas PDV y Yaguareté T1 · Zona Mercado 4 / centro-oeste ASU</div>
+      <div class="arrow">→</div>
+    </button>
   </div>
 </div>
 
@@ -180,6 +221,11 @@
 
   <div class="warn-box">
     <strong>NUNCA</strong> uses los dos perfiles el mismo día en la misma empresa — son historias separadas.
+  </div>
+
+  <div class="calendar-box" id="calendar-box">
+    <div class="cal-head">📅 Tu calendario de inicio</div>
+    <table class="calendar-table" id="calendar-table"></table>
   </div>
 
   <div class="profile-grid" id="profile-grid"></div>
@@ -202,10 +248,12 @@
       <select name="empresa_select" id="empresa_select" onchange="toggleOtroLocal()">
         <option value="" disabled selected>Seleccioná el local</option>
         <optgroup label="Asunción" id="opt-asu">
+          <option>R1 · PM Producciones (BTL)</option>
+          <option>R2 · Octopus Group (BTL)</option>
           <option>01 · JWF Group</option>
           <option>02 · BPR PDV</option>
-          <option>03 · Cartones Yaguareté (Asunción 1)</option>
-          <option>03 · Cartones Yaguareté (Asunción 2)</option>
+          <option>03 · Cartones Yaguareté T1 (Av. España, Centro)</option>
+          <option>08 · Cartones Yaguareté T5 (Acceso Norte)</option>
           <option>04 · Rapid Color</option>
           <option>05 · Editex Publicidad</option>
           <option>06 · PRINTER'S PDV</option>
@@ -213,17 +261,18 @@
           <option>08 · COUPLAS PDV</option>
           <option>09 · FC Industrias Pub.</option>
           <option>10 · TODDO GROUP</option>
+          <option>11 · Cartones Yaguareté (San Lorenzo)</option>
         </optgroup>
         <optgroup label="Ciudad del Este" id="opt-cde">
           <option>C1 · Formupar</option>
-          <option>C2 · Paper Box</option>
+          <option>C2 · Paper Box (Hernandarias)</option>
           <option>C3 · Cartones Yaguareté (CDE)</option>
-          <option>C4 · Gráfica Offset</option>
-          <option>C5 · Editora El Mensajero</option>
-          <option>C6 · Gráfica Kolping</option>
-          <option>C7 · Shopping del Embalaje / Multi-Embalajes</option>
-          <option>C8 · Talleres Convertidores</option>
-          <option>C9 · Casa de los Envases</option>
+          <option>C4 · Gráfica Paraná</option>
+          <option>C5 · Publi Mass Media</option>
+          <option>C6 · Artes Gráficas Castillo</option>
+        </optgroup>
+        <optgroup label="Control interno" id="opt-envaco">
+          <option>★ ENVACO POP (mystery interno)</option>
         </optgroup>
         <option value="Otros">Otros (especificar)</option>
       </select>
@@ -243,13 +292,17 @@
         <div class="choice"><input type="radio" name="canal_c" id="cc1" value="Fui en persona"><label for="cc1">Fui en persona</label></div>
         <div class="choice"><input type="radio" name="canal_c" id="cc2" value="WhatsApp"><label for="cc2">WhatsApp</label></div>
         <div class="choice"><input type="radio" name="canal_c" id="cc3" value="Llamada"><label for="cc3">Llamada</label></div>
+        <div class="choice"><input type="radio" name="canal_c" id="cc4" value="Email"><label for="cc4">Email</label></div>
       </div>
     </div>
     <div class="row2">
       <div class="q"><label class="field-label">Fecha</label><input type="date" name="fecha_c"></div>
-      <div class="q"><label class="field-label">Hora de llegada</label><input type="time" name="hora_llegada"></div>
+      <div class="q"><label class="field-label">Hora de llegada / envío</label><input type="time" name="hora_llegada"></div>
     </div>
-    <div class="q"><label class="field-label">Hora de inicio de atención</label><input type="time" name="hora_atencion" placeholder="Hora en que te empezaron a atender"></div>
+    <div class="row2">
+      <div class="q"><label class="field-label">Hora de inicio de atención / respuesta</label><input type="time" name="hora_atencion" placeholder="Hora en que te empezaron a atender"></div>
+      <div class="q"><label class="field-label">Tiempo de espera o de respuesta (texto libre)</label><input type="text" name="tiempo_espera_texto" placeholder="Ej: 5 min en local / 2 hs por WA"></div>
+    </div>
 
     <div class="section-title">1. Cómo te atendieron</div>
 
@@ -289,7 +342,14 @@
       <div class="q-label"><span class="q-num">3.</span>¿Te dijeron si hay un mínimo de compra?
         <button type="button" class="help-btn" onclick="openHelp('c3')">?</button>
       </div>
-      <div class="q-body"><input type="text" name="c3" placeholder="Ej: mínimo 500 unidades, Gs. 50.000, etc."></div>
+      <div class="q-body">
+        <div class="choices" style="margin-bottom:8px;">
+          <div class="choice"><input type="radio" name="c3_si" id="c3_si1" value="Sí, lo informaron"><label for="c3_si1">Sí, lo informaron</label></div>
+          <div class="choice"><input type="radio" name="c3_si" id="c3_si2" value="No mencionaron mínimo"><label for="c3_si2">No mencionaron</label></div>
+          <div class="choice"><input type="radio" name="c3_si" id="c3_si3" value="Más o menos"><label for="c3_si3">Más o menos</label></div>
+        </div>
+        <input type="text" name="c3" placeholder="¿Cuál es el mínimo exacto? Ej: 100 unidades / Gs. 50.000" style="margin-top:4px;">
+      </div>
     </div>
 
     <div class="q">
@@ -479,6 +539,24 @@
       </div>
     </div>
 
+    <!-- PRUEBA DE ESTRÉS MINORISTA (siempre visible, opción No aplica) -->
+    <div id="bloque-estres-minorista">
+      <div class="section-title">5. Prueba de estrés — solo si es tu 2ª visita a este local</div>
+      <div class="alert-box">Usaste la frase: <em>"En otro lado me cotizaron más barato..."</em> — ¿cómo reaccionó el vendedor?</div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">21.</span>Reacción ante la comparación de precio</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="c_estres_min" id="cem1" value="Defendió con argumentos"><label for="cem1">Defendió con argumentos</label></div>
+            <div class="choice"><input type="radio" name="c_estres_min" id="cem2" value="Bajó el precio sin preguntar"><label for="cem2">Bajó el precio sin preguntar</label></div>
+            <div class="choice"><input type="radio" name="c_estres_min" id="cem3" value="Ofreció alternativa de material"><label for="cem3">Ofreció alternativa</label></div>
+            <div class="choice"><input type="radio" name="c_estres_min" id="cem4" value="Indiferente"><label for="cem4">Indiferente</label></div>
+            <div class="choice"><input type="radio" name="c_estres_min" id="cem5" value="No aplica (primera visita)" checked><label for="cem5">No aplica (1ª visita)</label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- PRUEBA DE ESTRÉS (solo perfil mayorista) -->
     <div id="bloque-estres" class="hidden">
       <div class="section-title">5. Prueba de estrés (Mayorista — 2ª visita)</div>
@@ -498,7 +576,21 @@
       </div>
       <div class="q">
         <div class="q-label"><span class="q-num">22.</span>¿Pidieron cotización formal por escrito? ¿En cuánto tiempo llegó?</div>
-        <div class="q-body"><input type="text" name="c_cotizacion" placeholder="Ej: llegó en 2 hs por WA / no llegó / en 1 día por email"></div>
+        <div class="q-body">
+          <input type="text" name="c_cotizacion" placeholder="Ej: llegó en 2 hs por WA / no llegó / en 1 día por email" style="margin-bottom:10px;">
+          <div class="field-label" style="margin-top:8px;">¿En cuántos días corridos llegó desde que la pediste?</div>
+          <div class="choices" style="margin-bottom:8px;">
+            <div class="choice"><input type="radio" name="c_dias_cotiz" id="dc1" value="El mismo día"><label for="dc1">El mismo día</label></div>
+            <div class="choice"><input type="radio" name="c_dias_cotiz" id="dc2" value="1 día"><label for="dc2">1 día</label></div>
+            <div class="choice"><input type="radio" name="c_dias_cotiz" id="dc3" value="2–3 días"><label for="dc3">2–3 días</label></div>
+            <div class="choice"><input type="radio" name="c_dias_cotiz" id="dc4" value="Más de 3 días"><label for="dc4">Más de 3 días</label></div>
+            <div class="choice"><input type="radio" name="c_dias_cotiz" id="dc5" value="No llegó"><label for="dc5">No llegó</label></div>
+          </div>
+          <div class="row2" style="margin-top:6px;">
+            <div><label class="field-label">Hora exacta en que la pediste</label><input type="time" name="c_hora_pedi_cotiz"></div>
+            <div><label class="field-label">Hora exacta en que la recibiste</label><input type="time" name="c_hora_recibi_cotiz"></div>
+          </div>
+        </div>
       </div>
       <div class="q">
         <div class="q-label"><span class="q-num">23.</span>¿Dan crédito o condiciones especiales a clientes de volumen?</div>
@@ -508,6 +600,16 @@
 
     <!-- COMPARACIÓN CON ENVACO -->
     <div class="section-title" id="title-envaco">5. Comparación con Envaco</div>
+    <div class="q">
+      <div class="q-label"><span class="q-num">23b.</span>¿El vendedor mencionó algún competidor o proveedor por su cuenta, sin que vos lo preguntaras?</div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c_competidores" id="comp1" value="No mencionó a nadie"><label for="comp1">No mencionó a nadie</label></div>
+          <div class="choice"><input type="radio" name="c_competidores" id="comp2" value="Sí mencionó" onclick="toggleOtro('comp_txt')"><label for="comp2">Sí — ¿quién/quiénes?</label></div>
+        </div>
+        <input type="text" name="c_competidores_quien" id="comp_txt" placeholder="Ej: mencionó a Yaguareté, Rapid Color..." class="hidden otro-input" style="margin-top:8px;">
+      </div>
+    </div>
     <div class="q">
       <div class="q-label"><span class="q-num" id="qn-envaco">24.</span>¿Conocen a Envaco POP? ¿Qué dijeron?
         <button type="button" class="help-btn" onclick="openHelp('envaco')">?</button>
@@ -594,6 +696,192 @@
       <button type="button" onclick="addC4()" style="background:none;border:1px dashed var(--border);color:var(--gray);border-radius:8px;padding:10px 16px;cursor:pointer;width:100%;margin-bottom:16px;font-size:13px;">+ Agregar otro local C4+</button>
     </div>
 
+    <!-- ============ BLOQUE B2B (Diana / futuro Raúl / Araceli) ============ -->
+    <div id="bloque-b2b" class="hidden">
+
+      <div class="section-title">B1. Precio y estructura de costos</div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B1.</span>Precio por m² del exhibidor / material POP</div>
+        <div class="q-body"><input type="text" name="b2b_precio_m2" placeholder="Ej: USD 18/m², o no lo cotizan en m²"></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B2.</span>Precio de packaging por rango de unidades (100 / 500 / 1.000)</div>
+        <div class="q-body"><textarea name="b2b_precio_rango" placeholder="Ej: 100u = Gs. X, 500u = Gs. Y, 1.000u = Gs. Z"></textarea></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B3.</span>¿El precio baja si el pedido es mensual recurrente?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b2b_precio_recurrente" id="bpr1" value="Sí"><label for="bpr1">Sí</label></div>
+            <div class="choice"><input type="radio" name="b2b_precio_recurrente" id="bpr2" value="No"><label for="bpr2">No</label></div>
+            <div class="choice"><input type="radio" name="b2b_precio_recurrente" id="bpr3" value="No lo mencionó"><label for="bpr3">No lo mencionó</label></div>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B4.</span>Ciclo de venta: tiempo de cotización desde que mandaste el brief</div>
+        <div class="q-body"><input type="text" name="b2b_tiempo_cotizacion" placeholder="Ej: 24 hs, 2 días, mismo día"></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B5.</span>Días de producción y entrega desde la aprobación</div>
+        <div class="q-body"><input type="text" name="b2b_dias_produccion" placeholder="Ej: 7 días hábiles desde OK del arte"></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B6.</span>¿Las revisiones de arte alargan el plazo declarado?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b2b_revisiones_alargan" id="bra1" value="Sí"><label for="bra1">Sí</label></div>
+            <div class="choice"><input type="radio" name="b2b_revisiones_alargan" id="bra2" value="No"><label for="bra2">No</label></div>
+            <div class="choice"><input type="radio" name="b2b_revisiones_alargan" id="bra3" value="No lo mencionó"><label for="bra3">No lo mencionó</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">B2. Materiales y acabados (punto clave para Envaco)</div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B7.</span>Acabados premium disponibles</div>
+        <div class="q-body">
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="b2b_acabados" value="Papel estucado">Papel estucado</label>
+            <label class="check-item"><input type="checkbox" name="b2b_acabados" value="Laminado brillante">Laminado brillante</label>
+            <label class="check-item"><input type="checkbox" name="b2b_acabados" value="Impresión UV">Impresión UV</label>
+            <label class="check-item"><input type="checkbox" name="b2b_acabados" value="Impresión látex">Impresión látex</label>
+            <label class="check-item"><input type="checkbox" name="b2b_acabados" value="Ninguno / solo básico">Ninguno / solo básico</label>
+          </div>
+          <input type="text" name="b2b_acabados_otro" placeholder="Otro acabado (especificar)" style="margin-top:8px;">
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B8.</span>¿Cuánto encarece cada acabado premium vs. cartón estándar?</div>
+        <div class="q-body"><input type="text" name="b2b_encarecimiento" placeholder="Ej: laminado +25%, UV +40%"></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B9.</span>¿Pueden mostrar muestras físicas?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b2b_muestras" id="bm1" value="Sí"><label for="bm1">Sí</label></div>
+            <div class="choice"><input type="radio" name="b2b_muestras" id="bm2" value="No"><label for="bm2">No</label></div>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B10.</span>Resistencia a humedad — ¿qué recomiendan para ambientes húmedos (heladeras, frigoríficos en PDV)?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b2b_humedad" id="bh1" value="Dicen que el cartón aguanta"><label for="bh1">El cartón aguanta</label></div>
+            <div class="choice"><input type="radio" name="b2b_humedad" id="bh2" value="Recomiendan cartonplast"><label for="bh2">Recomiendan cartonplast</label></div>
+            <div class="choice"><input type="radio" name="b2b_humedad" id="bh3" value="Recomiendan plástico"><label for="bh3">Recomiendan plástico</label></div>
+            <div class="choice"><input type="radio" name="b2b_humedad" id="bh4" value="No supo responder"><label for="bh4">No supo responder</label></div>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B11.</span>¿Ellos mismos producen cartonplast o plástico?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b2b_producen_alt" id="bpa1" value="Sí"><label for="bpa1">Sí</label></div>
+            <div class="choice"><input type="radio" name="b2b_producen_alt" id="bpa2" value="No"><label for="bpa2">No</label></div>
+            <div class="choice"><input type="radio" name="b2b_producen_alt" id="bpa3" value="No sé"><label for="bpa3">No sé</label></div>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B12.</span>¿Perciben que el mercado se está yendo hacia cartonplast/plástico, o sigue habiendo demanda de cartón bien terminado?</div>
+        <div class="q-body"><textarea name="b2b_tendencia_mercado" placeholder="Anotá textualmente lo que comentaron"></textarea></div>
+      </div>
+
+      <div class="section-title">B3. Capacidad operativa</div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B13.</span>¿La impresión, el troquelado y el acabado los hacen ellos o tercerizan?</div>
+        <div class="q-body">
+          <div class="choices" style="margin-bottom:8px;">
+            <div class="choice"><input type="radio" name="b2b_inhouse" id="bih1" value="Todo in-house"><label for="bih1">Todo in-house</label></div>
+            <div class="choice"><input type="radio" name="b2b_inhouse" id="bih2" value="Parcialmente tercerizado"><label for="bih2">Parcialmente tercerizado</label></div>
+            <div class="choice"><input type="radio" name="b2b_inhouse" id="bih3" value="Todo tercerizado"><label for="bih3">Todo tercerizado</label></div>
+            <div class="choice"><input type="radio" name="b2b_inhouse" id="bih4" value="No supo explicar"><label for="bih4">No supo explicar</label></div>
+          </div>
+          <input type="text" name="b2b_inhouse_detalle" placeholder="Detalle: ¿qué proceso tercerizan exactamente?">
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B14.</span>Pedido mínimo declarado</div>
+        <div class="q-body"><input type="text" name="b2b_minimo" placeholder="Ej: 500 u. primera corrida"></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B15.</span>¿Pueden hacer el mismo diseño con datos variables por sucursal?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b2b_variabilizacion" id="bv1" value="Sí"><label for="bv1">Sí</label></div>
+            <div class="choice"><input type="radio" name="b2b_variabilizacion" id="bv2" value="No"><label for="bv2">No</label></div>
+            <div class="choice"><input type="radio" name="b2b_variabilizacion" id="bv3" value="No sé"><label for="bv3">No sé</label></div>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B16.</span>Capacidad máxima / tope mensual de producción declarado</div>
+        <div class="q-body"><input type="text" name="b2b_capacidad_max" placeholder="Ej: hasta 50.000 u/mes"></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B17.</span>¿Trabajan cajas estándar en bajo volumen (20 a 500 u), con o sin impresión?</div>
+        <div class="q-body">
+          <div class="choices" style="margin-bottom:8px;">
+            <div class="choice"><input type="radio" name="b2b_bajo_volumen" id="bbv1" value="Sí, con impresión"><label for="bbv1">Sí, con impresión</label></div>
+            <div class="choice"><input type="radio" name="b2b_bajo_volumen" id="bbv2" value="Sí, solo sin impresión"><label for="bbv2">Sí, solo sin impresión</label></div>
+            <div class="choice"><input type="radio" name="b2b_bajo_volumen" id="bbv3" value="No trabajan ese rango"><label for="bbv3">No trabajan ese rango</label></div>
+            <div class="choice"><input type="radio" name="b2b_bajo_volumen" id="bbv4" value="No sé"><label for="bbv4">No sé</label></div>
+          </div>
+          <input type="text" name="b2b_precio_bajo_volumen" placeholder="Precio por unidad en ese rango, si lo dieron">
+        </div>
+      </div>
+
+      <div class="section-title">B4. Cierre de venta y posicionamiento</div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B18.</span>Objeción de precio: "Tengo una propuesta más baja de otro proveedor..." — ¿cómo reaccionó?</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="b2b_objecion_precio" id="bop1" value="Defendió con argumentos técnicos"><label for="bop1">Defendió con argumentos técnicos</label></div>
+            <div class="choice"><input type="radio" name="b2b_objecion_precio" id="bop2" value="Bajó el precio sin preguntar"><label for="bop2">Bajó el precio sin preguntar</label></div>
+            <div class="choice"><input type="radio" name="b2b_objecion_precio" id="bop3" value="Ofreció alternativa de material"><label for="bop3">Ofreció alternativa de material</label></div>
+            <div class="choice"><input type="radio" name="b2b_objecion_precio" id="bop4" value="Se cerró / indiferente"><label for="bop4">Se cerró / indiferente</label></div>
+            <div class="choice otro-choice"><input type="radio" name="b2b_objecion_precio" id="bop_otro" value="Otro" onclick="toggleOtro('bop_otro_txt')"><label for="bop_otro">Otro</label></div>
+          <input type="text" name="b2b_objecion_precio_otro" id="bop_otro_txt" placeholder="Describí la reacción..." class="hidden otro-input" style="margin-top:8px;">
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B19.</span>Cotización formal por email — ¿formato y tiempo?</div>
+        <div class="q-body">
+          <div class="choices" style="margin-bottom:8px;">
+            <div class="choice"><input type="radio" name="b2b_formato_cotiz" id="bfc1" value="Documento formal con USD/m²"><label for="bfc1">Formal con USD/m²</label></div>
+            <div class="choice"><input type="radio" name="b2b_formato_cotiz" id="bfc2" value="Documento formal sin USD/m²"><label for="bfc2">Formal sin USD/m²</label></div>
+            <div class="choice"><input type="radio" name="b2b_formato_cotiz" id="bfc3" value="Solo mensaje informal (WA/mail corto)"><label for="bfc3">Solo mensaje informal</label></div>
+            <div class="choice"><input type="radio" name="b2b_formato_cotiz" id="bfc4" value="No llegó"><label for="bfc4">No llegó</label></div>
+          </div>
+          <div class="choices" style="margin-bottom:8px;">
+            <div class="choice"><input type="radio" name="b2b_dias_cotiz" id="bdc1" value="El mismo día"><label for="bdc1">El mismo día</label></div>
+            <div class="choice"><input type="radio" name="b2b_dias_cotiz" id="bdc2" value="1 día"><label for="bdc2">1 día</label></div>
+            <div class="choice"><input type="radio" name="b2b_dias_cotiz" id="bdc3" value="2–3 días"><label for="bdc3">2–3 días</label></div>
+            <div class="choice"><input type="radio" name="b2b_dias_cotiz" id="bdc4" value="Más de 3 días"><label for="bdc4">Más de 3 días</label></div>
+            <div class="choice"><input type="radio" name="b2b_dias_cotiz" id="bdc5" value="No llegó"><label for="bdc5">No llegó</label></div>
+          </div>
+          <div class="row2">
+            <div><label class="field-label">Hora en que enviaste el email/brief</label><input type="time" name="b2b_hora_pedido"></div>
+            <div><label class="field-label">Hora en que recibiste la cotización</label><input type="time" name="b2b_hora_recibido"></div>
+          </div>
+        </div>
+      </div>
+      <div class="q" id="b2b-envaco-wrap">
+        <div class="q-label"><span class="q-num">B20.</span>¿Conocen a Envaco POP? ¿En qué se diferencian ustedes? <span style="color:var(--gray);font-weight:400;">(preguntá siempre al final, sutil, no guíes la respuesta)</span></div>
+        <div class="q-body"><textarea name="b2b_envaco" placeholder="Anotá textualmente lo que dijeron"></textarea></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">B21.</span>Propuesta de valor: "¿Cuál es su principal ventaja frente a otros proveedores del mercado?"</div>
+        <div class="q-body"><textarea name="b2b_propuesta_valor" placeholder="Escuchá sin guiar, anotá tal cual lo dijeron"></textarea></div>
+      </div>
+
+    </div>
+    <!-- ============ FIN BLOQUE B2B ============ -->
+
     <!-- COMENTARIO FINAL -->
     <div class="section-title">Cierre</div>
     <div class="q">
@@ -649,7 +937,7 @@ const SHOPPERS = {
         id: "minorista",
         tag: "PERFIL MINORISTA",
         title: "Emprendedor / particular",
-        desc: "30 a 50 cajas para un evento próximo — llegás con curiosidad, sin expertise técnico. Para visitas de apertura (primeras horas del día).",
+        desc: "30 a 50 cajas para un evento próximo — llegás con curiosidad, sin expertise técnico. Para visitas de apertura: Yaguareté T1, JWF, BPR.",
         script: "«Hola, buen día. Necesito cajas de cartón — unas 30 o 50 unidades para un evento que tengo el mes que viene. ¿Manejan cantidades así de chicas o tienen un mínimo de pedido? ¿Cuánto sale más o menos?»",
         showEstres: false,
       },
@@ -657,9 +945,17 @@ const SHOPPERS = {
         id: "mayorista",
         tag: "PERFIL MAYORISTA",
         title: "Comprador de comercio — volumen",
-        desc: "500 a 1.000 cajas por mes de forma recurrente — sabés lo que querés, buscás precio y confiabilidad. Para visitas de cierre (últimos 30-45 min del día).",
-        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 500 y 1.000 cajas por mes, de forma recurrente. ¿Pueden pasarme una cotización formal por escrito? ¿Hacen descuento por volumen o por frecuencia de pedido?»",
+        desc: "800 a 1.000 cajas por mes de forma recurrente — sabés lo que querés, buscás precio y confiabilidad. Yaguareté T1, cierre jue 9/7 · 17:15 (2ª visita, 30-45 min antes del cierre).",
+        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 800 y 1.000 cajas por mes de forma recurrente. ¿Pueden pasarme una cotización formal por escrito? ¿Hacen descuento por volumen o por frecuencia de pedido?»",
         showEstres: true,
+      },
+      {
+        id: "btl",
+        tag: "CONSULTA BTL · EVENTO",
+        title: "Cliente con evento privado — PM Producciones",
+        desc: "Sáb 4/7 · 11:00 — Consulta por stands o decoración de sala para un lanzamiento privado. No es sobre cajas: es una cotización de producción BTL.",
+        script: "«Hola, buen día. Estamos organizando un evento privado de lanzamiento y necesito cotizar stands o material para decoración de sala. ¿Qué tipo de producción hacen? ¿Pueden darme una referencia de precio para un evento chico?»",
+        showEstres: false,
       }
     ]
   },
@@ -670,7 +966,7 @@ const SHOPPERS = {
         id: "minorista",
         tag: "PERFIL MINORISTA",
         title: "Emprendedora / particular",
-        desc: "40 a 50 cajas para un evento en 3 semanas — llegás con curiosidad natural, sin expertise. Para visitas de apertura.",
+        desc: "40 a 50 cajas para un evento en 3 semanas — llegás con curiosidad natural, sin expertise. Para visitas de apertura: Yaguareté T5, Editex, Impress, FC Industrias, Toddo.",
         script: "«Hola, buen día. Tengo un emprendimiento y necesito cajas — unas 40 o 50 unidades para un evento que tengo en 3 semanas. ¿Manejan cantidades chicas? ¿Cuánto sale más o menos?»",
         showEstres: false,
       },
@@ -678,9 +974,17 @@ const SHOPPERS = {
         id: "mayorista",
         tag: "PERFIL MAYORISTA",
         title: "Compradora para comercio — volumen",
-        desc: "500 a 1.000 cajas por mes de forma regular — sabés lo que querés, buscás precio, plazo y confiabilidad. Para visitas de cierre.",
+        desc: "500 a 1.000 cajas por mes de forma regular — sabés lo que querés, buscás precio, plazo y confiabilidad. Yaguareté T5, cierre jue 9/7 · 17:00 (2ª visita, 30-45 min antes del cierre).",
         script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 500 y 1.000 cajas por mes de forma regular. ¿Pueden pasarme la cotización por escrito? ¿Hacen descuento por volumen?»",
         showEstres: true,
+      },
+      {
+        id: "btl",
+        tag: "CONSULTA BTL · EVENTO",
+        title: "Cliente con evento corporativo — Octopus Group",
+        desc: "Sáb 4/7 · 10:30 — Consulta por stands y montaje de sala para un lanzamiento de producto corporativo. No es sobre cajas: es una cotización de producción BTL.",
+        script: "«Hola, buenos días. Estamos organizando un evento corporativo de lanzamiento de producto y necesitamos stands y montaje de sala. ¿Pueden conectarme con alguien de ventas y darme una referencia de precios para un evento mediano?»",
+        showEstres: false,
       }
     ]
   },
@@ -691,7 +995,7 @@ const SHOPPERS = {
         id: "minorista",
         tag: "PERFIL MINORISTA",
         title: "Compradora particular — evento privado",
-        desc: "30 a 50 cajas para un evento privado en 3 semanas — sin expertise técnico, llegás con curiosidad. Primera visita a cada local.",
+        desc: "30 a 50 cajas para un evento privado en 3 semanas — sin expertise técnico, llegás con curiosidad. Primera visita a cada local: Artes Gráficas Castillo, Gráfica Paraná, Yaguareté CDE, Formupar, Publi Mass Media, Paper Box.",
         script: "«Hola, buen día. Necesito cajas de cartón — unas 30 o 50 unidades para un evento privado que tengo en 3 semanas. ¿Manejan cantidades chicas? ¿Cuánto sale más o menos?»",
         showEstres: false,
         showLiz: true,
@@ -700,7 +1004,7 @@ const SHOPPERS = {
         id: "evento",
         tag: "PERFIL EVENTO / LANZAMIENTO",
         title: "Packaging premium para evento de marca",
-        desc: "2ª visita a Formupar — historia diferente al mismo lugar. Buscás algo con presencia, terminación premium.",
+        desc: "Mié 8/7 · 10:00 — 2ª visita a Formupar, historia diferente a la primera. Buscás algo con presencia, terminación premium. Medí consistencia de precios vs. la 1ª visita.",
         script: "«Hola, vuelvo a pasar. Antes pregunté por cajas simples, pero ahora tengo algo diferente: estamos organizando un evento de lanzamiento de producto y necesitamos packaging que tenga presencia — algo que se vea premium, con buena terminación. ¿Qué opciones tienen para eso?»",
         showEstres: false,
         showLiz: true,
@@ -709,10 +1013,110 @@ const SHOPPERS = {
         id: "mayorista",
         tag: "PERFIL MAYORISTA",
         title: "Compradora para negocio — volumen",
-        desc: "2ª visita a Cartones Yaguareté CDE — 500 a 1.000 cajas por mes de forma regular. Visita de cierre.",
+        desc: "Jue 9/7 · 16:30 — 2ª visita a Yaguareté CDE (cierre, llegar antes de las 16:30, cierran 17:00). 500 a 1.000 cajas por mes de forma regular.",
         script: "«Buenas tardes. Tengo un negocio y necesito cotizar entre 500 y 1.000 cajas por mes de forma regular. ¿Pueden pasarme la cotización por escrito? ¿Hacen descuento por volumen o recurrencia?»",
         showEstres: true,
         showLiz: true,
+      }
+    ]
+  },
+  diana: {
+    label: "Diana · Senior B2B / Gerencia",
+    profiles: [
+      {
+        id: "minorista",
+        tag: "PERFIL MINORISTA",
+        title: "Emprendedora particular — Yaguareté San Lorenzo (apertura)",
+        desc: "Sáb 4/7 · 8:00 — 40 a 50 cajas para un evento el mes que viene. Primera visita, sin expertise técnico.",
+        script: "«Hola, buen día. Necesito cajas — unas 40 o 50 para un evento el mes que viene. ¿Manejan cantidades chicas? ¿Cuánto sale más o menos?»",
+        showEstres: false,
+      },
+      {
+        id: "mayorista",
+        tag: "PERFIL MAYORISTA",
+        title: "Compradora de comercio — Yaguareté San Lorenzo (cierre, 2ª visita)",
+        desc: "Jue 9/7 · 17:00 — 500 a 1.000 cajas/mes de forma regular. Cotización formal + objeción de precio. Últimos 30-45 min del día.",
+        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 500 y 1.000 cajas por mes de forma regular. ¿Pueden pasarme la cotización por escrito? ¿Hacen descuento por volumen o recurrencia?»",
+        showEstres: true,
+      },
+      {
+        id: "b2b",
+        tag: "PERFIL B2B · GERENTE DE MARKETING",
+        title: "Selección de proveedores — Toddo, FC Industrias, Formupar, Paper Box",
+        desc: "Nivel más exigente del equipo. Usás terminología técnica, preguntás en profundidad y no aceptás respuestas vagas. Aplica a llamada, WhatsApp, presencial y email de cotización.",
+        script: "«Hola, buenos días. Mi nombre es Diana, soy la Gerente de Marketing de [EMPRESA FICTICIA]. Estamos en proceso de selección de proveedor para packaging y materiales POP de un lanzamiento que tenemos en Q3. Necesito hablar con alguien del área comercial para evaluar si su propuesta encaja con lo que buscamos.» — Email de cotización formal: «Estimados, me comunico en nombre de [EMPRESA FICTICIA]. Estamos en proceso de selección de proveedores de packaging y PDV para nuestro lanzamiento de Q3. Necesitamos: [1] Exhibidores de cartón para PDV (aprox. 15–20 m²) — nos interesa saber si trabajan estucado, laminado o impresión UV. [2] Packaging secundario personalizado (1.000 u, primera corrida, con posibilidad de variabilización por sucursal). Solicito propuesta con precio por m², tiempos, mínimos y si la producción es in-house o tercerizada. Diana.»",
+        showEstres: false,
+        showB2B: true,
+      },
+      {
+        id: "envaco",
+        tag: "MYSTERY INTERNO · ENVACO POP",
+        title: "Mystery a Envaco POP — mismo perfil B2B exigente",
+        desc: "Jue 9/7 · mañana — Entrás como Gerente de Marketing evaluando a Envaco POP con exactamente la misma vara que a la competencia. Mismo formulario, mismas preguntas B2B. Fotos obligatorias.",
+        script: "«Hola, buenos días. Mi nombre es Diana, soy la Gerente de Marketing de [EMPRESA FICTICIA]. Estamos evaluando proveedores de packaging y materiales POP para un lanzamiento en Q3. Me gustaría conocer su propuesta: qué materiales trabajan, si hacen estucado o terminaciones premium, cuál es el proceso de cotización y los tiempos de entrega. ¿Pueden asesorarme?»",
+        showEstres: false,
+        showB2B: true,
+        isEnvacoMystery: true,
+      }
+    ]
+  },
+  araceli: {
+    label: "Araceli · Senior B2B / Coordinación",
+    profiles: [
+      {
+        id: "minorista",
+        tag: "PERFIL MINORISTA",
+        title: "Emprendedora particular — Yaguareté T5 (apertura)",
+        desc: "Sáb 4/7 · 8:00 — 40 a 50 cajas para un evento en tres semanas. Primera visita, sin expertise técnico.",
+        script: "«Hola, buen día. Tengo un emprendimiento y necesito cajas — unas 40 o 50 para un evento en tres semanas. ¿Manejan cantidades chicas? ¿Cuánto sale más o menos?»",
+        showEstres: false,
+      },
+      {
+        id: "mayorista",
+        tag: "PERFIL MAYORISTA",
+        title: "Compradora de comercio — Yaguareté T5 (cierre, 2ª visita)",
+        desc: "Jue 9/7 · 17:00 — 500 a 1.000 cajas/mes de forma regular. Cotización formal + objeción de precio. Últimos 30-45 min antes del cierre.",
+        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 500 y 1.000 cajas por mes de forma regular. ¿Pueden pasarme la cotización por escrito? ¿Hacen descuento por volumen?»",
+        showEstres: true,
+      },
+      {
+        id: "b2b",
+        tag: "PERFIL B2B · JEFA DE COMPRAS",
+        title: "Selección de proveedores — Rapid Color, Editex, Impress",
+        desc: "Perfil operativo: foco en procesos, tiempos de entrega, confiabilidad y condiciones comerciales. Meticulosa, no acepta respuestas vagas. Aplica a llamada, WhatsApp, presencial y email de cotización.",
+        script: "«Hola, buenos días. Mi nombre es Araceli, soy la Jefa de Compras de [EMPRESA FICTICIA]. Estamos evaluando proveedores para material de punto de venta de un lanzamiento que tenemos próximamente. ¿Con quién puedo hablar para recibir una propuesta formal?» — Email de cotización formal: «Estimados, me comunico en nombre de [EMPRESA FICTICIA]. Estamos en proceso de selección de proveedores para PDV y packaging. Necesitamos: [1] exhibidores de cartón para PDV (aprox. 10–15 m²), [2] packaging secundario (500 u). Solicito precio por metro cuadrado, tiempos de producción, mínimos y si el proceso es in-house o tercerizado. Araceli.»",
+        showEstres: false,
+        showB2B: true,
+      }
+    ]
+  },
+  raul: {
+    label: "Raúl · Senior B2B",
+    profiles: [
+      {
+        id: "minorista",
+        tag: "PERFIL MINORISTA",
+        title: "Emprendedor particular — Yaguareté T1 (apertura)",
+        desc: "Sáb 4/7 · 8:00 — 40 a 50 cajas para un evento el mes que viene. Primera visita, sin expertise técnico.",
+        script: "«Hola, buen día. Necesito cajas — unas 40 o 50 para un evento que tengo el mes que viene. ¿Manejan cantidades así de chicas o tienen mínimo de pedido? ¿Cuánto sale más o menos?»",
+        showEstres: false,
+      },
+      {
+        id: "mayorista",
+        tag: "PERFIL MAYORISTA",
+        title: "Comprador de comercio — Yaguareté T1 (cierre, 2ª visita)",
+        desc: "Jue 9/7 · 17:15 — 800 a 1.000 cajas/mes de forma recurrente. Cotización formal + objeción de precio. Llegar 30-45 min antes del cierre.",
+        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 800 y 1.000 cajas por mes de forma recurrente. ¿Pueden pasarme una cotización formal por escrito? ¿Hacen descuento por volumen o por frecuencia de pedido?»",
+        showEstres: true,
+      },
+      {
+        id: "b2b",
+        tag: "PERFIL B2B · GERENTE DE MARKETING",
+        title: "Selección de proveedores — JWF Group, BPR PDV, Couplas PDV",
+        desc: "Tenés poder de decisión y conocés el rubro: no preguntás solo por precio, evaluás capacidad técnica, procesos y propuesta de valor real. Aplica a llamada, WhatsApp, presencial y email de cotización.",
+        script: "«Hola, buenos días. Mi nombre es Raúl, soy el Gerente de Marketing de [EMPRESA FICTICIA]. Estamos próximos a lanzar una línea de productos y necesito cotizar exhibidores de cartón y packaging para puntos de venta. ¿Con quién puedo hablar para recibir un presupuesto formal?» — Email de cotización formal: «Estimados, me comunico en nombre de [EMPRESA FICTICIA]. Estamos evaluando proveedores para un lanzamiento próximo y necesitamos propuesta formal para: [1] exhibidores de cartón para PDV (aprox. 12–15 m²), [2] packaging secundario (500 u, primera corrida). Solicito precio por metro cuadrado, tiempo de producción y mínimos de pedido. Raúl.»",
+        showEstres: false,
+        showB2B: true,
       }
     ]
   }
@@ -721,7 +1125,8 @@ const SHOPPERS = {
 const FIELD_LABELS = {
   empresa_tienda: "Local visitado", direccion: "Dirección / zona",
   nombre_vendedor: "Nombre de quien atendió", canal_c: "Canal de contacto",
-  fecha_c: "Fecha", hora_llegada: "Hora de llegada", hora_atencion: "Hora de inicio de atención",
+  fecha_c: "Fecha", hora_llegada: "Hora de llegada / envío", hora_atencion: "Hora de inicio de atención / respuesta",
+  tiempo_espera_texto: "Tiempo de espera o de respuesta",
   c1: "1. ¿Atendieron aunque pediste poca cantidad?",
   c2: "2. Trato al pedir poca cantidad",
   c3: "3. Mínimo de compra declarado",
@@ -744,7 +1149,14 @@ const FIELD_LABELS = {
   c_estres: "20. Reacción ante comparación de precio",
   c_cotizacion: "21. Tiempo para llegar la cotización formal",
   c_credito: "22. Condiciones de crédito / volumen",
-  c_envaco: "23. ¿Conocen a Envaco POP?",
+  c3_si: "3a. ¿Informaron mínimo de compra?",
+  c_competidores: "Competidores mencionados espontáneamente",
+  c_competidores_quien: "¿Quiénes mencionaron?",
+  c_estres_min: "Prueba de estrés (minorista 2ª visita)",
+  c_dias_cotiz: "Días corridos hasta recibir cotización",
+  c_hora_pedi_cotiz: "Hora en que se pidió la cotización",
+  c_hora_recibi_cotiz: "Hora en que se recibió la cotización",
+  c_envaco: "¿Conocen a Envaco POP?",
   c_exhibicion: "24. Exhibición con precios a la vista",
   c_quiebre: "25. Quiebres de stock",
   c_pop_local: "26. Material POP propio del local",
@@ -753,7 +1165,35 @@ const FIELD_LABELS = {
   liz_proveedores: "28. Proveedores de Asunción en CDE",
   c15: "29. Experiencia general con palabras propias",
   "scale-ces": "30. CES general (1-5)",
-  _shopper: "Shopper", _perfil: "Perfil",
+  b2b_precio_m2: "B1. Precio por m²",
+  b2b_precio_rango: "B2. Precio por rango de unidades",
+  b2b_precio_recurrente: "B3. ¿Baja precio con pedido recurrente?",
+  b2b_tiempo_cotizacion: "B4. Tiempo de cotización desde brief",
+  b2b_dias_produccion: "B5. Días de producción y entrega",
+  b2b_revisiones_alargan: "B6. ¿Revisiones alargan el plazo?",
+  b2b_acabados: "B7. Acabados premium disponibles",
+  b2b_acabados_otro: "B7b. Otro acabado",
+  b2b_encarecimiento: "B8. Encarecimiento por acabado premium",
+  b2b_muestras: "B9. ¿Muestran muestras físicas?",
+  b2b_humedad: "B10. Recomendación para humedad",
+  b2b_producen_alt: "B11. ¿Producen cartonplast/plástico?",
+  b2b_tendencia_mercado: "B12. Tendencia de mercado percibida",
+  b2b_inhouse: "B13. In-house vs. tercerización",
+  b2b_inhouse_detalle: "B13b. Detalle de tercerización",
+  b2b_minimo: "B14. Pedido mínimo declarado",
+  b2b_variabilizacion: "B15. ¿Variabilización por sucursal?",
+  b2b_capacidad_max: "B16. Capacidad máxima mensual",
+  b2b_bajo_volumen: "B17. Cajas estándar bajo volumen",
+  b2b_precio_bajo_volumen: "B17b. Precio unitario bajo volumen",
+  b2b_objecion_precio: "B18. Reacción ante objeción de precio",
+  b2b_objecion_precio_otro: "B18b. Detalle de reacción",
+  b2b_formato_cotiz: "B19. Formato de cotización formal",
+  b2b_dias_cotiz: "B19b. Días hasta cotización formal",
+  b2b_hora_pedido: "B19c. Hora de envío del brief",
+  b2b_hora_recibido: "B19d. Hora de recepción de cotización",
+  b2b_envaco: "B20. ¿Conocen a Envaco POP? (B2B)",
+  b2b_propuesta_valor: "B21. Propuesta de valor declarada",
+  _shopper: "Shopper", _perfil: "Perfil", _mysteryEnvaco: "Mystery interno a Envaco",
 };
 
 const HELP_CONTENT = {
@@ -773,6 +1213,65 @@ const HELP_CONTENT = {
   envaco: ["¿Conocen a Envaco POP?", "Hacé la pregunta: '¿Conocen a Envaco POP? ¿En qué se diferencian ustedes?' Anotá textualmente lo que digan — no guíes la respuesta."],
 };
 
+const CALENDARS = {
+  ricardo: [
+    { dia: "Sáb 4/7", items: ["8:00 Yaguareté T1 — apertura (minorista)", "11:00 PM Producciones (BTL)"] },
+    { dia: "Lun 6/7", items: ["8:30 JWF Group", "10:30 BPR PDV"] },
+    { dia: "Mar 7/7", items: [] },
+    { dia: "Jue 9/7 (cierre)", items: ["17:15 Yaguareté T1 — 2ª visita CIERRE (mayorista)"] },
+  ],
+  cinthia: [
+    { dia: "Sáb 4/7", items: ["8:00 Yaguareté T5 — apertura (minorista)", "10:30 Octopus Group (BTL)"] },
+    { dia: "Lun 6/7", items: ["7:30 Editex Publicidad (Lambaré)", "9:00 Impress PDV (Lambaré)"] },
+    { dia: "Mar 7/7", items: ["7:30 FC Industrias (F. de la Mora)", "10:00 Toddo Group (ASU)"] },
+    { dia: "Jue 9/7 (cierre)", items: ["17:00 Yaguareté T5 — 2ª visita CIERRE (mayorista)"] },
+  ],
+  liz: [
+    { dia: "Sáb 4/7", items: ["7:30 Artes Gráficas Castillo", "9:30 Gráfica Paraná", "11:00 Yaguareté CDE — apertura (minorista)"] },
+    { dia: "Lun 6/7", items: ["7:00 Formupar", "10:00 Publi Mass Media", "14:00 Recorrido C4+"] },
+    { dia: "Mar 7/7", items: ["6:30 Paper Box (Hernandarias)"] },
+    { dia: "Mié 8/7", items: ["10:00 Formupar — 2ª visita (perfil evento/lanzamiento)"] },
+    { dia: "Jue 9/7 (cierre)", items: ["16:30 Yaguareté CDE — 2ª visita CIERRE (mayorista, cierran 17:00)"] },
+  ],
+  diana: [
+    { dia: "Sáb 4/7", items: ["8:00 Yaguareté San Lorenzo — apertura (minorista)", "10:00 WA a Toddo y FC Industrias", "11:00 WA + llamada a Formupar y Paper Box (CDE)"] },
+    { dia: "Lun 6/7", items: ["7:30 Llamada FC Industrias", "9:00 Llamada Toddo Group", "10:30 Llamada Formupar"] },
+    { dia: "Mar 7/7", items: ["7:30 Presencial FC Industrias", "10:00 Presencial Toddo Group"] },
+    { dia: "Mié 8/7", items: ["mañana Email cotización formal a Toddo, FC, Formupar y Paper Box"] },
+    { dia: "Jue 9/7 (cierre)", items: ["mañana Mystery a ENVACO POP (perfil Gerente de Marketing)", "17:00 Yaguareté San Lorenzo — 2ª visita CIERRE (mayorista) + follow-up"] },
+  ],
+  raul: [
+    { dia: "Sáb 4/7", items: ["8:00 Presencial Yaguareté T1 — apertura (minorista)", "tarde WA a Couplas PDV"] },
+    { dia: "Lun 6/7", items: ["8:30 Llamada JWF Group", "10:00 Llamada BPR PDV", "tarde WA a JWF y BPR"] },
+    { dia: "Mar 7/7", items: ["8:30 Presencial JWF Group", "10:30 Presencial BPR PDV"] },
+    { dia: "Mié 8/7", items: ["tarde Email cotización formal a JWF y BPR"] },
+    { dia: "Jue 9/7 (cierre)", items: ["17:15 Yaguareté T1 — 2ª visita CIERRE (mayorista) + follow-up"] },
+  ],
+  araceli: [
+    { dia: "Sáb 4/7", items: ["8:00 Presencial Yaguareté T5 — apertura (minorista)", "tarde WA a Rapid Color, Editex, Impress"] },
+    { dia: "Lun 6/7", items: ["8:00 Llamada Rapid Color", "10:00 Llamada Editex Publicidad", "11:30 Llamada Impress PDV"] },
+    { dia: "Mar 7/7", items: ["8:00 Presencial Rapid Color", "10:00 Presencial Editex (Lambaré)", "11:15 Presencial Impress (Lambaré)"] },
+    { dia: "Mié 8/7", items: ["tarde Email cotización formal a los tres"] },
+    { dia: "Jue 9/7 (cierre)", items: ["17:00 Yaguareté T5 — 2ª visita CIERRE (mayorista) + follow-up"] },
+  ],
+};
+
+function renderCalendar(shopperKey){
+  const cal = CALENDARS[shopperKey];
+  const table = document.getElementById('calendar-table');
+  if(!cal){ document.getElementById('calendar-box').classList.add('hidden'); return; }
+  document.getElementById('calendar-box').classList.remove('hidden');
+  let h = '<thead><tr>';
+  cal.forEach(c => h += `<th>${c.dia}</th>`);
+  h += '</tr></thead><tbody><tr>';
+  cal.forEach(c => {
+    if(c.items.length === 0){ h += `<td class="cal-dash">—</td>`; }
+    else { h += `<td>${c.items.map(i=>`<div class="cal-day-item">• ${i}</div>`).join('')}</td>`; }
+  });
+  h += '</tr></tbody>';
+  table.innerHTML = h;
+}
+
 // ── Navigation ──────────────────────────────────────────
 function selectShopper(name){
   currentShopper = name;
@@ -781,6 +1280,8 @@ function selectShopper(name){
   document.getElementById('prof-title').textContent = 'Elegí tu perfil para esta visita';
   document.getElementById('prof-sub').textContent = 'Recordá: nunca uses dos perfiles el mismo día en la misma empresa.';
   document.getElementById('topMeta').textContent = s.label;
+
+  renderCalendar(name);
 
   const grid = document.getElementById('profile-grid');
   grid.innerHTML = '';
@@ -803,19 +1304,37 @@ function selectProfile(profileId){
   document.getElementById('script-text').textContent = p.script;
   document.getElementById('topMeta').textContent = `${s.label.split('·')[0].trim()} · ${p.tag}`;
 
-  // Show/hide blocks
+  const isB2B = !!p.showB2B;
+
+  // Show/hide F2-only blocks
   document.getElementById('bloque-estres').classList.toggle('hidden', !p.showEstres);
+  const estrMin = document.getElementById('bloque-estres-minorista');
+  if(estrMin) estrMin.classList.toggle('hidden', !!p.showEstres || isB2B);
   document.getElementById('bloque-liz').classList.toggle('hidden', !(p.showLiz));
 
-  // Adjust section number for Envaco comparison
+  // Show/hide B2B block
+  document.getElementById('bloque-b2b').classList.toggle('hidden', !isB2B);
+
+  // If B2B mode, hide the shared Envaco comparison question (B2B block has its own B20)
+  const sharedEnvacoQ = document.getElementById('qn-envaco').closest('.q');
   const titleEnvaco = document.getElementById('title-envaco');
+  if(sharedEnvacoQ) sharedEnvacoQ.classList.toggle('hidden', isB2B);
+  if(titleEnvaco) titleEnvaco.classList.toggle('hidden', isB2B);
+
+  // Envaco-mystery: hide the "¿conocen a Envaco?" self-question inside the B2B block
+  const b2bEnvacoWrap = document.getElementById('b2b-envaco-wrap');
+  if(b2bEnvacoWrap) b2bEnvacoWrap.classList.toggle('hidden', !!p.isEnvacoMystery);
+
+  // Adjust section number for Envaco comparison (F2 mode only)
   const qnEnvaco = document.getElementById('qn-envaco');
-  if(p.showEstres){
-    titleEnvaco.textContent = '6. Comparación con Envaco';
-    qnEnvaco.textContent = '23.';
-  } else {
-    titleEnvaco.textContent = '5. Comparación con Envaco';
-    qnEnvaco.textContent = '20.';
+  if(!isB2B){
+    if(p.showEstres){
+      titleEnvaco.textContent = '6. Comparación con Envaco';
+      qnEnvaco.textContent = '23.';
+    } else {
+      titleEnvaco.textContent = '5. Comparación con Envaco';
+      qnEnvaco.textContent = '20.';
+    }
   }
 
   show('screen-form');
@@ -864,6 +1383,14 @@ document.addEventListener('change', function(e){
     const name = e.target.name;
     const otroInput = document.querySelector(`input[name="${name}_otro"]`);
     if(otroInput){ otroInput.classList.add('hidden'); otroInput.value=''; }
+  }
+  // Handle competidores text toggle
+  if(e.target.name === 'c_competidores'){
+    const txt = document.getElementById('comp_txt');
+    if(txt){
+      if(e.target.value === 'Sí mencionó'){ txt.classList.remove('hidden'); txt.focus(); }
+      else { txt.classList.add('hidden'); txt.value=''; }
+    }
   }
 });
 
@@ -928,6 +1455,7 @@ function submitForm(e){
   // Add shopper meta
   raw._shopper=currentShopper||'—';
   raw._perfil=currentProfile?.id||'—';
+  raw._mysteryEnvaco = currentProfile?.isEnvacoMystery ? 'Sí' : 'No';
   raw._formType='relevamiento_campo';
   raw._timestamp=new Date().toISOString();
 
