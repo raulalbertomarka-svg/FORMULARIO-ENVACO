@@ -108,6 +108,9 @@
   .success-screen h2{font-size:22px;margin-bottom:10px;}
   .success-screen p{color:var(--gray);font-size:14px;max-width:380px;margin:0 auto 28px;line-height:1.5;}
 
+
+  .otro-input{ margin-top:8px; }
+  .otro-choice label{ border-style: dashed; }
   .hidden{display:none !important;}
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:90%;text-align:center;}
   .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;display:inline-block;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;}
@@ -259,6 +262,8 @@
           <div class="choice"><input type="radio" name="c1" id="c1a" value="Sí"><label for="c1a">Sí</label></div>
           <div class="choice"><input type="radio" name="c1" id="c1b" value="No"><label for="c1b">No</label></div>
           <div class="choice"><input type="radio" name="c1" id="c1c" value="Más o menos"><label for="c1c">Más o menos</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c1" id="c1_otro" value="Otro" onclick="toggleOtro('c1_otro_txt')"><label for="c1_otro">Otro</label></div>
+        <input type="text" name="c1_otro" id="c1_otro_txt" placeholder="Especificá..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -274,6 +279,8 @@
           <div class="choice"><input type="radio" name="c2" id="c2c" value="Indiferente"><label for="c2c">Indiferente</label></div>
           <div class="choice"><input type="radio" name="c2" id="c2d" value="No tenía ganas de atenderme"><label for="c2d">Sin ganas de atenderme</label></div>
           <div class="choice"><input type="radio" name="c2" id="c2e" value="No me quiso atender"><label for="c2e">No me quiso atender</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c2" id="c2_otro" value="Otro" onclick="toggleOtro('c2_otro_txt')"><label for="c2_otro">Otro</label></div>
+        <input type="text" name="c2_otro" id="c2_otro_txt" placeholder="Describí la actitud..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -289,7 +296,16 @@
       <div class="q-label"><span class="q-num">4.</span>¿El local estaba ordenado y fácil de navegar?
         <button type="button" class="help-btn" onclick="openHelp('c4')">?</button>
       </div>
-      <div class="q-body" id="scale-c4"></div>
+      <div class="q-body">
+        <div class="scale" id="scale-c4-inline">
+          <div class="scale-item"><input type="radio" name="c4" id="c4_1" value="1"><label for="c4_1"><span class="n">1</span>Muy malo</label></div>
+          <div class="scale-item"><input type="radio" name="c4" id="c4_2" value="2"><label for="c4_2"><span class="n">2</span>Malo</label></div>
+          <div class="scale-item"><input type="radio" name="c4" id="c4_3" value="3"><label for="c4_3"><span class="n">3</span>Regular</label></div>
+          <div class="scale-item"><input type="radio" name="c4" id="c4_4" value="4"><label for="c4_4"><span class="n">4</span>Bueno</label></div>
+          <div class="scale-item"><input type="radio" name="c4" id="c4_5" value="5"><label for="c4_5"><span class="n">5</span>Excelente</label></div>
+          <div class="scale-item na"><input type="radio" name="c4" id="c4_na" value="N/A"><label for="c4_na"><span class="n">—</span>N/A</label></div>
+        </div>
+      </div>
     </div>
 
     <div class="q">
@@ -299,6 +315,8 @@
           <div class="choice"><input type="radio" name="c_saludo" id="cs1" value="Sí, fue proactivo"><label for="cs1">Sí, fue proactivo</label></div>
           <div class="choice"><input type="radio" name="c_saludo" id="cs2" value="Me saludó pero esperó que yo pregunte todo"><label for="cs2">Saludó pero esperó mis preguntas</label></div>
           <div class="choice"><input type="radio" name="c_saludo" id="cs3" value="No me saludó"><label for="cs3">No me saludó</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c_saludo" id="csal_otro" value="Otro" onclick="toggleOtro('csal_otro_txt')"><label for="csal_otro">Otro</label></div>
+        <input type="text" name="c_saludo_otro" id="csal_otro_txt" placeholder="Describí..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -314,6 +332,8 @@
           <div class="choice"><input type="radio" name="c5" id="c5a" value="Sí"><label for="c5a">Sí</label></div>
           <div class="choice"><input type="radio" name="c5" id="c5b" value="No"><label for="c5b">No</label></div>
           <div class="choice"><input type="radio" name="c5" id="c5c" value="Más o menos"><label for="c5c">Más o menos</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c5" id="c5_otro" value="Otro" onclick="toggleOtro('c5_otro_txt')"><label for="c5_otro">Otro</label></div>
+        <input type="text" name="c5_otro" id="c5_otro_txt" placeholder="Especificá..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -339,6 +359,8 @@
           <div class="choice"><input type="radio" name="c7" id="c7a" value="Sí"><label for="c7a">Sí</label></div>
           <div class="choice"><input type="radio" name="c7" id="c7b" value="No"><label for="c7b">No</label></div>
           <div class="choice"><input type="radio" name="c7" id="c7c" value="No estoy seguro"><label for="c7c">No estoy seguro</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c7" id="c7_otro" value="Otro" onclick="toggleOtro('c7_otro_txt')"><label for="c7_otro">Otro</label></div>
+        <input type="text" name="c7_otro" id="c7_otro_txt" placeholder="Especificá..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -388,6 +410,8 @@
           <div class="choice"><input type="radio" name="c10" id="c10b" value="Mixto (stock + pedido)"><label for="c10b">Mixto</label></div>
           <div class="choice"><input type="radio" name="c10" id="c10c" value="Solo por pedido"><label for="c10c">Solo por pedido</label></div>
           <div class="choice"><input type="radio" name="c10" id="c10d" value="No me quedó claro"><label for="c10d">No me quedó claro</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c10" id="c10_otro" value="Otro" onclick="toggleOtro('c10_otro_txt')"><label for="c10_otro">Otro</label></div>
+        <input type="text" name="c10_otro" id="c10_otro_txt" placeholder="Describí la situación..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -414,6 +438,8 @@
           <div class="choice"><input type="radio" name="c_delivery" id="cd1" value="Hacen envíos"><label for="cd1">Hacen envíos</label></div>
           <div class="choice"><input type="radio" name="c_delivery" id="cd2" value="Solo retiro en local"><label for="cd2">Solo retiro en local</label></div>
           <div class="choice"><input type="radio" name="c_delivery" id="cd3" value="No lo mencionaron"><label for="cd3">No lo mencionaron</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c_delivery" id="cdel_otro" value="Otro" onclick="toggleOtro('cdel_otro_txt')"><label for="cdel_otro">Otro</label></div>
+        <input type="text" name="c_delivery_otro" id="cdel_otro_txt" placeholder="Especificá..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -447,6 +473,8 @@
         <div class="choices">
           <div class="choice"><input type="radio" name="c_venta_sug" id="vs1" value="Sí, ofreció productos adicionales"><label for="vs1">Sí</label></div>
           <div class="choice"><input type="radio" name="c_venta_sug" id="vs2" value="No"><label for="vs2">No</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c_venta_sug" id="cvs_otro" value="Otro" onclick="toggleOtro('cvs_otro_txt')"><label for="cvs_otro">Otro</label></div>
+        <input type="text" name="c_venta_sug_otro" id="cvs_otro_txt" placeholder="Describí qué ofreció..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -463,6 +491,8 @@
             <div class="choice"><input type="radio" name="c_estres" id="ce2" value="Bajó el precio sin preguntar nada"><label for="ce2">Bajó el precio sin preguntar</label></div>
             <div class="choice"><input type="radio" name="c_estres" id="ce3" value="Ofreció alternativa de material"><label for="ce3">Ofreció alternativa</label></div>
             <div class="choice"><input type="radio" name="c_estres" id="ce4" value="No reaccionó / indiferente"><label for="ce4">Indiferente</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c_estres" id="ces_otro" value="Otro" onclick="toggleOtro('ces_otro_txt')"><label for="ces_otro">Otro</label></div>
+        <input type="text" name="c_estres_otro" id="ces_otro_txt" placeholder="Describí la reacción..." class="hidden otro-input" style="margin-top:8px;">
           </div>
         </div>
       </div>
@@ -494,6 +524,8 @@
           <div class="choice"><input type="radio" name="c_exhibicion" id="ex1" value="Sí, claro"><label for="ex1">Sí, claro</label></div>
           <div class="choice"><input type="radio" name="c_exhibicion" id="ex2" value="Hay exhibición pero sin precios"><label for="ex2">Sin precios</label></div>
           <div class="choice"><input type="radio" name="c_exhibicion" id="ex3" value="No hay exhibición"><label for="ex3">No hay exhibición</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c_exhibicion" id="cex_otro" value="Otro" onclick="toggleOtro('cex_otro_txt')"><label for="cex_otro">Otro</label></div>
+        <input type="text" name="c_exhibicion_otro" id="cex_otro_txt" placeholder="Describí..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -504,6 +536,8 @@
           <div class="choice"><input type="radio" name="c_quiebre" id="qu1" value="No hay quiebres"><label for="qu1">No hay quiebres</label></div>
           <div class="choice"><input type="radio" name="c_quiebre" id="qu2" value="Hay algunos quiebres"><label for="qu2">Algunos quiebres</label></div>
           <div class="choice"><input type="radio" name="c_quiebre" id="qu3" value="Bastantes quiebres"><label for="qu3">Bastantes quiebres</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c_quiebre" id="cqu_otro" value="Otro" onclick="toggleOtro('cqu_otro_txt')"><label for="cqu_otro">Otro</label></div>
+        <input type="text" name="c_quiebre_otro" id="cqu_otro_txt" placeholder="Describí..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -514,6 +548,8 @@
           <div class="choice"><input type="radio" name="c_pop_local" id="pl1" value="Sí, en buen estado y bien colocado"><label for="pl1">Sí, buen estado</label></div>
           <div class="choice"><input type="radio" name="c_pop_local" id="pl2" value="Tiene POP pero en mal estado o mal colocado"><label for="pl2">Tiene pero mal estado</label></div>
           <div class="choice"><input type="radio" name="c_pop_local" id="pl3" value="No tiene material POP propio"><label for="pl3">No tiene POP</label></div>
+          <div class="choice otro-choice"><input type="radio" name="c_pop_local" id="cpl_otro" value="Otro" onclick="toggleOtro('cpl_otro_txt')"><label for="cpl_otro">Otro</label></div>
+        <input type="text" name="c_pop_local_otro" id="cpl_otro_txt" placeholder="Describí el POP..." class="hidden otro-input" style="margin-top:8px;">
         </div>
       </div>
     </div>
@@ -810,11 +846,27 @@ function buildScale(cid, name){
   h+=`<div class="scale-item na"><input type="radio" name="${name}" id="${name}_na" value="N/A"><label for="${name}_na"><span class="n">—</span>N/A</label></div></div>`;
   el.innerHTML=h;
 }
-['c4','c12','c13','c14'].forEach(n=>buildScale(`scale-c${n}`,`c${n}`));
+['c12','c13','c14'].forEach(n=>buildScale(`scale-c${n}`,`c${n}`));
 buildScale('scale-local','local_impressión');
 buildScale('scale-ces','ces_general');
 
 // ── Local selector ───────────────────────────────────────
+
+function toggleOtro(inputId){
+  const inp = document.getElementById(inputId);
+  if(!inp) return;
+  inp.classList.remove('hidden');
+  inp.focus();
+}
+// Hide otro inputs when other radio in same group is selected
+document.addEventListener('change', function(e){
+  if(e.target.type === 'radio' && e.target.value !== 'Otro'){
+    const name = e.target.name;
+    const otroInput = document.querySelector(`input[name="${name}_otro"]`);
+    if(otroInput){ otroInput.classList.add('hidden'); otroInput.value=''; }
+  }
+});
+
 function toggleOtroLocal(){
   const v = document.getElementById('empresa_select').value;
   document.getElementById('otro_local_wrap').classList.toggle('hidden', v !== 'Otros');
