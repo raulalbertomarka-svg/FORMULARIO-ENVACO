@@ -6,739 +6,888 @@
 <title>Relevamiento de Campo</title>
 <style>
   :root{
-    --bg:#111111;
-    --bg-card:#1a1a1a;
-    --bg-input:#1e1e1e;
-    --border:#2a2a2a;
-    --teal:#00A896;
-    --teal-dark:#007A6E;
-    --white:#ffffff;
-    --gray:#8C9196;
-    --gray-light:#b8bcc0;
-    --red:#e0524d;
+    --bg:#111111; --bg-card:#1a1a1a; --bg-input:#1e1e1e;
+    --border:#2a2a2a; --teal:#00A896; --teal-dark:#007A6E;
+    --white:#ffffff; --gray:#8C9196; --gray-light:#b8bcc0; --red:#e0524d;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{
-    background:var(--bg);
-    color:var(--white);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    min-height:100vh;
-    padding-bottom:60px;
-  }
-  .topbar{
-    background:#161616;
-    border-bottom:1px solid var(--border);
-    padding:14px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:50;
-  }
-  .brand{
-    font-weight:700;
-    font-size:14px;
-    letter-spacing:1px;
-  }
+  body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;min-height:100vh;padding-bottom:60px;}
+  .topbar{background:#161616;border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+  .brand{font-weight:700;font-size:14px;letter-spacing:1px;}
   .topbar .meta{font-size:11px;color:var(--gray);}
+  .container{max-width:760px;margin:0 auto;padding:24px 18px 0;}
 
-  .container{
-    max-width:760px;
-    margin:0 auto;
-    padding:24px 18px 0;
-  }
+  /* ===== SELECTOR SCREEN ===== */
+  .selector-hero{padding:30px 0 20px;}
+  .selector-hero .eyebrow{color:var(--teal);font-size:11px;font-weight:700;letter-spacing:2px;margin-bottom:10px;}
+  .selector-hero h1{font-size:28px;font-weight:800;margin-bottom:8px;}
+  .selector-hero p{color:var(--gray-light);font-size:14px;line-height:1.5;}
+  .shopper-grid{display:grid;gap:12px;margin-top:24px;}
+  .shopper-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;cursor:pointer;transition:border-color .15s,transform .12s;text-align:left;width:100%;color:var(--white);}
+  .shopper-card:hover{border-color:var(--teal);transform:translateY(-1px);}
+  .shopper-card .name{font-size:20px;font-weight:800;margin-bottom:4px;}
+  .shopper-card .role{font-size:12px;color:var(--teal);font-weight:700;letter-spacing:.5px;margin-bottom:6px;}
+  .shopper-card .desc{font-size:13px;color:var(--gray);line-height:1.45;}
+  .shopper-card .arrow{float:right;color:var(--teal);font-size:20px;margin-top:-30px;}
 
-  .form-header{
-    padding:10px 0 16px;
-  }
-  .form-header h2{
-    font-size:24px;
-    font-weight:800;
-    margin-bottom:6px;
-  }
-  .form-header .sub{
-    font-size:13px;
-    color:var(--gray);
-    line-height:1.5;
-  }
+  /* ===== PROFILE SCREEN ===== */
+  .back-btn{background:none;border:none;color:var(--gray);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;margin-bottom:18px;padding:0;}
+  .back-btn:hover{color:var(--teal);}
+  .profile-hero{margin-bottom:20px;}
+  .profile-hero .eyebrow{color:var(--teal);font-size:11px;font-weight:700;letter-spacing:2px;margin-bottom:8px;}
+  .profile-hero h2{font-size:22px;font-weight:800;margin-bottom:4px;}
+  .profile-hero .sub{color:var(--gray);font-size:13px;}
+  .profile-grid{display:grid;gap:10px;margin:18px 0;}
+  .profile-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;cursor:pointer;transition:border-color .12s;text-align:left;width:100%;color:var(--white);}
+  .profile-card:hover{border-color:var(--teal);}
+  .profile-card .ptag{font-size:10px;color:var(--teal);font-weight:700;letter-spacing:1px;margin-bottom:4px;}
+  .profile-card .ptitle{font-size:16px;font-weight:700;margin-bottom:3px;}
+  .profile-card .pdesc{font-size:12.5px;color:var(--gray);}
 
-  .section{
-    margin-bottom:8px;
-  }
-  .section-title{
-    color:var(--teal);
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    padding:14px 0 6px;
-    border-bottom:1px solid var(--border);
-    margin-bottom:18px;
-  }
+  /* Script box */
+  .script-box{background:#0e1e1a;border:1px solid rgba(0,168,150,.3);border-radius:8px;padding:14px 16px;margin:16px 0 20px;font-size:13.5px;color:var(--gray-light);line-height:1.6;}
+  .script-box strong{color:var(--teal);}
+  .script-text{font-style:italic;color:#cce8e4;margin-top:6px;font-size:13px;line-height:1.65;}
 
-  .q{
-    margin-bottom:22px;
-  }
-  .q-label{
-    font-size:14.5px;
-    font-weight:600;
-    margin-bottom:4px;
-    display:flex;
-    gap:8px;
-    align-items:flex-start;
-  }
-  .q-num{
-    color:var(--teal);
-    font-weight:700;
-    flex-shrink:0;
-  }
-  .help-btn{
-    flex-shrink:0;
-    width:19px;
-    height:19px;
-    border-radius:50%;
-    border:1px solid var(--gray);
-    background:none;
-    color:var(--gray);
-    font-size:11px;
-    font-weight:700;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    margin-left:2px;
-    margin-top:1px;
-    padding:0;
-  }
-  .help-btn:hover{
-    border-color:var(--teal);
-    color:var(--teal);
-  }
+  /* Alert / info box */
+  .alert-box{background:rgba(0,168,150,.07);border:1px solid rgba(0,168,150,.2);border-radius:8px;padding:12px 14px;font-size:12.5px;color:var(--gray-light);line-height:1.5;margin:14px 0;}
+  .warn-box{background:rgba(224,82,77,.07);border:1px solid rgba(224,82,77,.25);border-radius:8px;padding:12px 14px;font-size:12px;color:#f0a0a0;line-height:1.5;margin:14px 0;}
+  .warn-box strong{color:var(--red);}
+
+  /* Form */
+  .section-title{color:var(--teal);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:14px 0 6px;border-bottom:1px solid var(--border);margin-bottom:18px;}
+  .q{margin-bottom:22px;}
+  .q-label{font-size:14.5px;font-weight:600;margin-bottom:4px;display:flex;gap:8px;align-items:flex-start;}
+  .q-num{color:var(--teal);font-weight:700;flex-shrink:0;}
+  .help-btn{flex-shrink:0;width:19px;height:19px;border-radius:50%;border:1px solid var(--gray);background:none;color:var(--gray);font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;margin-left:2px;margin-top:1px;padding:0;}
+  .help-btn:hover{border-color:var(--teal);color:var(--teal);}
   .q-body{margin-left:22px;}
+  .field-label{font-size:11.5px;color:var(--gray);margin-bottom:6px;display:block;}
 
-  input[type=text],
-  input[type=number],
-  input[type=date],
-  input[type=time],
-  textarea{
-    width:100%;
-    background:var(--bg-input);
-    border:1px solid var(--border);
-    border-radius:7px;
-    padding:11px 13px;
-    color:var(--white);
-    font-size:14px;
-    font-family:inherit;
+  input[type=text],input[type=date],input[type=time],select,textarea{
+    width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:7px;
+    padding:11px 13px;color:var(--white);font-size:14px;font-family:inherit;
   }
-  input::placeholder, textarea::placeholder{color:#5a5e62;}
-  input:focus, textarea:focus{
-    outline:none;
-    border-color:var(--teal);
-  }
+  select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1L7 7L13 1' stroke='%238C9196' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer;}
+  select option{background:var(--bg-input);}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--teal);}
   textarea{resize:vertical;min-height:70px;}
-
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   @media(max-width:520px){.row2{grid-template-columns:1fr;}}
 
-  .field-label{
-    font-size:11.5px;
-    color:var(--gray);
-    margin-bottom:6px;
-    display:block;
-  }
-
-  .choices{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-  }
+  .choices{display:flex;flex-wrap:wrap;gap:8px;}
   .choice{position:relative;}
-  .choice input{
-    position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0;
-  }
-  .choice label{
-    display:block;
-    padding:9px 16px;
-    background:var(--bg-input);
-    border:1px solid var(--border);
-    border-radius:30px;
-    font-size:13px;
-    color:var(--gray-light);
-    cursor:pointer;
-    transition:all .12s;
-    white-space:nowrap;
-  }
-  .choice input:checked + label{
-    background:var(--teal);
-    border-color:var(--teal);
-    color:#fff;
-    font-weight:600;
-  }
-  .choice input:focus-visible + label{
-    outline:2px solid var(--teal);
-    outline-offset:2px;
-  }
+  .choice input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0;}
+  .choice label{display:block;padding:9px 16px;background:var(--bg-input);border:1px solid var(--border);border-radius:30px;font-size:13px;color:var(--gray-light);cursor:pointer;transition:all .12s;white-space:nowrap;}
+  .choice input:checked + label{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600;}
 
   .scale{display:flex;gap:6px;flex-wrap:wrap;}
   .scale-item{position:relative;flex:1;min-width:58px;}
   .scale-item.na{flex:0 0 auto;min-width:54px;}
   .scale-item input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0;}
-  .scale-item label{
-    display:flex;flex-direction:column;align-items:center;gap:3px;
-    padding:10px 4px;background:var(--bg-input);border:1px solid var(--border);
-    border-radius:8px;cursor:pointer;font-size:11px;color:var(--gray);
-    text-align:center;transition:all .12s;
-  }
+  .scale-item label{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;background:var(--bg-input);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:11px;color:var(--gray);text-align:center;transition:all .12s;}
   .scale-item label .n{font-size:15px;font-weight:700;color:var(--white);}
   .scale-item input:checked + label{background:var(--teal);border-color:var(--teal);}
-  .scale-item input:checked + label .n,
-  .scale-item input:checked + label{color:#fff;}
+  .scale-item input:checked + label .n,.scale-item input:checked + label{color:#fff;}
   .scale-item.na input:checked + label{background:#444;border-color:#444;}
 
   .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
   @media(max-width:480px){.check-grid{grid-template-columns:1fr;}}
-  .check-item{
-    display:flex;align-items:center;gap:10px;padding:10px 12px;
-    background:var(--bg-input);border:1px solid var(--border);border-radius:7px;
-    cursor:pointer;font-size:13px;color:var(--gray-light);
-  }
+  .check-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg-input);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:13px;color:var(--gray-light);}
   .check-item input{width:16px;height:16px;accent-color:var(--teal);cursor:pointer;flex-shrink:0;}
   .check-item:has(input:checked){border-color:var(--teal);color:#fff;background:rgba(0,168,150,.08);}
 
-  .submit-bar{
-    margin-top:36px;padding-top:24px;border-top:1px solid var(--border);
-    display:flex;flex-direction:column;gap:12px;
-  }
-  .btn-primary{
-    background:var(--teal);color:#fff;border:none;border-radius:8px;
-    padding:14px 20px;font-size:15px;font-weight:700;cursor:pointer;
-    width:100%;transition:background .12s;
-  }
+  .submit-bar{margin-top:36px;padding-top:24px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:12px;}
+  .btn-primary{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:14px 20px;font-size:15px;font-weight:700;cursor:pointer;width:100%;transition:background .12s;}
   .btn-primary:hover{background:var(--teal-dark);}
   .btn-primary:disabled{background:#444;cursor:not-allowed;}
   .submit-hint{font-size:11.5px;color:var(--gray);text-align:center;}
 
   .success-screen{text-align:center;padding:80px 20px;}
-  .success-screen .icon{
-    width:70px;height:70px;border-radius:50%;
-    background:rgba(0,168,150,.12);border:2px solid var(--teal);
-    display:flex;align-items:center;justify-content:center;
-    font-size:32px;margin:0 auto 24px;color:var(--teal);
-  }
+  .success-screen .icon{width:70px;height:70px;border-radius:50%;background:rgba(0,168,150,.12);border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 24px;color:var(--teal);}
   .success-screen h2{font-size:22px;margin-bottom:10px;}
   .success-screen p{color:var(--gray);font-size:14px;max-width:380px;margin:0 auto 28px;line-height:1.5;}
 
   .hidden{display:none !important;}
-
-  .toast{
-    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
-    background:var(--red);color:#fff;padding:12px 20px;border-radius:8px;
-    font-size:13px;font-weight:600;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4);
-    max-width:90%;text-align:center;
-  }
-
-  .spinner{
-    width:16px;height:16px;border:2px solid rgba(255,255,255,.3);
-    border-top-color:#fff;border-radius:50%;display:inline-block;
-    animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;
-  }
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:90%;text-align:center;}
+  .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;display:inline-block;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
-  /* ===== Help popup modal ===== */
-  .modal-overlay{
-    position:fixed;inset:0;background:rgba(0,0,0,.65);
-    display:flex;align-items:center;justify-content:center;
-    z-index:300;padding:20px;
-  }
-  .modal-box{
-    background:var(--bg-card);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:22px;
-    max-width:380px;
-    width:100%;
-    box-shadow:0 20px 50px rgba(0,0,0,.5);
-  }
-  .modal-box .modal-title{
-    font-size:15px;
-    font-weight:700;
-    color:var(--teal);
-    margin-bottom:10px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .modal-box .modal-text{
-    font-size:13.5px;
-    color:var(--gray-light);
-    line-height:1.55;
-    margin-bottom:18px;
-  }
-  .modal-close{
-    background:var(--teal);
-    color:#fff;
-    border:none;
-    border-radius:7px;
-    padding:10px 18px;
-    font-size:13px;
-    font-weight:700;
-    cursor:pointer;
-    width:100%;
-  }
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:300;padding:20px;}
+  .modal-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:22px;max-width:380px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.5);}
+  .modal-box .modal-title{font-size:15px;font-weight:700;color:var(--teal);margin-bottom:10px;}
+  .modal-box .modal-text{font-size:13.5px;color:var(--gray-light);line-height:1.55;margin-bottom:18px;}
+  .modal-close{background:var(--teal);color:#fff;border:none;border-radius:7px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;width:100%;}
   .modal-close:hover{background:var(--teal-dark);}
+
+  /* Liz special: C4+ block */
+  .c4-block{background:#1a1a2a;border:1px solid #2a2a4a;border-radius:8px;padding:14px;margin:8px 0 16px;}
+  .c4-block .c4-title{color:#a080ff;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px;}
+  .c4-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+  @media(max-width:480px){.c4-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
 <div class="topbar">
   <div class="brand">RELEVAMIENTO DE CAMPO</div>
-  <div class="meta">Formulario de visita</div>
+  <div class="meta" id="topMeta">Formulario de visita</div>
 </div>
 
 <div class="container">
 
-  <!-- ============ FORM ============ -->
-  <div id="screen-form">
-    <div class="form-header">
-      <h2>Relevamiento de Campo</h2>
-      <div class="sub">Completá este formulario después de tu visita o contacto con el local.</div>
-    </div>
-
-    <form id="form-relevamiento" onsubmit="return submitForm(event)">
-
-      <div class="section-title">Datos de la visita</div>
-      <div class="q"><label class="field-label">Nombre del local o empresa visitada</label><input type="text" name="empresa_tienda" required></div>
-      <div class="row2">
-        <div class="q"><label class="field-label">Dirección o zona</label><input type="text" name="direccion"></div>
-        <div class="q"><label class="field-label">Nombre de quien te atendió (si lo sabés)</label><input type="text" name="nombre_vendedor"></div>
-      </div>
-      <div class="q">
-        <label class="field-label">¿Cómo fue el contacto?</label>
-        <div class="choices">
-          <div class="choice"><input type="radio" name="canal_c" id="cc1" value="Visita presencial"><label for="cc1">Fui en persona</label></div>
-          <div class="choice"><input type="radio" name="canal_c" id="cc2" value="WhatsApp"><label for="cc2">WhatsApp</label></div>
-          <div class="choice"><input type="radio" name="canal_c" id="cc3" value="Llamada"><label for="cc3">Llamada</label></div>
-          <div class="choice"><input type="radio" name="canal_c" id="cc4" value="Redes sociales"><label for="cc4">Redes sociales</label></div>
-        </div>
-      </div>
-      <div class="row2">
-        <div class="q"><label class="field-label">Fecha</label><input type="date" name="fecha_c"></div>
-        <div class="q"><label class="field-label">Hora</label><input type="time" name="hora_c"></div>
-      </div>
-      <div class="q"><label class="field-label">Tu nombre</label><input type="text" name="shopper_c"></div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">•</span> ¿Qué le pediste o preguntaste?
-          <button type="button" class="help-btn" onclick="openHelp('necesidad')">?</button>
-        </div>
-        <div class="q-body"><textarea name="necesidad_simulada" placeholder="Ej: pregunté precio de cajas para mi emprendimiento"></textarea></div>
-      </div>
-
-      <div class="section-title">1. Cómo te atendieron</div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">1.</span> ¿Te atendieron aunque pediste poca cantidad?
-          <button type="button" class="help-btn" onclick="openHelp('c1')">?</button>
-        </div>
-        <div class="q-body">
-          <div class="choices">
-            <div class="choice"><input type="radio" name="c1" id="c1a" value="Sí"><label for="c1a">Sí</label></div>
-            <div class="choice"><input type="radio" name="c1" id="c1b" value="No"><label for="c1b">No</label></div>
-            <div class="choice"><input type="radio" name="c1" id="c1c" value="Más o menos"><label for="c1c">Más o menos</label></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">2.</span> ¿Cómo te trataron al pedir poca cantidad?
-          <button type="button" class="help-btn" onclick="openHelp('c2')">?</button>
-        </div>
-        <div class="q-body">
-          <div class="choices">
-            <div class="choice"><input type="radio" name="c2" id="c2a" value="Muy bien, con ganas de ayudar"><label for="c2a">Muy bien, con ganas de ayudar</label></div>
-            <div class="choice"><input type="radio" name="c2" id="c2b" value="Bien pero sin mucho interés"><label for="c2b">Bien pero sin mucho interés</label></div>
-            <div class="choice"><input type="radio" name="c2" id="c2c" value="Indiferente"><label for="c2c">Como si no le importara</label></div>
-            <div class="choice"><input type="radio" name="c2" id="c2d" value="Poco dispuesto / derivó"><label for="c2d">No tenía ganas de atenderme</label></div>
-            <div class="choice"><input type="radio" name="c2" id="c2e" value="Rechazó / no atienden"><label for="c2e">No me quiso atender</label></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">3.</span> ¿Te dijeron si hay un mínimo de compra?
-          <button type="button" class="help-btn" onclick="openHelp('c3')">?</button>
-        </div>
-        <div class="q-body"><input type="text" name="c3" placeholder="Si te dijeron un monto o cantidad, anotalo aquí"></div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">4.</span> ¿El local estaba ordenado y se entendía bien dónde estaba todo?
-          <button type="button" class="help-btn" onclick="openHelp('c4')">?</button>
-        </div>
-        <div class="q-body" id="scale-c4"></div>
-      </div>
-
-      <div class="section-title">2. Precios</div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">5.</span> ¿Te dijeron los precios sin problema?
-          <button type="button" class="help-btn" onclick="openHelp('c5')">?</button>
-        </div>
-        <div class="q-body">
-          <div class="choices">
-            <div class="choice"><input type="radio" name="c5" id="c5a" value="Sí"><label for="c5a">Sí</label></div>
-            <div class="choice"><input type="radio" name="c5" id="c5b" value="No"><label for="c5b">No</label></div>
-            <div class="choice"><input type="radio" name="c5" id="c5c" value="Más o menos"><label for="c5c">Más o menos</label></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">6.</span> Anotá los precios que te dieron
-          <button type="button" class="help-btn" onclick="openHelp('c6')">?</button>
-        </div>
-        <div class="q-body"><textarea name="c6" placeholder="Ej: caja chica $5.000, paquete de 10 bolsas $20.000"></textarea></div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">7.</span> ¿Hacen descuento si comprás más o si volvés seguido?
-          <button type="button" class="help-btn" onclick="openHelp('c7')">?</button>
-        </div>
-        <div class="q-body">
-          <div class="choices">
-            <div class="choice"><input type="radio" name="c7" id="c7a" value="Sí"><label for="c7a">Sí</label></div>
-            <div class="choice"><input type="radio" name="c7" id="c7b" value="No"><label for="c7b">No</label></div>
-            <div class="choice"><input type="radio" name="c7" id="c7c" value="Más o menos"><label for="c7c">No estoy seguro</label></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">8.</span> ¿Cómo se puede pagar?
-          <button type="button" class="help-btn" onclick="openHelp('c8')">?</button>
-        </div>
-        <div class="q-body">
-          <div class="check-grid">
-            <label class="check-item"><input type="checkbox" name="c8" value="Solo contado">Solo efectivo</label>
-            <label class="check-item"><input type="checkbox" name="c8" value="Tarjeta de crédito/débito">Tarjeta</label>
-            <label class="check-item"><input type="checkbox" name="c8" value="Transferencia">Transferencia</label>
-            <label class="check-item"><input type="checkbox" name="c8" value="Cuotas sin interés">Cuotas sin interés</label>
-            <label class="check-item"><input type="checkbox" name="c8" value="Crédito (cuenta corriente)">Crédito / cuenta corriente</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-title">3. Qué productos tienen</div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">9.</span> ¿Qué productos viste que se pueden comprar ya mismo?
-          <button type="button" class="help-btn" onclick="openHelp('c9')">?</button>
-        </div>
-        <div class="q-body">
-          <div class="check-grid">
-            <label class="check-item"><input type="checkbox" name="c9" value="Cajas de cartón estándar">Cajas de cartón comunes</label>
-            <label class="check-item"><input type="checkbox" name="c9" value="Bolsas de papel">Bolsas de papel</label>
-            <label class="check-item"><input type="checkbox" name="c9" value="Packaging con impresión">Cajas con diseño impreso</label>
-            <label class="check-item"><input type="checkbox" name="c9" value="Elementos decorativos">Cosas decorativas</label>
-            <label class="check-item"><input type="checkbox" name="c9" value="Materiales para eventos">Materiales para eventos</label>
-            <label class="check-item"><input type="checkbox" name="c9" value="Cajas personalizadas (a pedido)">Cajas a medida (por pedido)</label>
-            <label class="check-item"><input type="checkbox" name="c9" value="Artículos de packaging varios">Otros artículos de empaque</label>
-            <label class="check-item"><input type="checkbox" name="c9" value="Elementos POP pequeños">Carteles o exhibidores chicos</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">10.</span> ¿Tienen para llevar ya o todo es por pedido?
-          <button type="button" class="help-btn" onclick="openHelp('c10')">?</button>
-        </div>
-        <div class="q-body">
-          <div class="choices">
-            <div class="choice"><input type="radio" name="c10" id="c10a" value="Stock disponible"><label for="c10a">Tienen para llevar ya</label></div>
-            <div class="choice"><input type="radio" name="c10" id="c10b" value="Mixto (stock + pedido)"><label for="c10b">Un poco de las dos cosas</label></div>
-            <div class="choice"><input type="radio" name="c10" id="c10c" value="Solo por pedido"><label for="c10c">Solo por pedido</label></div>
-            <div class="choice"><input type="radio" name="c10" id="c10d" value="No quedó claro"><label for="c10d">No me quedó claro</label></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">11.</span> Si pedís algo a medida, ¿en cuánto tiempo te lo entregan?
-          <button type="button" class="help-btn" onclick="openHelp('c11')">?</button>
-        </div>
-        <div class="q-body"><input type="text" name="c11" placeholder="Ej: 3 días, 1 semana, etc."></div>
-      </div>
-
-      <div class="section-title">4. Trato y atención</div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">12.</span> ¿Qué tan amable fue la persona que te atendió?
-          <button type="button" class="help-btn" onclick="openHelp('c12')">?</button>
-        </div>
-        <div class="q-body" id="scale-c12"></div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">13.</span> ¿Sabía bien lo que vendía?
-          <button type="button" class="help-btn" onclick="openHelp('c13')">?</button>
-        </div>
-        <div class="q-body" id="scale-c13"></div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">14.</span> ¿Fue fácil conseguir la información que buscabas?
-          <button type="button" class="help-btn" onclick="openHelp('c14')">?</button>
-        </div>
-        <div class="q-body" id="scale-c14"></div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">15.</span> Contanos cómo fue la experiencia, con tus palabras
-          <button type="button" class="help-btn" onclick="openHelp('c15')">?</button>
-        </div>
-        <div class="q-body"><textarea name="c15" placeholder="Contá algo que te haya llamado la atención, bueno o malo"></textarea></div>
-      </div>
-
-      <div class="section-title">5. Para cerrar</div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">16.</span> ¿Le recomendarías este lugar a un conocido?
-          <button type="button" class="help-btn" onclick="openHelp('c16')">?</button>
-        </div>
-        <div class="q-body">
-          <div class="choices">
-            <div class="choice"><input type="radio" name="c16" id="c16a" value="Sí, claramente"><label for="c16a">Sí, sin duda</label></div>
-            <div class="choice"><input type="radio" name="c16" id="c16b" value="Probablemente sí"><label for="c16b">Creo que sí</label></div>
-            <div class="choice"><input type="radio" name="c16" id="c16c" value="Probablemente no"><label for="c16c">Creo que no</label></div>
-            <div class="choice"><input type="radio" name="c16" id="c16d" value="No"><label for="c16d">No</label></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="q">
-        <div class="q-label">
-          <span class="q-num">17.</span> ¿Algo más para agregar?
-          <button type="button" class="help-btn" onclick="openHelp('c17')">?</button>
-        </div>
-        <div class="q-body"><textarea name="c17" placeholder="Cualquier otro detalle que te parezca importante"></textarea></div>
-      </div>
-
-      <div class="submit-bar">
-        <button type="submit" class="btn-primary" id="btn-submit">Enviar relevamiento</button>
-        <div class="submit-hint">Gracias por completar el formulario.</div>
-      </div>
-    </form>
+<!-- ============ SCREEN 1: SELECCIÓN DE SHOPPER ============ -->
+<div id="screen-selector">
+  <div class="selector-hero">
+    <div class="eyebrow">PROYECTO ENVACO POP · 2026</div>
+    <h1>¿Quién está completando?</h1>
+    <p>Seleccioná tu nombre para ver tu perfil, tu guión y el formulario de tu visita.</p>
   </div>
 
-  <!-- ============ SUCCESS SCREEN ============ -->
-  <div id="screen-success" class="hidden">
-    <div class="success-screen">
-      <div class="icon">✓</div>
-      <h2>¡Listo, formulario enviado!</h2>
-      <p>Gracias por completar el relevamiento. Tu respuesta fue registrada correctamente.</p>
-      <button class="btn-primary" style="max-width:240px;margin:0 auto;" onclick="goForm()">Completar otro relevamiento</button>
-    </div>
+  <div class="shopper-grid">
+    <button class="shopper-card" onclick="selectShopper('ricardo')">
+      <div class="name">Ricardo</div>
+      <div class="role">MYSTERY SHOPPER · ASUNCIÓN</div>
+      <div class="desc">Visitas presenciales en Asunción · Perfil Minorista y Mayorista</div>
+      <div class="arrow">→</div>
+    </button>
+    <button class="shopper-card" onclick="selectShopper('cinthia')">
+      <div class="name">Cinthia</div>
+      <div class="role">MYSTERY SHOPPER · ASUNCIÓN</div>
+      <div class="desc">Visitas presenciales en Asunción · Perfil Minorista y Mayorista</div>
+      <div class="arrow">→</div>
+    </button>
+    <button class="shopper-card" onclick="selectShopper('liz')">
+      <div class="name">Liz</div>
+      <div class="role">MYSTERY SHOPPER · CIUDAD DEL ESTE</div>
+      <div class="desc">Plaza CDE completa · Minorista, Evento/Lanzamiento y Mayorista + Detección C4+</div>
+      <div class="arrow">→</div>
+    </button>
   </div>
-
 </div>
 
-<!-- ============ HELP MODAL ============ -->
+<!-- ============ SCREEN 2: SELECCIÓN DE PERFIL ============ -->
+<div id="screen-profile" class="hidden">
+  <button class="back-btn" onclick="goSelector()">← Volver</button>
+  <div class="profile-hero">
+    <div class="eyebrow" id="prof-eyebrow">PERFIL</div>
+    <h2 id="prof-title">Elegí tu perfil para esta visita</h2>
+    <div class="sub" id="prof-sub"></div>
+  </div>
+
+  <div class="warn-box">
+    <strong>NUNCA</strong> uses los dos perfiles el mismo día en la misma empresa — son historias separadas.
+  </div>
+
+  <div class="profile-grid" id="profile-grid"></div>
+</div>
+
+<!-- ============ SCREEN 3: GUIÓN + FORMULARIO ============ -->
+<div id="screen-form" class="hidden">
+  <button class="back-btn" onclick="goProfile()">← Cambiar perfil</button>
+
+  <div class="script-box" id="script-box">
+    <strong>TU GUIÓN DE APERTURA:</strong>
+    <div class="script-text" id="script-text"></div>
+  </div>
+
+  <form id="form-relevamiento" onsubmit="return submitForm(event)">
+
+    <div class="section-title">Datos de la visita</div>
+    <div class="q">
+      <label class="field-label">Local o empresa visitada</label>
+      <select name="empresa_select" id="empresa_select" onchange="toggleOtroLocal()">
+        <option value="" disabled selected>Seleccioná el local</option>
+        <optgroup label="Asunción" id="opt-asu">
+          <option>01 · JWF Group</option>
+          <option>02 · BPR PDV</option>
+          <option>03 · Cartones Yaguareté (Asunción 1)</option>
+          <option>03 · Cartones Yaguareté (Asunción 2)</option>
+          <option>04 · Rapid Color</option>
+          <option>05 · Editex Publicidad</option>
+          <option>06 · PRINTER'S PDV</option>
+          <option>07 · IMPRESS PDV</option>
+          <option>08 · COUPLAS PDV</option>
+          <option>09 · FC Industrias Pub.</option>
+          <option>10 · TODDO GROUP</option>
+        </optgroup>
+        <optgroup label="Ciudad del Este" id="opt-cde">
+          <option>C1 · Formupar</option>
+          <option>C2 · Paper Box</option>
+          <option>C3 · Cartones Yaguareté (CDE)</option>
+          <option>C4 · Gráfica Offset</option>
+          <option>C5 · Editora El Mensajero</option>
+          <option>C6 · Gráfica Kolping</option>
+          <option>C7 · Shopping del Embalaje / Multi-Embalajes</option>
+          <option>C8 · Talleres Convertidores</option>
+          <option>C9 · Casa de los Envases</option>
+        </optgroup>
+        <option value="Otros">Otros (especificar)</option>
+      </select>
+    </div>
+    <div class="q hidden" id="otro_local_wrap">
+      <label class="field-label">Nombre del local</label>
+      <input type="text" name="empresa_tienda_otro" id="empresa_tienda_otro" placeholder="Escribí el nombre del local">
+    </div>
+
+    <div class="row2">
+      <div class="q"><label class="field-label">Dirección o zona</label><input type="text" name="direccion"></div>
+      <div class="q"><label class="field-label">Nombre de quien te atendió</label><input type="text" name="nombre_vendedor"></div>
+    </div>
+    <div class="q">
+      <label class="field-label">¿Cómo fue el contacto?</label>
+      <div class="choices">
+        <div class="choice"><input type="radio" name="canal_c" id="cc1" value="Fui en persona"><label for="cc1">Fui en persona</label></div>
+        <div class="choice"><input type="radio" name="canal_c" id="cc2" value="WhatsApp"><label for="cc2">WhatsApp</label></div>
+        <div class="choice"><input type="radio" name="canal_c" id="cc3" value="Llamada"><label for="cc3">Llamada</label></div>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="q"><label class="field-label">Fecha</label><input type="date" name="fecha_c"></div>
+      <div class="q"><label class="field-label">Hora de llegada</label><input type="time" name="hora_llegada"></div>
+    </div>
+    <div class="q"><label class="field-label">Hora de inicio de atención</label><input type="time" name="hora_atencion" placeholder="Hora en que te empezaron a atender"></div>
+
+    <div class="section-title">1. Cómo te atendieron</div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">1.</span>¿Te atendieron aunque pediste poca cantidad?
+        <button type="button" class="help-btn" onclick="openHelp('c1')">?</button>
+      </div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c1" id="c1a" value="Sí"><label for="c1a">Sí</label></div>
+          <div class="choice"><input type="radio" name="c1" id="c1b" value="No"><label for="c1b">No</label></div>
+          <div class="choice"><input type="radio" name="c1" id="c1c" value="Más o menos"><label for="c1c">Más o menos</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">2.</span>¿Cómo te trataron?
+        <button type="button" class="help-btn" onclick="openHelp('c2')">?</button>
+      </div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c2" id="c2a" value="Muy bien, con ganas de ayudar"><label for="c2a">Muy bien, con ganas de ayudar</label></div>
+          <div class="choice"><input type="radio" name="c2" id="c2b" value="Bien pero sin mucho interés"><label for="c2b">Bien pero sin mucho interés</label></div>
+          <div class="choice"><input type="radio" name="c2" id="c2c" value="Indiferente"><label for="c2c">Indiferente</label></div>
+          <div class="choice"><input type="radio" name="c2" id="c2d" value="No tenía ganas de atenderme"><label for="c2d">Sin ganas de atenderme</label></div>
+          <div class="choice"><input type="radio" name="c2" id="c2e" value="No me quiso atender"><label for="c2e">No me quiso atender</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">3.</span>¿Te dijeron si hay un mínimo de compra?
+        <button type="button" class="help-btn" onclick="openHelp('c3')">?</button>
+      </div>
+      <div class="q-body"><input type="text" name="c3" placeholder="Ej: mínimo 500 unidades, Gs. 50.000, etc."></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">4.</span>¿El local estaba ordenado y fácil de navegar?
+        <button type="button" class="help-btn" onclick="openHelp('c4')">?</button>
+      </div>
+      <div class="q-body" id="scale-c4"></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">5.</span>¿El vendedor te saludó al entrar y detectó tu necesidad antes de hablar de precios?</div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c_saludo" id="cs1" value="Sí, fue proactivo"><label for="cs1">Sí, fue proactivo</label></div>
+          <div class="choice"><input type="radio" name="c_saludo" id="cs2" value="Me saludó pero esperó que yo pregunte todo"><label for="cs2">Saludó pero esperó mis preguntas</label></div>
+          <div class="choice"><input type="radio" name="c_saludo" id="cs3" value="No me saludó"><label for="cs3">No me saludó</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">2. Precios</div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">6.</span>¿Te dijeron los precios sin problema?
+        <button type="button" class="help-btn" onclick="openHelp('c5')">?</button>
+      </div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c5" id="c5a" value="Sí"><label for="c5a">Sí</label></div>
+          <div class="choice"><input type="radio" name="c5" id="c5b" value="No"><label for="c5b">No</label></div>
+          <div class="choice"><input type="radio" name="c5" id="c5c" value="Más o menos"><label for="c5c">Más o menos</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">7.</span>Anotá los precios que te dieron
+        <button type="button" class="help-btn" onclick="openHelp('c6')">?</button>
+      </div>
+      <div class="q-body"><textarea name="c6" placeholder="Ej: caja chica Gs. 5.000 c/u, paquete x10 bolsas Gs. 20.000"></textarea></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">8.</span>¿El precio cambia según cantidad?</div>
+      <div class="q-body"><input type="text" name="c_precio_escala" placeholder="Ej: 500u = Gs. 4.500, 1.000u = Gs. 3.800"></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">9.</span>¿Hacen descuento por volumen o por cliente frecuente?
+        <button type="button" class="help-btn" onclick="openHelp('c7')">?</button>
+      </div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c7" id="c7a" value="Sí"><label for="c7a">Sí</label></div>
+          <div class="choice"><input type="radio" name="c7" id="c7b" value="No"><label for="c7b">No</label></div>
+          <div class="choice"><input type="radio" name="c7" id="c7c" value="No estoy seguro"><label for="c7c">No estoy seguro</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">10.</span>¿Cómo se puede pagar?
+        <button type="button" class="help-btn" onclick="openHelp('c8')">?</button>
+      </div>
+      <div class="q-body">
+        <div class="check-grid">
+          <label class="check-item"><input type="checkbox" name="c8" value="Solo efectivo">Solo efectivo</label>
+          <label class="check-item"><input type="checkbox" name="c8" value="Tarjeta">Tarjeta</label>
+          <label class="check-item"><input type="checkbox" name="c8" value="Transferencia">Transferencia</label>
+          <label class="check-item"><input type="checkbox" name="c8" value="Cuotas sin interés">Cuotas sin interés</label>
+          <label class="check-item"><input type="checkbox" name="c8" value="Crédito / cuenta corriente">Crédito / cta. cte.</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">3. Productos y stock</div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">11.</span>¿Qué productos viste disponibles?
+        <button type="button" class="help-btn" onclick="openHelp('c9')">?</button>
+      </div>
+      <div class="q-body">
+        <div class="check-grid">
+          <label class="check-item"><input type="checkbox" name="c9" value="Cajas de cartón estándar">Cajas de cartón comunes</label>
+          <label class="check-item"><input type="checkbox" name="c9" value="Bolsas de papel">Bolsas de papel</label>
+          <label class="check-item"><input type="checkbox" name="c9" value="Cajas con diseño impreso">Cajas con diseño/logo</label>
+          <label class="check-item"><input type="checkbox" name="c9" value="Terminación brillante/laminada">Terminación brillante/laminada</label>
+          <label class="check-item"><input type="checkbox" name="c9" value="Cartonplast / plástico">Cartonplast / plástico</label>
+          <label class="check-item"><input type="checkbox" name="c9" value="Material para eventos">Material para eventos</label>
+          <label class="check-item"><input type="checkbox" name="c9" value="Cajas a medida (por pedido)">Cajas a medida (por pedido)</label>
+          <label class="check-item"><input type="checkbox" name="c9" value="Otros artículos de empaque">Otros artículos de empaque</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">12.</span>¿Tienen stock para llevar ya o todo es por pedido?
+        <button type="button" class="help-btn" onclick="openHelp('c10')">?</button>
+      </div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c10" id="c10a" value="Tienen para llevar ya"><label for="c10a">Tienen para llevar ya</label></div>
+          <div class="choice"><input type="radio" name="c10" id="c10b" value="Mixto (stock + pedido)"><label for="c10b">Mixto</label></div>
+          <div class="choice"><input type="radio" name="c10" id="c10c" value="Solo por pedido"><label for="c10c">Solo por pedido</label></div>
+          <div class="choice"><input type="radio" name="c10" id="c10d" value="No me quedó claro"><label for="c10d">No me quedó claro</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">13.</span>¿Me pueden imprimir el logo aunque sean pocas unidades? ¿Desde cuántas?</div>
+      <div class="q-body"><input type="text" name="c_logo" placeholder="Ej: desde 500 u., encarece un 30%"></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">14.</span>¿Tienen algo con mejor terminación — más brillante, laminado, para regalo o retail?</div>
+      <div class="q-body"><input type="text" name="c_terminacion" placeholder="Ej: tienen línea premium laminada desde 200u, o solo básico"></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">15.</span>Plazo de fabricación/entrega declarado</div>
+      <div class="q-body"><input type="text" name="c11" placeholder="Ej: 3 días, 1 semana, etc."></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">16.</span>¿Hacen envíos o hay que retirar en local?</div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c_delivery" id="cd1" value="Hacen envíos"><label for="cd1">Hacen envíos</label></div>
+          <div class="choice"><input type="radio" name="c_delivery" id="cd2" value="Solo retiro en local"><label for="cd2">Solo retiro en local</label></div>
+          <div class="choice"><input type="radio" name="c_delivery" id="cd3" value="No lo mencionaron"><label for="cd3">No lo mencionaron</label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">4. Trato y atención</div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">17.</span>¿Qué tan amable fue la persona que te atendió?
+        <button type="button" class="help-btn" onclick="openHelp('c12')">?</button>
+      </div>
+      <div class="q-body" id="scale-c12"></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">18.</span>¿Sabía bien lo que vendía?
+        <button type="button" class="help-btn" onclick="openHelp('c13')">?</button>
+      </div>
+      <div class="q-body" id="scale-c13"></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">19.</span>¿Fue fácil conseguir la información que buscabas?
+        <button type="button" class="help-btn" onclick="openHelp('c14')">?</button>
+      </div>
+      <div class="q-body" id="scale-c14"></div>
+    </div>
+
+    <div class="q">
+      <div class="q-label"><span class="q-num">20.</span>¿El vendedor te ofreció algo más sin que lo pidieras? (Venta sugerida)</div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c_venta_sug" id="vs1" value="Sí, ofreció productos adicionales"><label for="vs1">Sí</label></div>
+          <div class="choice"><input type="radio" name="c_venta_sug" id="vs2" value="No"><label for="vs2">No</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRUEBA DE ESTRÉS (solo perfil mayorista) -->
+    <div id="bloque-estres" class="hidden">
+      <div class="section-title">5. Prueba de estrés (Mayorista — 2ª visita)</div>
+      <div class="alert-box">Usaste la frase: <em>"En otro lado me cotizaron más barato..."</em> — ¿cómo reaccionó el vendedor?</div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">21.</span>Reacción ante la comparación de precio</div>
+        <div class="q-body">
+          <div class="choices">
+            <div class="choice"><input type="radio" name="c_estres" id="ce1" value="Defendió el producto con argumentos"><label for="ce1">Defendió con argumentos</label></div>
+            <div class="choice"><input type="radio" name="c_estres" id="ce2" value="Bajó el precio sin preguntar nada"><label for="ce2">Bajó el precio sin preguntar</label></div>
+            <div class="choice"><input type="radio" name="c_estres" id="ce3" value="Ofreció alternativa de material"><label for="ce3">Ofreció alternativa</label></div>
+            <div class="choice"><input type="radio" name="c_estres" id="ce4" value="No reaccionó / indiferente"><label for="ce4">Indiferente</label></div>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">22.</span>¿Pidieron cotización formal por escrito? ¿En cuánto tiempo llegó?</div>
+        <div class="q-body"><input type="text" name="c_cotizacion" placeholder="Ej: llegó en 2 hs por WA / no llegó / en 1 día por email"></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">23.</span>¿Dan crédito o condiciones especiales a clientes de volumen?</div>
+        <div class="q-body"><input type="text" name="c_credito" placeholder="Ej: 30 días, cta. cte., anticipo 50%"></div>
+      </div>
+    </div>
+
+    <!-- COMPARACIÓN CON ENVACO -->
+    <div class="section-title" id="title-envaco">5. Comparación con Envaco</div>
+    <div class="q">
+      <div class="q-label"><span class="q-num" id="qn-envaco">24.</span>¿Conocen a Envaco POP? ¿Qué dijeron?
+        <button type="button" class="help-btn" onclick="openHelp('envaco')">?</button>
+      </div>
+      <div class="q-body"><textarea name="c_envaco" placeholder="Anotá textualmente lo que dijo el vendedor"></textarea></div>
+    </div>
+
+    <!-- OBSERVACIÓN DEL LOCAL -->
+    <div class="section-title">6. Observación del local</div>
+    <div class="q">
+      <div class="q-label"><span class="q-num">25.</span>¿Hay productos en exhibición con precios a la vista?</div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c_exhibicion" id="ex1" value="Sí, claro"><label for="ex1">Sí, claro</label></div>
+          <div class="choice"><input type="radio" name="c_exhibicion" id="ex2" value="Hay exhibición pero sin precios"><label for="ex2">Sin precios</label></div>
+          <div class="choice"><input type="radio" name="c_exhibicion" id="ex3" value="No hay exhibición"><label for="ex3">No hay exhibición</label></div>
+        </div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label"><span class="q-num">26.</span>¿Hay quiebres de stock visibles (espacios vacíos en góndola)?</div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c_quiebre" id="qu1" value="No hay quiebres"><label for="qu1">No hay quiebres</label></div>
+          <div class="choice"><input type="radio" name="c_quiebre" id="qu2" value="Hay algunos quiebres"><label for="qu2">Algunos quiebres</label></div>
+          <div class="choice"><input type="radio" name="c_quiebre" id="qu3" value="Bastantes quiebres"><label for="qu3">Bastantes quiebres</label></div>
+        </div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label"><span class="q-num">27.</span>¿El local tiene su propio material POP en buen estado y bien colocado?</div>
+      <div class="q-body">
+        <div class="choices">
+          <div class="choice"><input type="radio" name="c_pop_local" id="pl1" value="Sí, en buen estado y bien colocado"><label for="pl1">Sí, buen estado</label></div>
+          <div class="choice"><input type="radio" name="c_pop_local" id="pl2" value="Tiene POP pero en mal estado o mal colocado"><label for="pl2">Tiene pero mal estado</label></div>
+          <div class="choice"><input type="radio" name="c_pop_local" id="pl3" value="No tiene material POP propio"><label for="pl3">No tiene POP</label></div>
+        </div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label"><span class="q-num">28.</span>Impresión general del local (limpieza, orden, profesionalismo)</div>
+      <div class="q-body" id="scale-local"></div>
+    </div>
+    <div class="alert-box">📸 <strong>Recordatorio de fotos:</strong> fachada del local · exhibición de productos · material POP · góndola/stock visible · señalética. Sacarlas discretamente antes de salir.</div>
+
+    <!-- BLOQUE LIZ: materiales alternativos y actores C4+ -->
+    <div id="bloque-liz" class="hidden">
+      <div class="section-title">7. Materiales y plaza CDE (Liz)</div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">29.</span>¿Trabajan cartonplast o plástico? ¿Lo recomiendan para humedad/exterior?</div>
+        <div class="q-body"><textarea name="liz_materiales" placeholder="Ej: ofrecen cartonplast para exterior, no trabajan cartón premium"></textarea></div>
+      </div>
+      <div class="q">
+        <div class="q-label"><span class="q-num">30.</span>¿Sus clientes traen materiales de Asunción también, o todo se consigue en CDE?</div>
+        <div class="q-body"><textarea name="liz_proveedores" placeholder="Dato clave para entender la competencia desde Asunción"></textarea></div>
+      </div>
+
+      <div class="section-title">8. Detección de actores C4+ (Exclusivo Liz)</div>
+      <div class="alert-box">Anotá locales nuevos que encontraste en el recorrido por CDE — imprentas, distribuidoras, packaging informal.</div>
+      <div id="c4-list">
+        <div class="c4-block" id="c4-item-0">
+          <div class="c4-title">LOCAL C4+ #1</div>
+          <div class="c4-row">
+            <div><label class="field-label">Nombre</label><input type="text" name="c4_nombre_0" placeholder="Nombre del local"></div>
+            <div><label class="field-label">Dirección / zona</label><input type="text" name="c4_dir_0" placeholder="Dirección o zona"></div>
+          </div>
+          <div><label class="field-label">¿Qué venden exactamente?</label><input type="text" name="c4_prod_0" placeholder="Ej: cajas corrugadas, laminado, packaging importado de Brasil"></div>
+          <div style="margin-top:8px;">
+            <label class="field-label">¿Parece formal o informal?</label>
+            <div class="choices">
+              <div class="choice"><input type="radio" name="c4_tipo_0" id="ct0a" value="Formal"><label for="ct0a">Formal</label></div>
+              <div class="choice"><input type="radio" name="c4_tipo_0" id="ct0b" value="Informal"><label for="ct0b">Informal</label></div>
+              <div class="choice"><input type="radio" name="c4_tipo_0" id="ct0c" value="No pude determinar"><label for="ct0c">No sé</label></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" onclick="addC4()" style="background:none;border:1px dashed var(--border);color:var(--gray);border-radius:8px;padding:10px 16px;cursor:pointer;width:100%;margin-bottom:16px;font-size:13px;">+ Agregar otro local C4+</button>
+    </div>
+
+    <!-- COMENTARIO FINAL -->
+    <div class="section-title">Cierre</div>
+    <div class="q">
+      <div class="q-label"><span class="q-num">31.</span>Contanos cómo fue la experiencia, con tus palabras</div>
+      <div class="q-body"><textarea name="c15" placeholder="Cualquier detalle que te llamó la atención, frases del vendedor, situaciones destacadas"></textarea></div>
+    </div>
+    <div class="q">
+      <div class="q-label"><span class="q-num">32.</span>CES general — ¿Qué tan fácil fue conseguir lo que buscabas? (1=muy difícil · 5=muy fácil)</div>
+      <div class="q-body" id="scale-ces"></div>
+    </div>
+
+    <div class="submit-bar">
+      <button type="submit" class="btn-primary" id="btn-submit">Enviar relevamiento</button>
+      <div class="submit-hint">Completá el formulario ANTES de arrancar hacia el siguiente local.</div>
+    </div>
+  </form>
+</div>
+
+<!-- ============ SUCCESS ============ -->
+<div id="screen-success" class="hidden">
+  <div class="success-screen">
+    <div class="icon">✓</div>
+    <h2>¡Listo, enviado!</h2>
+    <p>Tu relevamiento fue registrado. Gracias por completarlo a tiempo.</p>
+    <button class="btn-primary" style="max-width:240px;margin:0 auto;" onclick="goSelector()">Nueva visita</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- HELP MODAL -->
 <div id="help-overlay" class="modal-overlay hidden" onclick="closeHelpOnOverlay(event)">
   <div class="modal-box">
-    <div class="modal-title">💡 <span id="help-title">Ayuda</span></div>
+    <div class="modal-title">💡 <span id="help-title"></span></div>
     <div class="modal-text" id="help-text"></div>
     <button class="modal-close" onclick="closeHelp()">Entendido</button>
   </div>
 </div>
 
 <script>
-/* ====== CONFIG ====== */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_9inMxrSVTARAXWisoxFYrmn8iFByJV9-QM6VXKR00sG28p6SoRDo3zO1jJuK4_nF/exec";
 
-/* ====== Etiquetas legibles para la hoja de cálculo ====== */
-const FIELD_LABELS = {
-  empresa_tienda: "Local o empresa visitada",
-  direccion: "Dirección / zona",
-  nombre_vendedor: "Nombre de quien atendió",
-  canal_c: "Cómo fue el contacto",
-  fecha_c: "Fecha",
-  hora_c: "Hora",
-  shopper_c: "Quién completó el formulario",
-  necesidad_simulada: "Qué pidió o preguntó",
-  c1: "1. ¿Atendieron aunque se pidió poca cantidad?",
-  c2: "2. Trato al pedir poca cantidad",
-  c3: "3. ¿Informaron monto mínimo de compra?",
-  c4: "4. ¿El local estaba ordenado y era fácil de entender?",
-  c5: "5. ¿Informaron precios sin problema?",
-  c6: "6. Precios relevados",
-  c7: "7. ¿Hacen descuento por cantidad o cliente frecuente?",
-  c8: "8. Formas de pago",
-  c9: "9. Productos disponibles para llevar",
-  c10: "10. ¿Tienen stock o trabajan solo por pedido?",
-  c11: "11. Plazo de entrega para pedidos a medida",
-  c12: "12. Amabilidad de la atención",
-  c13: "13. Conocimiento del producto",
-  c14: "14. Facilidad para conseguir información",
-  c15: "15. Comentario sobre la experiencia",
-  c16: "16. ¿Recomendaría el lugar?",
-  c17: "17. Comentarios adicionales",
-};
+let currentShopper = null;
+let currentProfile = null;
+let c4Count = 1;
 
-/* ====== Help popup content ====== */
-const HELP_CONTENT = {
-  necesidad: ["¿Qué pediste o preguntaste?", "Describí brevemente qué le dijiste a la persona que te atendió. Por ejemplo: 'pregunté precio de cajas para mover unos productos de mi emprendimiento'."],
-  c1: ["¿Te atendieron igual?", "Se refiere a si, aunque pediste poca cantidad (no una compra grande), te atendieron con normalidad o te hicieron sentir que era un problema."],
-  c2: ["¿Cómo te trataron?", "Pensá en la actitud general de la persona: ¿se notaba con ganas de ayudarte o más bien indiferente, apurada o de mal humor?"],
-  c3: ["Monto mínimo de compra", "Algunos locales piden que compres una cantidad mínima. Si te lo mencionaron, anotá el monto o la cantidad exacta que te dijeron."],
-  c4: ["Orden del local", "Pensá en si era fácil moverte por el local y encontrar lo que buscabas, o si estaba todo desordenado y confuso."],
-  c5: ["Precios sin problema", "¿Te dijeron los precios apenas preguntaste, o tuviste que insistir / esperar mucho / no te quisieron decir?"],
-  c6: ["Anotar los precios", "Escribí los precios que te dieron, con el producto y la cantidad. Por ejemplo: '10 cajas chicas = 25.000 guaraníes'. Cuanto más detalle, mejor."],
-  c7: ["Descuentos", "Preguntá o fijate si ofrecen un precio mejor si comprás una cantidad grande, o si sos cliente que vuelve seguido."],
-  c8: ["Formas de pago", "Marcá todas las formas de pago que te mencionaron o que viste disponibles en el local."],
-  c9: ["Productos para llevar ya", "Marcá los productos que viste a la vista, listos para comprar en el momento (no los que hay que pedir y esperar)."],
-  c10: ["Stock vs. pedido", "Esto es para saber si el local tiene productos guardados listos para vender, o si todo lo que venden lo fabrican o consiguen después de que pedís."],
-  c11: ["Plazo de entrega", "Si pediste algo que no estaba listo en el momento, anotá cuánto tiempo te dijeron que iban a tardar en tenerlo."],
-  c12: ["Amabilidad", "Califica qué tan bien te trataron, de 1 (muy mal) a 5 (excelente)."],
-  c13: ["Conocimiento del producto", "Pensá si la persona sabía explicarte bien sobre lo que vendía, o si no tenía mucha idea y no pudo responder tus dudas."],
-  c14: ["Facilidad para conseguir información", "¿Te costó mucho sacarle la información (precios, productos, plazos) o te la dieron fácil y clara?"],
-  c15: ["Tu experiencia con tus palabras", "Contá libremente cómo te sentiste en la visita. Podés citar alguna frase que te haya dicho la persona, si la recordás."],
-  c16: ["¿Lo recomendarías?", "Pensá si le dirías a un amigo o familiar que vaya a este lugar a comprar."],
-  c17: ["Comentarios adicionales", "Cualquier otra cosa que notaste y que no entra en las preguntas anteriores."],
-};
-
-function openHelp(key){
-  const content = HELP_CONTENT[key];
-  if(!content) return;
-  document.getElementById('help-title').textContent = content[0];
-  document.getElementById('help-text').textContent = content[1];
-  document.getElementById('help-overlay').classList.remove('hidden');
-}
-function closeHelp(){
-  document.getElementById('help-overlay').classList.add('hidden');
-}
-function closeHelpOnOverlay(e){
-  if(e.target.id === 'help-overlay') closeHelp();
-}
-
-/* ====== Build 1-5 + N/A scale widgets ====== */
-function buildScale(containerId, name){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const labels = ["Muy malo","Malo","Regular","Bueno","Excelente"];
-  let html = '<div class="scale">';
-  for(let i=1;i<=5;i++){
-    html += `<div class="scale-item">
-      <input type="radio" name="${name}" id="${name}_${i}" value="${i}">
-      <label for="${name}_${i}"><span class="n">${i}</span>${labels[i-1]}</label>
-    </div>`;
+// ── Shopper data ──────────────────────────────────────────
+const SHOPPERS = {
+  ricardo: {
+    label: "Ricardo · Asunción",
+    profiles: [
+      {
+        id: "minorista",
+        tag: "PERFIL MINORISTA",
+        title: "Emprendedor / particular",
+        desc: "30 a 50 cajas para un evento próximo — llegás con curiosidad, sin expertise técnico. Para visitas de apertura (primeras horas del día).",
+        script: "«Hola, buen día. Necesito cajas de cartón — unas 30 o 50 unidades para un evento que tengo el mes que viene. ¿Manejan cantidades así de chicas o tienen un mínimo de pedido? ¿Cuánto sale más o menos?»",
+        showEstres: false,
+      },
+      {
+        id: "mayorista",
+        tag: "PERFIL MAYORISTA",
+        title: "Comprador de comercio — volumen",
+        desc: "500 a 1.000 cajas por mes de forma recurrente — sabés lo que querés, buscás precio y confiabilidad. Para visitas de cierre (últimos 30-45 min del día).",
+        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 500 y 1.000 cajas por mes, de forma recurrente. ¿Pueden pasarme una cotización formal por escrito? ¿Hacen descuento por volumen o por frecuencia de pedido?»",
+        showEstres: true,
+      }
+    ]
+  },
+  cinthia: {
+    label: "Cinthia · Asunción",
+    profiles: [
+      {
+        id: "minorista",
+        tag: "PERFIL MINORISTA",
+        title: "Emprendedora / particular",
+        desc: "40 a 50 cajas para un evento en 3 semanas — llegás con curiosidad natural, sin expertise. Para visitas de apertura.",
+        script: "«Hola, buen día. Tengo un emprendimiento y necesito cajas — unas 40 o 50 unidades para un evento que tengo en 3 semanas. ¿Manejan cantidades chicas? ¿Cuánto sale más o menos?»",
+        showEstres: false,
+      },
+      {
+        id: "mayorista",
+        tag: "PERFIL MAYORISTA",
+        title: "Compradora para comercio — volumen",
+        desc: "500 a 1.000 cajas por mes de forma regular — sabés lo que querés, buscás precio, plazo y confiabilidad. Para visitas de cierre.",
+        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 500 y 1.000 cajas por mes de forma regular. ¿Pueden pasarme la cotización por escrito? ¿Hacen descuento por volumen?»",
+        showEstres: true,
+      }
+    ]
+  },
+  liz: {
+    label: "Liz · Ciudad del Este",
+    profiles: [
+      {
+        id: "minorista",
+        tag: "PERFIL MINORISTA",
+        title: "Compradora particular — evento privado",
+        desc: "30 a 50 cajas para un evento privado en 3 semanas — sin expertise técnico, llegás con curiosidad. Primera visita a cada local.",
+        script: "«Hola, buen día. Necesito cajas de cartón — unas 30 o 50 unidades para un evento privado que tengo en 3 semanas. ¿Manejan cantidades chicas? ¿Cuánto sale más o menos?»",
+        showEstres: false,
+        showLiz: true,
+      },
+      {
+        id: "evento",
+        tag: "PERFIL EVENTO / LANZAMIENTO",
+        title: "Packaging premium para evento de marca",
+        desc: "2ª visita a Formupar — historia diferente al mismo lugar. Buscás algo con presencia, terminación premium.",
+        script: "«Hola, vuelvo a pasar. Antes pregunté por cajas simples, pero ahora tengo algo diferente: estamos organizando un evento de lanzamiento de producto y necesitamos packaging que tenga presencia — algo que se vea premium, con buena terminación. ¿Qué opciones tienen para eso?»",
+        showEstres: false,
+        showLiz: true,
+      },
+      {
+        id: "mayorista",
+        tag: "PERFIL MAYORISTA",
+        title: "Compradora para negocio — volumen",
+        desc: "2ª visita a Cartones Yaguareté CDE — 500 a 1.000 cajas por mes de forma regular. Visita de cierre.",
+        script: "«Buenas tardes. Tengo un negocio y necesito cotizar entre 500 y 1.000 cajas por mes de forma regular. ¿Pueden pasarme la cotización por escrito? ¿Hacen descuento por volumen o recurrencia?»",
+        showEstres: true,
+        showLiz: true,
+      }
+    ]
   }
-  html += `<div class="scale-item na">
-    <input type="radio" name="${name}" id="${name}_na" value="N/A">
-    <label for="${name}_na"><span class="n">—</span>N/A</label>
-  </div>`;
-  html += '</div>';
-  el.innerHTML = html;
-}
-[4,12,13,14].forEach(n => buildScale(`scale-c${n}`, `c${n}`));
+};
 
-/* ====== Navigation ====== */
-function goForm(){
-  document.getElementById('screen-success').classList.add('hidden');
-  document.getElementById('screen-form').classList.remove('hidden');
+const FIELD_LABELS = {
+  empresa_tienda: "Local visitado", direccion: "Dirección / zona",
+  nombre_vendedor: "Nombre de quien atendió", canal_c: "Canal de contacto",
+  fecha_c: "Fecha", hora_llegada: "Hora de llegada", hora_atencion: "Hora de inicio de atención",
+  c1: "1. ¿Atendieron aunque pediste poca cantidad?",
+  c2: "2. Trato al pedir poca cantidad",
+  c3: "3. Mínimo de compra declarado",
+  c4: "4. Orden del local",
+  c_saludo: "5. ¿Vendedor proactivo al entrar?",
+  c5: "6. ¿Informaron precios sin problema?",
+  c6: "7. Precios relevados",
+  c_precio_escala: "8. Precio por escala / cantidad",
+  c7: "9. ¿Descuento por volumen o frecuencia?",
+  c8: "10. Formas de pago",
+  c9: "11. Productos disponibles",
+  c10: "12. Stock vs. pedido",
+  c_logo: "13. Logo en pocas unidades",
+  c11: "14. Plazo de fabricación/entrega",
+  c_delivery: "15. ¿Hacen envíos?",
+  "scale-c12": "16. Amabilidad",
+  "scale-c13": "17. Conocimiento del producto",
+  "scale-c14": "18. Facilidad para conseguir info",
+  c_venta_sug: "19. ¿Ofreció algo más sin que lo pidieras?",
+  c_estres: "20. Reacción ante comparación de precio",
+  c_cotizacion: "21. Tiempo para llegar la cotización formal",
+  c_credito: "22. Condiciones de crédito / volumen",
+  c_envaco: "23. ¿Conocen a Envaco POP?",
+  c_exhibicion: "24. Exhibición con precios a la vista",
+  c_quiebre: "25. Quiebres de stock",
+  c_pop_local: "26. Material POP propio del local",
+  "scale-local": "27. Impresión general del local",
+  liz_materiales: "27. Materiales alternativos (cartonplast / plástico)",
+  liz_proveedores: "28. Proveedores de Asunción en CDE",
+  c15: "29. Experiencia general con palabras propias",
+  "scale-ces": "30. CES general (1-5)",
+  _shopper: "Shopper", _perfil: "Perfil",
+};
+
+const HELP_CONTENT = {
+  c1: ["¿Te atendieron igual?", "Se refiere a si, aunque pediste poca cantidad, te atendieron con normalidad o te hicieron sentir que era un problema."],
+  c2: ["¿Cómo te trataron?", "Pensá en la actitud general del vendedor: ¿se notaba con ganas de ayudarte o más bien indiferente, apurado o de mal humor?"],
+  c3: ["Mínimo de compra", "Algunos locales piden que compres una cantidad mínima. Si te lo mencionaron, anotá el monto o la cantidad exacta que te dijeron."],
+  c4: ["Orden del local", "¿Era fácil moverte y encontrar lo que buscabas, o estaba todo desordenado y confuso?"],
+  c5: ["Precios sin problema", "¿Te dijeron los precios apenas preguntaste, o tuviste que insistir / esperar mucho / no te quisieron decir?"],
+  c6: ["Anotar los precios", "Escribí los precios con el producto y la cantidad. Ej: '10 cajas chicas = Gs. 25.000'. Cuanto más detalle, mejor."],
+  c7: ["Descuentos", "¿Ofrecen un precio mejor si comprás más cantidad o si sos cliente frecuente?"],
+  c8: ["Formas de pago", "Marcá todas las que te mencionaron o viste disponibles."],
+  c9: ["Productos disponibles", "Marcá los que viste listos para comprar o que el vendedor mencionó."],
+  c10: ["Stock vs. pedido", "¿Tiene productos guardados listos para vender, o todo se fabrica/consigue después de que pedís?"],
+  c12: ["Amabilidad", "De 1 (muy mal) a 5 (excelente trato)."],
+  c13: ["Conocimiento del producto", "¿Sabía explicarte bien sobre lo que vendía o no pudo responder tus dudas?"],
+  c14: ["Facilidad para conseguir info", "¿Te costó mucho sacarle la información (precios, productos, plazos) o te la dieron fácil y clara?"],
+  envaco: ["¿Conocen a Envaco POP?", "Hacé la pregunta: '¿Conocen a Envaco POP? ¿En qué se diferencian ustedes?' Anotá textualmente lo que digan — no guíes la respuesta."],
+};
+
+// ── Navigation ──────────────────────────────────────────
+function selectShopper(name){
+  currentShopper = name;
+  const s = SHOPPERS[name];
+  document.getElementById('prof-eyebrow').textContent = `SHOPPER: ${s.label.toUpperCase()}`;
+  document.getElementById('prof-title').textContent = 'Elegí tu perfil para esta visita';
+  document.getElementById('prof-sub').textContent = 'Recordá: nunca uses dos perfiles el mismo día en la misma empresa.';
+  document.getElementById('topMeta').textContent = s.label;
+
+  const grid = document.getElementById('profile-grid');
+  grid.innerHTML = '';
+  s.profiles.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'profile-card';
+    btn.onclick = () => selectProfile(p.id);
+    btn.innerHTML = `<div class="ptag">${p.tag}</div><div class="ptitle">${p.title}</div><div class="pdesc">${p.desc}</div>`;
+    grid.appendChild(btn);
+  });
+
+  show('screen-profile');
+}
+
+function selectProfile(profileId){
+  const s = SHOPPERS[currentShopper];
+  const p = s.profiles.find(x => x.id === profileId);
+  currentProfile = p;
+
+  document.getElementById('script-text').textContent = p.script;
+  document.getElementById('topMeta').textContent = `${s.label.split('·')[0].trim()} · ${p.tag}`;
+
+  // Show/hide blocks
+  document.getElementById('bloque-estres').classList.toggle('hidden', !p.showEstres);
+  document.getElementById('bloque-liz').classList.toggle('hidden', !(p.showLiz));
+
+  // Adjust section number for Envaco comparison
+  const titleEnvaco = document.getElementById('title-envaco');
+  const qnEnvaco = document.getElementById('qn-envaco');
+  if(p.showEstres){
+    titleEnvaco.textContent = '6. Comparación con Envaco';
+    qnEnvaco.textContent = '23.';
+  } else {
+    titleEnvaco.textContent = '5. Comparación con Envaco';
+    qnEnvaco.textContent = '20.';
+  }
+
+  show('screen-form');
+}
+
+function goSelector(){
+  document.getElementById('form-relevamiento').reset();
+  show('screen-selector');
+  document.getElementById('topMeta').textContent = 'Formulario de visita';
+  currentShopper = null; currentProfile = null;
+}
+function goProfile(){ show('screen-profile'); }
+
+function show(id){
+  ['screen-selector','screen-profile','screen-form','screen-success'].forEach(s=>{
+    document.getElementById(s).classList.add('hidden');
+  });
+  document.getElementById(id).classList.remove('hidden');
   window.scrollTo(0,0);
 }
 
-/* ====== Toast ====== */
-function showToast(msg){
-  const t = document.createElement('div');
-  t.className = 'toast';
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(), 4000);
+// ── Scales ───────────────────────────────────────────────
+function buildScale(cid, name){
+  const el = document.getElementById(cid); if(!el) return;
+  const labs = ["Muy malo","Malo","Regular","Bueno","Excelente"];
+  let h='<div class="scale">';
+  for(let i=1;i<=5;i++) h+=`<div class="scale-item"><input type="radio" name="${name}" id="${name}_${i}" value="${i}"><label for="${name}_${i}"><span class="n">${i}</span>${labs[i-1]}</label></div>`;
+  h+=`<div class="scale-item na"><input type="radio" name="${name}" id="${name}_na" value="N/A"><label for="${name}_na"><span class="n">—</span>N/A</label></div></div>`;
+  el.innerHTML=h;
+}
+['c4','c12','c13','c14'].forEach(n=>buildScale(`scale-c${n}`,`c${n}`));
+buildScale('scale-local','local_impressión');
+buildScale('scale-ces','ces_general');
+
+// ── Local selector ───────────────────────────────────────
+function toggleOtroLocal(){
+  const v = document.getElementById('empresa_select').value;
+  document.getElementById('otro_local_wrap').classList.toggle('hidden', v !== 'Otros');
 }
 
-/* ====== Submit handler -> Google Apps Script ====== */
+// ── C4+ rows (Liz) ──────────────────────────────────────
+function addC4(){
+  const idx = c4Count++;
+  const div = document.createElement('div');
+  div.className = 'c4-block';
+  div.innerHTML = `<div class="c4-title">LOCAL C4+ #${idx+1}</div>
+    <div class="c4-row">
+      <div><label class="field-label">Nombre</label><input type="text" name="c4_nombre_${idx}" placeholder="Nombre del local"></div>
+      <div><label class="field-label">Dirección / zona</label><input type="text" name="c4_dir_${idx}" placeholder="Dirección o zona"></div>
+    </div>
+    <div><label class="field-label">¿Qué venden exactamente?</label><input type="text" name="c4_prod_${idx}" placeholder="Ej: cajas corrugadas, laminado, packaging importado de Brasil"></div>
+    <div style="margin-top:8px;"><label class="field-label">¿Parece formal o informal?</label>
+      <div class="choices">
+        <div class="choice"><input type="radio" name="c4_tipo_${idx}" id="ct${idx}a" value="Formal"><label for="ct${idx}a">Formal</label></div>
+        <div class="choice"><input type="radio" name="c4_tipo_${idx}" id="ct${idx}b" value="Informal"><label for="ct${idx}b">Informal</label></div>
+        <div class="choice"><input type="radio" name="c4_tipo_${idx}" id="ct${idx}c" value="No pude determinar"><label for="ct${idx}c">No sé</label></div>
+      </div>
+    </div>`;
+  document.getElementById('c4-list').appendChild(div);
+}
+
+// ── Help modal ───────────────────────────────────────────
+function openHelp(key){
+  const c=HELP_CONTENT[key]; if(!c) return;
+  document.getElementById('help-title').textContent=c[0];
+  document.getElementById('help-text').textContent=c[1];
+  document.getElementById('help-overlay').classList.remove('hidden');
+}
+function closeHelp(){ document.getElementById('help-overlay').classList.add('hidden'); }
+function closeHelpOnOverlay(e){ if(e.target.id==='help-overlay') closeHelp(); }
+
+// ── Toast ─────────────────────────────────────────────────
+function showToast(msg){
+  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(),4000);
+}
+
+// ── Submit ────────────────────────────────────────────────
 function submitForm(e){
   e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('button[type=submit]');
-  const data = {};
-  const formData = new FormData(form);
-
-  for (const [key, value] of formData.entries()){
-    if(data[key] !== undefined){
-      if(Array.isArray(data[key])) data[key].push(value);
-      else data[key] = [data[key], value];
-    } else {
-      data[key] = value;
-    }
+  const form=e.target;
+  const btn=form.querySelector('button[type=submit]');
+  const raw={};
+  for(const [k,v] of new FormData(form).entries()){
+    if(raw[k]!==undefined){ if(Array.isArray(raw[k])) raw[k].push(v); else raw[k]=[raw[k],v]; } else raw[k]=v;
   }
-  Object.keys(data).forEach(k=>{
-    if(Array.isArray(data[k])) data[k] = data[k].join(", ");
-  });
+  Object.keys(raw).forEach(k=>{ if(Array.isArray(raw[k])) raw[k]=raw[k].join(', '); });
 
-  data._formType = "relevamiento_campo";
-  data._timestamp = new Date().toISOString();
+  // Resolve local name
+  if(raw.empresa_select==='Otros') raw.empresa_tienda=raw.empresa_tienda_otro||'(otro)';
+  else raw.empresa_tienda=raw.empresa_select||'';
+  delete raw.empresa_select; delete raw.empresa_tienda_otro;
 
-  const readableData = {};
-  Object.keys(data).forEach(k=>{
-    const label = FIELD_LABELS[k] || k;
-    readableData[label] = data[k];
-  });
+  // Add shopper meta
+  raw._shopper=currentShopper||'—';
+  raw._perfil=currentProfile?.id||'—';
+  raw._formType='relevamiento_campo';
+  raw._timestamp=new Date().toISOString();
 
-  const originalText = btn.textContent;
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Enviando...';
+  const readable={};
+  Object.keys(raw).forEach(k=>{ readable[FIELD_LABELS[k]||k]=raw[k]; });
 
-  if(SCRIPT_URL.includes("PEGAR_AQUI")){
-    console.log("Datos del formulario:", readableData);
-    setTimeout(()=>{
-      btn.disabled = false;
-      btn.textContent = originalText;
-      showToast("⚠ Backend no configurado todavía — revisá la consola (F12). Ver README.md");
-    }, 600);
-    return false;
-  }
+  const orig=btn.textContent;
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Enviando...';
 
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify(readableData),
-    headers: { "Content-Type": "text/plain;charset=utf-8" }
-  })
-  .then(() => {
-    btn.disabled = false;
-    btn.textContent = originalText;
-    form.reset();
-    document.getElementById('screen-form').classList.add('hidden');
-    document.getElementById('screen-success').classList.remove('hidden');
-    window.scrollTo(0,0);
-  })
-  .catch(err => {
-    btn.disabled = false;
-    btn.textContent = originalText;
-    console.error(err);
-    showToast("Error de conexión. Verificá tu internet e intentá de nuevo.");
-  });
-
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(readable),headers:{'Content-Type':'text/plain;charset=utf-8'}})
+  .then(()=>{ btn.disabled=false; btn.textContent=orig; form.reset(); show('screen-success'); })
+  .catch(err=>{ btn.disabled=false; btn.textContent=orig; console.error(err); showToast('Error de conexión. Verificá tu internet.'); });
   return false;
 }
 </script>
