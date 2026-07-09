@@ -207,6 +207,18 @@
       <div class="desc">JWF Group, BPR PDV, Couplas PDV y Yaguareté T1 · Zona Mercado 4 / centro-oeste ASU</div>
       <div class="arrow">→</div>
     </button>
+    <button class="shopper-card" onclick="selectShopper('lizcasco')">
+      <div class="name">Liz Casco</div>
+      <div class="role">RELEVADORA B2B SENIOR · CIUDAD DEL ESTE</div>
+      <div class="desc">Exploración de locales nuevos en CDE · Elegí "Otros (especificar)" en el selector para anotar el nombre del local</div>
+      <div class="arrow">→</div>
+    </button>
+    <button class="shopper-card" onclick="selectShopper('yessica')">
+      <div class="name">Yessica Mencia</div>
+      <div class="role">RELEVADORA B2B SENIOR · CIUDAD DEL ESTE</div>
+      <div class="desc">Exploración de locales nuevos en CDE · Elegí "Otros (especificar)" en el selector para anotar el nombre del local</div>
+      <div class="arrow">→</div>
+    </button>
   </div>
 </div>
 
@@ -1115,6 +1127,66 @@ const SHOPPERS = {
         title: "Selección de proveedores — JWF Group, BPR PDV, Couplas PDV",
         desc: "Tenés poder de decisión y conocés el rubro: no preguntás solo por precio, evaluás capacidad técnica, procesos y propuesta de valor real. Aplica a llamada, WhatsApp, presencial y email de cotización.",
         script: "«Hola, buenos días. Mi nombre es Raúl, soy el Gerente de Marketing de [EMPRESA FICTICIA]. Estamos próximos a lanzar una línea de productos y necesito cotizar exhibidores de cartón y packaging para puntos de venta. ¿Con quién puedo hablar para recibir un presupuesto formal?» — Email de cotización formal: «Estimados, me comunico en nombre de [EMPRESA FICTICIA]. Estamos evaluando proveedores para un lanzamiento próximo y necesitamos propuesta formal para: [1] exhibidores de cartón para PDV (aprox. 12–15 m²), [2] packaging secundario (500 u, primera corrida). Solicito precio por metro cuadrado, tiempo de producción y mínimos de pedido. Raúl.»",
+        showEstres: false,
+        showB2B: true,
+      }
+    ]
+  },
+  lizcasco: {
+    label: "Liz Casco · Ciudad del Este",
+    profiles: [
+      {
+        id: "minorista",
+        tag: "PERFIL MINORISTA",
+        title: "Emprendedora particular — local nuevo en CDE (apertura)",
+        desc: "40 a 50 cajas para un evento en tres semanas. Primera visita, sin expertise técnico. Elegí el local en el selector; si no está en la lista, usá \"Otros (especificar)\" y escribí el nombre.",
+        script: "«Hola, buen día. Necesito cajas — unas 40 o 50 para un evento que tengo en tres semanas. ¿Manejan cantidades así de chicas o tienen mínimo de pedido? ¿Cuánto sale más o menos?»",
+        showEstres: false,
+      },
+      {
+        id: "mayorista",
+        tag: "PERFIL MAYORISTA",
+        title: "Compradora de comercio — mismo local (2ª visita)",
+        desc: "500 a 1.000 cajas por mes de forma regular. Cotización formal + objeción de precio. Volvé al mismo local que visitaste en la apertura (elegilo del selector, no cambies de local para esta historia).",
+        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 500 y 1.000 cajas por mes de forma regular. ¿Pueden pasarme la cotización por escrito? ¿Hacen descuento por volumen o recurrencia?»",
+        showEstres: true,
+      },
+      {
+        id: "b2b",
+        tag: "PERFIL B2B · GERENTE DE MARKETING",
+        title: "Selección de proveedores — locales nuevos de CDE",
+        desc: "Tenés poder de decisión y conocés el rubro: no preguntás solo por precio, evaluás capacidad técnica, procesos y propuesta de valor real. Aplica a llamada, WhatsApp, presencial y email de cotización. Si el local no está en el selector, usá \"Otros (especificar)\".",
+        script: "«Hola, buenos días. Mi nombre es Liz Casco, soy la Gerente de Marketing de [EMPRESA FICTICIA]. Estamos próximos a lanzar una línea de productos y necesito cotizar exhibidores de cartón y packaging para puntos de venta. ¿Con quién puedo hablar para recibir un presupuesto formal?» — Email de cotización formal: «Estimados, me comunico en nombre de [EMPRESA FICTICIA]. Estamos evaluando proveedores para un lanzamiento próximo y necesitamos propuesta formal para: [1] exhibidores de cartón para PDV (aprox. 12–15 m²), [2] packaging secundario (500 u, primera corrida). Solicito precio por metro cuadrado, tiempo de producción y mínimos de pedido. Liz.»",
+        showEstres: false,
+        showB2B: true,
+      }
+    ]
+  },
+  yessica: {
+    label: "Yessica Mencia · Ciudad del Este",
+    profiles: [
+      {
+        id: "minorista",
+        tag: "PERFIL MINORISTA",
+        title: "Emprendedora particular — local nuevo en CDE (apertura)",
+        desc: "40 a 50 cajas para un evento en tres semanas. Primera visita, sin expertise técnico. Elegí el local en el selector; si no está en la lista, usá \"Otros (especificar)\" y escribí el nombre.",
+        script: "«Hola, buen día. Necesito cajas — unas 40 o 50 para un evento que tengo en tres semanas. ¿Manejan cantidades así de chicas o tienen mínimo de pedido? ¿Cuánto sale más o menos?»",
+        showEstres: false,
+      },
+      {
+        id: "mayorista",
+        tag: "PERFIL MAYORISTA",
+        title: "Compradora de comercio — mismo local (2ª visita)",
+        desc: "500 a 1.000 cajas por mes de forma regular. Cotización formal + objeción de precio. Volvé al mismo local que visitaste en la apertura (elegilo del selector, no cambies de local para esta historia).",
+        script: "«Buenas tardes. Tengo un comercio y necesito cotizar entre 500 y 1.000 cajas por mes de forma regular. ¿Pueden pasarme la cotización por escrito? ¿Hacen descuento por volumen o recurrencia?»",
+        showEstres: true,
+      },
+      {
+        id: "b2b",
+        tag: "PERFIL B2B · GERENTE DE MARKETING",
+        title: "Selección de proveedores — locales nuevos de CDE",
+        desc: "Tenés poder de decisión y conocés el rubro: no preguntás solo por precio, evaluás capacidad técnica, procesos y propuesta de valor real. Aplica a llamada, WhatsApp, presencial y email de cotización. Si el local no está en el selector, usá \"Otros (especificar)\".",
+        script: "«Hola, buenos días. Mi nombre es Yessica Mencia, soy la Gerente de Marketing de [EMPRESA FICTICIA]. Estamos próximos a lanzar una línea de productos y necesito cotizar exhibidores de cartón y packaging para puntos de venta. ¿Con quién puedo hablar para recibir un presupuesto formal?» — Email de cotización formal: «Estimados, me comunico en nombre de [EMPRESA FICTICIA]. Estamos evaluando proveedores para un lanzamiento próximo y necesitamos propuesta formal para: [1] exhibidores de cartón para PDV (aprox. 12–15 m²), [2] packaging secundario (500 u, primera corrida). Solicito precio por metro cuadrado, tiempo de producción y mínimos de pedido. Yessica.»",
         showEstres: false,
         showB2B: true,
       }
